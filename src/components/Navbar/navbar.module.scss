@@ -19,29 +19,60 @@
 
     padding: 1.6rem;
 
-    .login {
-        color: $text-color-alpha;
-        margin-right: 2rem;
-    }
-
-    .signup {
-        color: $text-color-alpha;
-        font-weight: $fw-bold;
-        font-size: 1.3rem;
-        text-transform: uppercase;
-        background-color: $bg-color-beta;
-        padding: 0.8rem 1.4rem;
-        border-radius: 0.75rem;
-    }
-    @include breakpoint(tablet) {
-        padding: $pd30;
+    .ctaContainer {
+        display: flex;
 
         .login {
-            margin-right: $pd40;
+            color: $text-color-alpha;
+            margin-right: 2rem;
         }
 
         .signup {
-            font-size: $fs14;
+            color: $text-color-alpha;
+            font-weight: $fw-bold;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            background-color: $bg-color-beta;
+            padding: 0.8rem 1.4rem;
+            border-radius: 0.75rem;
+            margin-right: 2rem;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            div {
+                height: 0.24rem;
+                width: 2.4rem;
+                margin-bottom: 0.4rem;
+                background-color: $text-color-alpha;
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @include breakpoint(tablet) {
+        padding: $pd30;
+
+        .ctaContainer {
+            .login {
+                margin-right: $pd40;
+            }
+
+            .signup {
+                font-size: $fs14;
+                margin-right: 0;
+            }
+
+            .menu {
+                display: none;
+            }
         }
     }
 }
