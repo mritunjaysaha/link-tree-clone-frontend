@@ -14,7 +14,7 @@ export function Dashboard() {
                 get started for free
             </Link>
 
-            <p>
+            <p className={styles.loginContainer}>
                 Already have an account?{" "}
                 <span>
                     <Link to="/login" className={styles.login}>

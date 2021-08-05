@@ -3,28 +3,45 @@
 
 .logo {
     color: $text-color-alpha;
-    font-size: $fs20;
+    font-size: $fs18;
     font-weight: $fw-bold;
     cursor: pointer;
+
+    @include breakpoint(tablet) {
+        font-size: $fs20;
+    }
 }
 
 .nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
-    padding: $pd30;
-}
+    padding: 1.6rem;
 
-.login {
-    color: $text-color-alpha;
-    margin-right: $pd40;
-}
+    .login {
+        color: $text-color-alpha;
+        margin-right: 2rem;
+    }
 
-.signup {
-    color: $text-color-alpha;
-    font-weight: $fw-bold;
-    text-transform: uppercase;
-    background-color: $bg-color-beta;
-    padding: 0.8rem 1.4rem;
-    border-radius: 0.75rem;
+    .signup {
+        color: $text-color-alpha;
+        font-weight: $fw-bold;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        background-color: $bg-color-beta;
+        padding: 0.8rem 1.4rem;
+        border-radius: 0.75rem;
+    }
+    @include breakpoint(tablet) {
+        padding: $pd30;
+
+        .login {
+            margin-right: $pd40;
+        }
+
+        .signup {
+            font-size: $fs14;
+        }
+    }
 }

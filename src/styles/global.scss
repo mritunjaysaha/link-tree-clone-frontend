@@ -17,6 +17,9 @@ html {
 }
 
 body {
-    font-size: $fs16;
+    font-size: $fs14;
+    @include breakpoint(tablet) {
+        font-size: $fs16;
+    }
     font-family: "Karla", sans-serif;
 }

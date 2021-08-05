@@ -48,15 +48,18 @@
     p {
         padding-top: 2rem;
     }
+
+    .loginContainer {
+        display: none;
+
+        @include breakpoint(tablet) {
+            display: block;
+        }
+    }
 }
 .login {
-    display: none;
     color: $text-color-alpha;
     text-decoration: underline;
-
-    @include breakpoint(tablet) {
-        display: block;
-    }
 }
 .signup {
     position: relative;
