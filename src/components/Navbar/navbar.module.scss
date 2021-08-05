@@ -58,7 +58,7 @@
     }
 
     @include breakpoint(tablet) {
-        padding: $pd30;
+        padding: 2rem;
 
         .ctaContainer {
             .login {
