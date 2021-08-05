@@ -2,10 +2,24 @@
 @import "../../styles/abstract/variables.scss";
 
 .logo {
+    position: relative;
     color: $text-color-alpha;
     font-size: $fs18;
     font-weight: $fw-bold;
     cursor: pointer;
+
+    img {
+        position: relative;
+        bottom: -0.2rem;
+        width: 2rem;
+        aspect-ratio: 1/1;
+        margin-right: 0.2rem;
+    }
+
+    span {
+        position: relative;
+        letter-spacing: -0.1rem;
+    }
 
     @include breakpoint(tablet) {
         font-size: $fs20;
@@ -58,7 +72,7 @@
     }
 
     @include breakpoint(tablet) {
-        padding: 2rem;
+        padding: 2.4rem;
 
         .ctaContainer {
             .login {

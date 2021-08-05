@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 export function Navbar() {
     return (
         <nav className={styles.nav}>
-            <div className={styles.logo}>linktree</div>
+            <div className={styles.logo}>
+                <img src="https://img.icons8.com/color/48/000000/linktree.png" />
+                <span>linktree</span>
+            </div>
             <div className={styles.ctaContainer}>
                 <div>
                     <Link to="/login" className={styles.login}>
