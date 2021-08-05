@@ -1,0 +1,20 @@
+@import "./abstract/variables.scss";
+@import "./abstract//mixins.scss";
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: $fs16;
+}
