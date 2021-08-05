@@ -1,8 +1,30 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+
 .logo {
-    color: red;
+    color: $text-color-alpha;
+    font-size: $fs20;
+    font-weight: $fw-bold;
+    cursor: pointer;
 }
 
 .nav {
     display: flex;
     justify-content: space-between;
+
+    padding: $pd3;
+}
+
+.login {
+    color: $text-color-alpha;
+    margin-right: $pd4;
+}
+
+.signup {
+    color: $text-color-alpha;
+    font-weight: $fw-bold;
+    text-transform: uppercase;
+    background-color: $bg-color-beta;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.75rem;
 }
