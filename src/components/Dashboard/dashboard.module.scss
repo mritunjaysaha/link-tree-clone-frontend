@@ -1,0 +1,51 @@
+@import "../../styles/abstract/variables.scss";
+
+.dashboardSection {
+    position: relative;
+    padding: 10.8rem 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    div {
+        margin-bottom: 7rem;
+        text-align: center;
+
+        h3 {
+            text-transform: capitalize;
+            font-size: $fs60;
+
+            font-weight: $fw-normal;
+            line-height: 7.2rem;
+        }
+
+        p {
+            font-size: $fs24;
+
+            padding-top: $pds;
+        }
+    }
+
+    p {
+        padding-top: 2rem;
+    }
+}
+.login {
+    color: $text-color-alpha;
+    text-decoration: underline;
+}
+.signup {
+    position: relative;
+    text-transform: uppercase;
+    font-size: $fs20;
+    font-weight: $fw-bold;
+    color: $text-color-gamma;
+
+    background-color: $bg-color-gamma;
+    border-radius: 0.8em;
+    padding: 2rem 3.2rem;
+
+    width: max-content;
+}
