@@ -1,7 +1,9 @@
 import styles from "./navbar.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export function Navbar() {
+    const { pathname } = useLocation();
+
     return (
         <nav className={styles.nav}>
             <div className={styles.logo}>
@@ -9,14 +11,18 @@ export function Navbar() {
                 <span>linktree</span>
             </div>
             <div className={styles.ctaContainer}>
-                <div>
-                    <Link to="/login" className={styles.login}>
-                        Log in
-                    </Link>
-                    <Link to="/signup" className={styles.signup}>
-                        Sign Up Free
-                    </Link>
-                </div>
+                {pathname === "/" ? (
+                    <div>
+                        <Link to="/login" className={styles.login}>
+                            Log in
+                        </Link>
+                        <Link to="/signup" className={styles.signup}>
+                            Sign Up Free
+                        </Link>
+                    </div>
+                ) : (
+                    ""
+                )}
 
                 <div className={styles.menu}>
                     <div></div>
