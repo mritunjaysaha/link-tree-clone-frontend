@@ -1,0 +1,11 @@
+@import "../../styles/abstract/variables.scss";
+
+.input {
+    label {
+        text-transform: capitalize;
+
+        font-family: $ffBeta;
+        font-size: $fs16;
+        font-weight: $fw-normal;
+    }
+}
