@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 
 import { LogIn } from "./features/Auth/LogIn";
+import { SignUp } from "./features/Auth/SignUp";
 
 import { Navbar } from "./components/Navbar";
 import { Dashboard } from "./components/Dashboard";
@@ -44,6 +45,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={Dashboard} />
                     <Route exact path="/login" component={LogIn} />
+                    <Route exact path="/signup" component={SignUp} />
                 </Switch>
             </BrowserRouter>
         </div>

@@ -4,9 +4,9 @@ import { setCredentials } from "./authSlice";
 import { useState } from "react";
 import axios from "axios";
 
-export const LogIn = (props) => {
+export function LogIn() {
     const dispatch = useDispatch();
-    const { push } = useHistory();
+    const history = useHistory();
 
     const [formState, setFormState] = useState({
         email: "test@email.com",
@@ -34,7 +34,7 @@ export const LogIn = (props) => {
                 };
                 dispatch(setCredentials(userData));
 
-                //TODO: Add programmatic routing
+                // TODO Add programmatic routing
             })
             .catch((err) => console.log(err.message));
     };
@@ -61,4 +61,4 @@ export const LogIn = (props) => {
             </form>
         </div>
     );
-};
+}
