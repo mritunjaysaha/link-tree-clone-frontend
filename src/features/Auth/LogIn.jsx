@@ -23,7 +23,7 @@ export function LogIn() {
         e.preventDefault();
 
         axios
-            .post("/api/login", formState)
+            .post("http://localhost:9000/api/login", formState)
             .then((res) => {
                 console.log(res.data);
 
@@ -34,7 +34,7 @@ export function LogIn() {
                 };
                 dispatch(setCredentials(userData));
 
-                // TODO Add programmatic routing
+                // TODO Add programmatic routing to admin
             })
             .catch((err) => console.log(err.message));
     };

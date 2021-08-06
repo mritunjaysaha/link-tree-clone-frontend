@@ -24,6 +24,8 @@ export function SignUp() {
                 console.log("signup", res.data);
             })
             .catch((err) => console.log(err));
+
+        // TODO: Add programmatic routing to login page
     }
 
     // TODO Update backend schema for username
