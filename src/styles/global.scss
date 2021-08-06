@@ -20,6 +20,8 @@ html {
 body {
     font-family: $ffAlpha;
     font-size: $fs14;
+    color: $text-color-alpha;
+
     @include breakpoint(tablet) {
         font-size: $fs16;
     }

@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useState } from "react";
@@ -6,6 +6,8 @@ import axios from "axios";
 
 import { InputField } from "../../components/Form/input";
 import styles from "./login.module.scss";
+
+import { urls } from "../../data/data";
 
 export function LogIn() {
     const dispatch = useDispatch();
@@ -63,26 +65,16 @@ export function LogIn() {
                         label="password"
                         // value={user.password}
                     />
-                    {/* <div>
-                        <input
-                            type="text"
-                            name="email"
-                            onChange={handleChange}
-                            placeholder="email"
-                            value={formState.email}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="password"
-                            onChange={handleChange}
-                            placeholder="password"
-                            value={formState.password}
-                        />
-                    </div> */}
-                    <button type="submit">Submit</button>
+
+                    <button type="submit">Sign in</button>
                 </form>
+                <div className={styles.divLinkPassword}>
+                    <Link to="/">Forgot password?</Link>
+                </div>
+                <div className={styles.divLinkCreateOne}>
+                    Don't have an account?{" "}
+                    <Link to={urls.signup}>Create one</Link>
+                </div>
             </div>
         </section>
     );

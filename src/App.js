@@ -11,6 +11,8 @@ import { Dashboard } from "./components/Dashboard";
 import { setAuthToken } from "./utils/setAuthToken";
 import { setCredentials } from "./features/Auth/authSlice";
 
+import { urls } from "./data/data";
+
 function App() {
     const dispatch = useDispatch();
 
@@ -43,9 +45,9 @@ function App() {
                 <Navbar />
 
                 <Switch>
-                    <Route exact path="/" component={Dashboard} />
-                    <Route exact path="/login" component={LogIn} />
-                    <Route exact path="/signup" component={SignUp} />
+                    <Route exact path={urls.dashboard} component={Dashboard} />
+                    <Route exact path={urls.signup} component={SignUp} />
+                    <Route exact path={urls.login} component={LogIn} />
                 </Switch>
             </BrowserRouter>
         </div>
