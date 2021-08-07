@@ -19,6 +19,8 @@ export function LogIn() {
         password: "123456",
     });
 
+    const [error, setError] = useState({ message: "" });
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -43,7 +45,10 @@ export function LogIn() {
                 // TODO Add programmatic routing to admin
                 // history.push("/admin");
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => {
+                setError("Incorrect login details. Please retry.");
+                console.log(err.message);
+            });
     };
 
     return (
@@ -71,6 +76,7 @@ export function LogIn() {
                     <button type="submit" disabled className={styles.button}>
                         Sign in
                     </button>
+                    {error ? <p>error</p> : ""}
                 </form>
                 <div className={styles.divLinkPassword}>
                     <Link to="/">Forgot password?</Link>
