@@ -48,6 +48,10 @@
 
     a {
         color: $text-color-alpha;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 

@@ -8,6 +8,10 @@
     font-weight: $fw-bold;
     cursor: pointer;
 
+    a {
+        color: $text-color-alpha;
+    }
+
     img {
         position: relative;
         bottom: -0.2rem;

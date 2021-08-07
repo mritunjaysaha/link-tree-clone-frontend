@@ -66,7 +66,9 @@ export function LogIn() {
                         // value={user.password}
                     />
 
-                    <button type="submit">Sign in</button>
+                    <button type="submit" disabled>
+                        Sign in
+                    </button>
                 </form>
                 <div className={styles.divLinkPassword}>
                     <Link to="/">Forgot password?</Link>

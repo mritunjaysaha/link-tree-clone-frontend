@@ -1,5 +1,6 @@
 import styles from "./navbar.module.scss";
 import { Link, useLocation } from "react-router-dom";
+import { urls } from "../../data/data";
 
 export function Navbar() {
     const { pathname } = useLocation();
@@ -7,16 +8,18 @@ export function Navbar() {
     return (
         <nav className={styles.nav}>
             <div className={styles.logo}>
-                <img src="https://img.icons8.com/color/48/000000/linktree.png" />
-                <span>linktree</span>
+                <Link to={urls.dashboard}>
+                    <img src="https://img.icons8.com/color/48/000000/linktree.png" />
+                    <span>linktree</span>
+                </Link>
             </div>
             <div className={styles.ctaContainer}>
-                {pathname === "/" ? (
+                {pathname === urls.dashboard ? (
                     <div>
-                        <Link to="/login" className={styles.login}>
+                        <Link to={urls.login} className={styles.login}>
                             Log in
                         </Link>
-                        <Link to="/signup" className={styles.signup}>
+                        <Link to={urls.signup} className={styles.signup}>
                             Sign Up Free
                         </Link>
                     </div>
