@@ -10,7 +10,7 @@ const validationSchema = yup.object({
         .string("Enter your email")
         .email("Please enter a valid email address")
         .required("Email is required"),
-    username: yup
+    name: yup
         .string("Username")
         .min(3, "Usernames must be longer than 3 characters")
         .required("Username is required"),
@@ -53,18 +53,23 @@ export function SignUp() {
     return (
         <section className={styles.signupSection}>
             <div className={styles.signupDiv}>
-                <h3>Create an account for free</h3>
-                <p>Free forever. No payment needed.</p>
-                <form onSubmit={formik.handleSubmit}>
+                <h3 className={styles.signupH3}>Create an account for free</h3>
+                <p className={styles.signupP}>
+                    Free forever. No payment needed.
+                </p>
+                <form onSubmit={formik.handleSubmit} noValidate>
                     <InputField
                         name="email"
                         type="email"
                         label="email"
                         value={formik.values.email}
-                        onChange={formik.handleChange}
+                        onChange={(e) => {
+                            formik.handleChange(e);
+                            console.log("touched", formik.touched);
+                        }}
                         className={styles.formInput}
                         error={formik.touched.email}
-                        helperText={formik.touched.name && formik.errors.name}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                     <InputField
                         name="name"

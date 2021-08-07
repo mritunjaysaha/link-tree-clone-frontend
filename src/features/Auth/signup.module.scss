@@ -14,20 +14,16 @@
 
     width: 64rem;
 
-    h3 {
+    .signupH3 {
         font-size: $fs32;
         font-weight: $fw-normal;
         line-height: 4rem;
         margin-bottom: 1rem;
     }
 
-    p {
+    .signupP {
         font-size: $fs16;
         line-height: 2.4rem;
         margin-bottom: 8rem;
     }
-
-    // input {
-    //     margin-bottom: 2.8rem;
-    // }
 }

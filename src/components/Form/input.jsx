@@ -2,6 +2,13 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import styles from "./input.module.scss";
 
+const grey = "#263238";
+const lightGrey = "#dce0e2";
+const lightGrey1 = "#696e74";
+const veryLightGrey = "#f5f6f8";
+const error = "red";
+const black = "#131415";
+
 const MUITextField = withStyles({
     root: {
         "& .MuiFormLabel-root": {
@@ -13,16 +20,25 @@ const MUITextField = withStyles({
             lineHeight: "2.1rem",
         },
         "& .MuiFilledInput-root": {
-            borderRadius: "1.2rem",
             background: "none",
             fontFamily: "Inter, sans-serif",
             fontSize: "1.6rem",
         },
         "& .MuiFilledInput-input": {
-            background: "#f5f6f8",
-            marginBottom: "2rem",
+            background: `${veryLightGrey}`,
+            marginBottom: "2.4rem",
             borderRadius: "1.2rem",
-            color: "#131415",
+            border: "2px solid transparent",
+            color: `${black}`,
+            "&:hover": {
+                border: `0.2rem solid ${black}`,
+            },
+            "&:focus-within": {
+                border: `0.2rem solid ${black}`,
+            },
+            "&:invalid": {
+                border: `0.2rem solid ${error}`,
+            },
         },
         "& .MuiFilledInput-underline": {
             "&::before": {
@@ -33,7 +49,13 @@ const MUITextField = withStyles({
             },
         },
         "& .MuiInputLabel-shrink": {
-            color: "#696e74",
+            color: `${lightGrey1}`,
+        },
+        // MuiFormHelperText-root MuiFormHelperText-contained Mui-error
+        "& .MuiFormHelperText-root": {
+            marginTop: "-2rem",
+            marginBottom: "2rem",
+            fontSize: "1.4rem",
         },
     },
 })(TextField);
