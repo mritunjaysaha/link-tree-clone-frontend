@@ -15,7 +15,7 @@ export function LogIn() {
 
     // update backend routes to login with username
     const [user, setUser] = useState({
-        email: "test@email.com",
+        username: "",
         password: "123456",
     });
 
@@ -53,17 +53,17 @@ export function LogIn() {
                 <form onSubmit={handleSubmit} className={styles.loginForm}>
                     <InputField
                         type="text"
-                        name="email"
-                        label="email"
-                        // value={user.email}
+                        name="username"
+                        label="username"
+                        value={user.username}
                         onChange={handleChange}
                         className={styles.formInput}
                     />
                     <InputField
-                        type="text"
+                        type="password"
                         name="password"
                         label="password"
-                        // value={user.password}
+                        value={user.password}
                         onChange={handleChange}
                         className={styles.formInput}
                     />
@@ -76,7 +76,7 @@ export function LogIn() {
                     <Link to="/">Forgot password?</Link>
                 </div>
                 <div className={styles.divLinkCreateOne}>
-                    Don't have an account?
+                    Don't have an account?&nbsp;
                     <Link to={urls.signup}>Create one</Link>
                 </div>
             </div>

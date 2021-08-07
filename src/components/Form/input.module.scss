@@ -1,10 +1,13 @@
 @import "../../styles/abstract/variables.scss";
 
+$labelColor: #696e74;
+
 .muiInput {
     background-color: $veryLightGrey;
-    margin-bottom: 2.8rem;
-    border-radius: $border-radius-12;
+    margin-bottom: 2rem;
+    border-radius: $border-radius-08;
     border: 0.2rem solid transparent;
+    padding: 0;
 
     &:hover,
     &:focus-within {
@@ -17,6 +20,11 @@
         font-family: $ffBeta;
         font-size: $fs16;
         font-weight: $fw-normal;
+        color: $labelColor;
+    }
+
+    fieldset {
+        color: $labelColor !important;
     }
 }
 

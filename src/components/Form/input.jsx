@@ -5,7 +5,8 @@ import styles from "./input.module.scss";
 const MUITextField = withStyles({
     root: {
         "& .MuiInputBase-input": {
-            color: "#dce0e2",
+            fontSize: "1.4rem",
+            lineHeight: "2.1rem",
         },
         "& .MuiFilledInput-root": {
             borderRadius: "1.2rem",
@@ -20,8 +21,9 @@ const MUITextField = withStyles({
                 border: "none",
             },
         },
-        "& .MuiFormLabel-root": {
-            color: "#131415",
+        "& .MuiFormLabel-root": {},
+        "& .MuiInputLabel-shrink": {
+            color: "#696e74",
         },
     },
 })(TextField);
