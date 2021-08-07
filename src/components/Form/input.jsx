@@ -29,13 +29,7 @@ const MUITextField = withStyles({
 export function InputField(props) {
     return (
         <>
-            <div
-                className={`${styles.muiInput}`}
-                onClick={() => {
-                    const el = document.getElementById(props.id);
-                    el.classList.add("changeBorderColor");
-                }}
-            >
+            <div className={`${styles.muiInput}`}>
                 <MUITextField variant="filled" fullWidth {...props} />
             </div>
         </>
