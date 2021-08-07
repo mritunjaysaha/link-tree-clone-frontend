@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
-import { useState } from "react";
 import axios from "axios";
 
 import { InputField } from "../../components/Form/input";
@@ -16,8 +16,9 @@ export function LogIn() {
     // update backend routes to login with username
     const [user, setUser] = useState({
         username: "",
-        password: "123456",
+        password: "",
     });
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const [error, setError] = useState({ message: "" });
 
@@ -25,6 +26,12 @@ export function LogIn() {
         const { name, value } = e.target;
 
         setUser((prev) => ({ ...prev, [name]: value }));
+
+        console.log(!!user.username);
+
+        if (!!user.username && !!user.password) {
+            setIsDisabled(false);
+        }
     };
 
     const handleSubmit = (e) => {
@@ -73,7 +80,11 @@ export function LogIn() {
                         className={styles.formInput}
                     />
 
-                    <button type="submit" disabled className={styles.button}>
+                    <button
+                        type="submit"
+                        disabled={isDisabled}
+                        className={styles.button}
+                    >
                         Sign in
                     </button>
                     {!error ? <p>{error}</p> : ""}

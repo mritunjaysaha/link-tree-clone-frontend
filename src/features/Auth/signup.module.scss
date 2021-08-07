@@ -6,7 +6,7 @@
     width: 100vw;
     display: flex;
 
-    padding: 4rem 0 0 12rem;
+    padding: 4rem 0 0 20rem;
 }
 
 .signupDiv {
@@ -25,5 +25,28 @@
         font-size: $fs16;
         line-height: 2.4rem;
         margin-bottom: 8rem;
+    }
+
+    .button {
+        margin-top: 4rem;
+    }
+
+    hr {
+        background-color: $lightGrey;
+        height: 0.1rem;
+        border: none;
+        margin-top: 2.4rem;
+    }
+
+    .divLink {
+        text-align: center;
+        font-size: $fs14;
+        line-height: 2.2rem;
+        margin-top: 2rem;
+
+        a:hover {
+            color: $text-color-alpha;
+            text-decoration: underline;
+        }
     }
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -21,6 +22,8 @@ const validationSchema = yup.object({
 });
 
 export function SignUp() {
+    const [isDisabled, setIsDisabled] = useState(true);
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -29,7 +32,6 @@ export function SignUp() {
         },
         validationSchema: validationSchema,
         onSubmit: () => {
-            console.log("values", formik.values);
             const user = {
                 email: formik.values.email,
                 name: formik.values.username,
@@ -49,6 +51,17 @@ export function SignUp() {
 
     // TODO Update backend schema for username
     // TODO Add backend validation to check username
+    // TODO Handle disabled
+
+    useEffect(() => {
+        if (
+            !!formik.values.email &&
+            !!formik.values.name &&
+            formik.values.password.length >= 6
+        ) {
+            setIsDisabled(false);
+        }
+    }, [formik]);
 
     return (
         <section className={styles.signupSection}>
@@ -63,12 +76,11 @@ export function SignUp() {
                         type="email"
                         label="email"
                         value={formik.values.email}
-                        onChange={(e) => {
-                            formik.handleChange(e);
-                            console.log("touched", formik.touched);
-                        }}
+                        onChange={formik.handleChange}
                         className={styles.formInput}
-                        error={formik.touched.email}
+                        error={
+                            formik.touched.email && Boolean(formik.errors.email)
+                        }
                         helperText={formik.touched.email && formik.errors.email}
                     />
                     <InputField
@@ -98,12 +110,16 @@ export function SignUp() {
                             formik.touched.password && formik.errors.password
                         }
                     />
-                    <button type="submit" className={styles.button}>
+                    <button
+                        type="submit"
+                        className={styles.button}
+                        disabled={isDisabled}
+                    >
                         Sign up with email
                     </button>
                 </form>
                 <hr />
-                <div className={styles.divLinkCreateOne}>
+                <div className={styles.divLink}>
                     <Link to="/login">Already have an account?</Link>
                 </div>
             </div>

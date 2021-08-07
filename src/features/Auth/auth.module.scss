@@ -13,7 +13,11 @@
     border: none;
     border-radius: $border-radius-12;
 
+    background-color: $bg-color-gamma;
+    color: $text-color-gamma;
+
     &:disabled {
         background-color: $bg-color-disabled;
+        color: $text-color-disabled;
     }
 }
