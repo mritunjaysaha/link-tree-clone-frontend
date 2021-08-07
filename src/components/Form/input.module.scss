@@ -1,11 +1,16 @@
 @import "../../styles/abstract/variables.scss";
 
-.input {
-    fieldset,
-    legend,
-    span {
-        font-family: $ffBeta;
+.muiInput {
+    background-color: $veryLightGrey;
+    margin-bottom: 2.8rem;
+    border-radius: $border-radius-12;
+    border: 0.2rem solid transparent;
+
+    &:hover,
+    &:focus-within {
+        border: 0.2rem solid $text-color-alpha;
     }
+
     label {
         text-transform: capitalize;
 
@@ -13,4 +18,8 @@
         font-size: $fs16;
         font-weight: $fw-normal;
     }
+}
+
+.changeBorderColor {
+    border: 0.2rem solid green !important;
 }

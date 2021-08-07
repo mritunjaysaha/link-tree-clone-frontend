@@ -4,48 +4,40 @@ import styles from "./input.module.scss";
 
 const MUITextField = withStyles({
     root: {
-        "& .MuiInputLabel-shrink": {
-            "font-size": "1.6rem",
-        },
         "& .MuiInputBase-input": {
-            color: "#16161d",
+            color: "#dce0e2",
         },
-        "& label": {
-            // color: "#16161d",
-            // "font-size": "2rem",
+        "& .MuiFilledInput-root": {
+            borderRadius: "1.2rem",
+            background: "none",
+            fontFamily: "Inter, sans-serif",
         },
-        "& label.Mui-focused": {
-            color: "#16161d",
-        },
-        "& .MuiInput-underline:after": {
-            borderBottomColor: "green",
-        },
-
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-                borderColor: "transparent",
-            },
-            "&:hover fieldset": {
+        "& .MuiFilledInput-underline": {
+            "&::before": {
                 border: "none",
-                borderColor: "none",
             },
-            "&.Mui-focused fieldset": {
-                borderColor: "transparent",
-                // borderColor: "#16161d",
+            "&::after": {
+                border: "none",
             },
+        },
+        "& .MuiFormLabel-root": {
+            color: "#131415",
         },
     },
 })(TextField);
 
 export function InputField(props) {
     return (
-        <div className={styles.input}>
-            <MUITextField
-                id="outlined-password-input"
-                variant="outlined"
-                fullWidth
-                {...props}
-            />
-        </div>
+        <>
+            <div
+                className={`${styles.muiInput}`}
+                onClick={() => {
+                    const el = document.getElementById(props.id);
+                    el.classList.add("changeBorderColor");
+                }}
+            >
+                <MUITextField variant="filled" fullWidth {...props} />
+            </div>
+        </>
     );
 }

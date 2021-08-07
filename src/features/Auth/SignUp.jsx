@@ -40,6 +40,7 @@ export function SignUp() {
                 <p>Free forever. No payment needed.</p>
                 <form onSubmit={handleSubmit}>
                     <InputField
+                        id="email"
                         name="email"
                         type="email"
                         label="email"
@@ -48,6 +49,7 @@ export function SignUp() {
                         className={styles.formInput}
                     />
                     <InputField
+                        id="name"
                         name="name"
                         type="text"
                         label="username"
@@ -56,6 +58,7 @@ export function SignUp() {
                         className={styles.formInput}
                     />
                     <InputField
+                        id="password"
                         name="password"
                         type="password"
                         label="password"

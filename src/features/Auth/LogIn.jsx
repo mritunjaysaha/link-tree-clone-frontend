@@ -52,6 +52,7 @@ export function LogIn() {
                 <p>Sign in to your Linktree account</p>
                 <form onSubmit={handleSubmit} className={styles.loginForm}>
                     <InputField
+                        id="email"
                         type="text"
                         name="email"
                         label="email"
@@ -60,6 +61,7 @@ export function LogIn() {
                         className={styles.formInput}
                     />
                     <InputField
+                        id="password"
                         type="text"
                         name="password"
                         label="password"
