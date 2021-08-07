@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { InputField } from "../../components/Form/input";
-import styles from "./login.module.scss";
+import styles from "./auth.module.scss";
 
 import { urls } from "../../data/data";
 
