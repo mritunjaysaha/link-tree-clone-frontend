@@ -1,0 +1,33 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+@import "./auth.module.scss";
+
+.signupSection {
+    width: 100vw;
+    display: flex;
+
+    padding: 4rem 0 0 12rem;
+}
+
+.signupDiv {
+    margin-top: 1rem;
+
+    width: 64rem;
+
+    h3 {
+        font-size: $fs32;
+        font-weight: $fw-normal;
+        line-height: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: $fs16;
+        line-height: 2.4rem;
+        margin-bottom: 8rem;
+    }
+
+    input {
+        margin-bottom: 2.8rem;
+    }
+}

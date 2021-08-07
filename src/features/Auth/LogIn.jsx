@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { InputField } from "../../components/Form/input";
-import styles from "./auth.module.scss";
+import styles from "./login.module.scss";
 
 import { urls } from "../../data/data";
 
@@ -54,19 +54,21 @@ export function LogIn() {
                     <InputField
                         type="text"
                         name="email"
-                        onChange={handleChange}
                         label="email"
                         // value={user.email}
+                        onChange={handleChange}
+                        className={styles.formInput}
                     />
                     <InputField
                         type="text"
                         name="password"
-                        onChange={handleChange}
                         label="password"
                         // value={user.password}
+                        onChange={handleChange}
+                        className={styles.formInput}
                     />
 
-                    <button type="submit" disabled>
+                    <button type="submit" disabled className={styles.button}>
                         Sign in
                     </button>
                 </form>
@@ -74,7 +76,7 @@ export function LogIn() {
                     <Link to="/">Forgot password?</Link>
                 </div>
                 <div className={styles.divLinkCreateOne}>
-                    Don't have an account?{" "}
+                    Don't have an account?
                     <Link to={urls.signup}>Create one</Link>
                 </div>
             </div>

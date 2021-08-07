@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { InputField } from "../../components/Form/input";
+import styles from "./signup.module.scss";
 
 export function SignUp() {
     const [user, setUser] = useState({
@@ -32,40 +34,43 @@ export function SignUp() {
     // TODO Add backend validation to check username
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="email"
+        <section className={styles.signupSection}>
+            <div className={styles.signupDiv}>
+                <h3>Create an account for free</h3>
+                <p>Free forever. No payment needed.</p>
+                <form onSubmit={handleSubmit}>
+                    <InputField
                         name="email"
-                        placeholder="email"
-                        value={user.email}
+                        type="email"
+                        label="email"
+                        // value={user.email}
                         onChange={handleChange}
+                        className={styles.formInput}
                     />
-                </div>
-                <div>
-                    <input
+                    <InputField
+                        name="name"
                         type="text"
-                        name="username"
-                        placeholder="username"
-                        value={user.username}
+                        label="username"
+                        // value={user.name}
                         onChange={handleChange}
+                        className={styles.formInput}
                     />
-                </div>
-                <div>
-                    <input
-                        type="password"
+                    <InputField
                         name="password"
-                        placeholder="password"
-                        value={user.password}
+                        type="password"
+                        label="password"
+                        // value={user.password}
                         onChange={handleChange}
+                        className={styles.formInput}
                     />
+                    <button type="submit" disabled className={styles.button}>
+                        Sign up with email
+                    </button>
+                </form>
+                <hr />
+                <div className={styles.divLinkCreateOne}>
+                    <Link to="/login">Already have an account?</Link>
                 </div>
-                <button type="submit">Sign up with email</button>
-            </form>
-            <hr />
-            <div>
-                <Link to="/login">Already have an account?</Link>
             </div>
         </section>
     );

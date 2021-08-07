@@ -1,66 +1,15 @@
 @import "../../styles/abstract/mixins.scss";
 @import "../../styles/abstract/variables.scss";
 
-.loginSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.button {
+    padding: 1.4rem 2rem;
+    font-weight: $fw-bold;
+    font-size: $fs16;
+    line-height: 2.4rem;
 
-    width: 100vw;
-}
+    width: 100%;
+    margin-bottom: 2rem;
 
-.loginDiv {
-    padding: 4.8rem 8rem;
-    margin-top: 6rem;
-
-    width: 64rem;
-
-    text-align: center;
-
-    border: 1px solid $lightGrey;
-    border-radius: 1.5rem;
-
-    p {
-        font-size: $fs32;
-        line-height: 4rem;
-        margin-bottom: 4rem;
-        letter-spacing: -0.05rem;
-    }
-
-    input {
-        margin-bottom: 2.8rem;
-    }
-
-    button {
-        padding: 1.4rem 2rem;
-        font-weight: $fw-bold;
-        font-size: $fs16;
-
-        width: 100%;
-        margin-bottom: 2rem;
-
-        border: none;
-        border-radius: 1.2rem;
-    }
-}
-.divLinkPassword {
-    margin-bottom: 5.4rem;
-
-    a {
-        color: $text-color-alpha;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
-.divLinkCreateOne {
-    a {
-        text-decoration: underline;
-        font-size: $fs16;
-        font-weight: $fw-bold;
-        color: $text-color-alpha;
-        letter-spacing: 0.04rem;
-    }
+    border: none;
+    border-radius: $border-radius-12;
 }

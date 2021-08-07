@@ -1,6 +1,11 @@
 @import "../../styles/abstract/variables.scss";
 
 .input {
+    fieldset,
+    legend,
+    span {
+        font-family: $ffBeta;
+    }
     label {
         text-transform: capitalize;
 
