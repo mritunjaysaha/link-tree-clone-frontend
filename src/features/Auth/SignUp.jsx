@@ -1,34 +1,51 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
 import styles from "./signup.module.scss";
 
+const validationSchema = yup.object({
+    email: yup
+        .string("Enter your email")
+        .email("Please enter a valid email address")
+        .required("Email is required"),
+    username: yup
+        .string("Username")
+        .min(3, "Usernames must be longer than 3 characters")
+        .required("Username is required"),
+    password: yup
+        .string("Enter your password")
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+});
+
 export function SignUp() {
-    const [user, setUser] = useState({
-        email: "newuser@test.com",
-        name: "newuser",
-        password: "123456",
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            name: "",
+            password: "",
+        },
+        validationSchema: validationSchema,
+        onSubmit: () => {
+            console.log("values", formik.values);
+            const user = {
+                email: formik.values.email,
+                name: formik.values.username,
+                password: formik.values.password,
+            };
+
+            axios
+                .post("http://localhost:9000/api/signup", user)
+                .then((res) => {
+                    console.log("signup", res.data);
+                })
+                .catch((err) => console.log(err));
+
+            // TODO: Add programmatic routing to login page
+        },
     });
-
-    function handleChange(e) {
-        const { name, value } = e.target;
-
-        setUser((prev) => ({ ...prev, [name]: value }));
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        axios
-            .post("http://localhost:9000/api/signup", user)
-            .then((res) => {
-                console.log("signup", res.data);
-            })
-            .catch((err) => console.log(err));
-
-        // TODO: Add programmatic routing to login page
-    }
 
     // TODO Update backend schema for username
     // TODO Add backend validation to check username
@@ -38,32 +55,45 @@ export function SignUp() {
             <div className={styles.signupDiv}>
                 <h3>Create an account for free</h3>
                 <p>Free forever. No payment needed.</p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <InputField
                         name="email"
                         type="email"
                         label="email"
-                        // value={user.email}
-                        onChange={handleChange}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
                         className={styles.formInput}
+                        error={formik.touched.email}
+                        helperText={formik.touched.name && formik.errors.name}
                     />
                     <InputField
                         name="name"
                         type="text"
                         label="username"
-                        // value={user.name}
-                        onChange={handleChange}
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
                         className={styles.formInput}
+                        error={
+                            formik.touched.name && Boolean(formik.errors.name)
+                        }
+                        helperText={formik.touched.name && formik.errors.name}
                     />
                     <InputField
                         name="password"
                         type="password"
                         label="password"
-                        // value={user.password}
-                        onChange={handleChange}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
                         className={styles.formInput}
+                        error={
+                            formik.touched.password &&
+                            Boolean(formik.errors.password)
+                        }
+                        helperText={
+                            formik.touched.password && formik.errors.password
+                        }
                     />
-                    <button type="submit" disabled className={styles.button}>
+                    <button type="submit" className={styles.button}>
                         Sign up with email
                     </button>
                 </form>

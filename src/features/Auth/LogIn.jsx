@@ -76,7 +76,7 @@ export function LogIn() {
                     <button type="submit" disabled className={styles.button}>
                         Sign in
                     </button>
-                    {error ? <p>error</p> : ""}
+                    {!error ? <p>{error}</p> : ""}
                 </form>
                 <div className={styles.divLinkPassword}>
                     <Link to="/">Forgot password?</Link>
