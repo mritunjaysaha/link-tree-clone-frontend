@@ -1,0 +1,21 @@
+@import "../../styles/abstract/variables.scss";
+@import "../../styles/abstract/mixins.scss";
+
+$admin-text-primary: #0a0b0d;
+$border-color: #d7dce1;
+
+.adminContainer {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.urlSection {
+    width: 90rem;
+    height: 100vh;
+    border-right: 1px solid $border-color;
+}
+
+.previewSection {
+    width: 58rem;
+}

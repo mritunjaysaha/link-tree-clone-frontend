@@ -1,0 +1,96 @@
+@import "../admin.module.scss";
+
+$nav-size: 6.4rem;
+
+.sideNav {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    // background: red;
+
+    height: 100vh;
+    width: $nav-size;
+
+    padding: 2rem 0;
+
+    img {
+        width: 2.6rem;
+        aspect-ratio: 1/1;
+    }
+
+    border-right: 1px solid $border-color;
+}
+
+.urlNavbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    height: $nav-size;
+
+    padding-left: 2.4rem;
+
+    color: $admin-text-primary;
+
+    border-bottom: 0.1rem solid $border-color;
+
+    .urlNavItem {
+        margin-right: 4rem;
+        height: 100%;
+        display: grid;
+        place-items: center;
+    }
+
+    .urlNavItemActive {
+        border-bottom: 0.2rem solid $text-color-beta;
+    }
+}
+
+.previewNavbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: $nav-size;
+
+    padding: 0 2.4rem;
+
+    border-bottom: 0.1rem solid $border-color;
+
+    .link {
+        font-size: $fs14;
+        font-weight: $fw-bold;
+
+        letter-spacing: -0.05rem;
+        line-height: 2.1rem;
+
+        span {
+            font-weight: $fw-normal;
+        }
+    }
+
+    .shareButton {
+        background-color: transparent;
+
+        font-size: $fs14;
+        font-family: $ffBeta;
+        color: #70757b;
+
+        padding: 0.8rem 1.2rem;
+
+        border: 1px solid $lightGrey;
+        border-radius: $border-radius-04;
+
+        &:hover {
+            background-color: $veryLightGrey;
+        }
+    }
+}
