@@ -12,6 +12,8 @@ import { setAuthToken } from "./utils/setAuthToken";
 import { setCredentials } from "./features/Auth/authSlice";
 import { Admin } from "./features/Admin";
 
+import { PrivateRoute } from "./helpers/privateRoute";
+
 import { urls } from "./data/data";
 
 function App() {
@@ -45,11 +47,12 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                 {/* TODO Add private routes for ADMIN */}
+                <Route exact path={urls.dashboard} component={Dashboard} />
+                <Route exact path={urls.signup} component={SignUp} />
+                <Route exact path={urls.login} component={LogIn} />
+                {/* <Route exact path={urls.admin} component={Admin} /> */}
                 <Switch>
-                    <Route exact path={urls.dashboard} component={Dashboard} />
-                    <Route exact path={urls.signup} component={SignUp} />
-                    <Route exact path={urls.login} component={LogIn} />
-                    <Route exact path={urls.admin} component={Admin} />
+                    <PrivateRoute exact path={urls.admin} component={Admin} />
                 </Switch>
             </BrowserRouter>
         </div>

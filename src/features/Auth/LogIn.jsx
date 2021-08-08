@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "./authSlice";
 import axios from "axios";
 
@@ -9,14 +9,16 @@ import styles from "./login.module.scss";
 
 import { urls } from "../../data/data";
 
+import { selectCurrentUser } from "./authSlice";
+
 export function LogIn() {
     const dispatch = useDispatch();
     const history = useHistory();
 
     // update backend routes to login with username
     const [user, setUser] = useState({
-        username: "",
-        password: "",
+        username: "testuser",
+        password: "123456",
     });
     const [isDisabled, setIsDisabled] = useState(true);
 
@@ -37,11 +39,11 @@ export function LogIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios
-            .post("http://localhost:9000/api/login", user)
-            .then((res) => {
-                console.log(res.data);
+        const userData = { name: user.username, password: user.password };
 
+        axios
+            .post("http://localhost:9000/api/login", userData)
+            .then((res) => {
                 const { token, user } = res.data;
                 const userData = {
                     user,
@@ -49,8 +51,7 @@ export function LogIn() {
                 };
                 dispatch(setCredentials(userData));
 
-                // TODO Add programmatic routing to admin
-                // history.push("/admin");
+                history.push("/admin");
             })
             .catch((err) => {
                 setError("Incorrect login details. Please retry.");
