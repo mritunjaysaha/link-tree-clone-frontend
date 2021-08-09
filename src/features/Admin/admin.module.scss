@@ -5,7 +5,9 @@ $admin-text-primary: #0a0b0d;
 $border-color: #d7dce1;
 $share-button: #71767b;
 $dm64: 6.4rem;
-$urlSectionWidth: 60vw;
+$url-section-width: 60vw;
+$url-width: 60rem;
+$grey-color-admin: #acb5bf;
 
 .adminContainer {
     display: flex;
@@ -40,7 +42,7 @@ $urlSectionWidth: 60vw;
     position: fixed;
     margin-left: $dm64;
     border-right: 1px solid $border-color;
-    width: $urlSectionWidth;
+    width: $url-section-width;
 }
 
 .urlNav {
@@ -112,11 +114,12 @@ $urlSectionWidth: 60vw;
 
     min-height: calc(100vh - 6.4rem);
 
-    padding: 12rem 16rem 0;
-
     .buttonContainer {
         display: flex;
-        width: 100%;
+        width: $url-width;
+
+        padding-top: 12rem;
+        margin-bottom: 4rem;
 
         button {
             display: grid;
@@ -145,6 +148,62 @@ $urlSectionWidth: 60vw;
                 aspect-ratio: 1/1;
 
                 font-size: $fs24;
+            }
+        }
+    }
+}
+
+.urlItem {
+    position: relative;
+    display: flex;
+    background-color: $bg-color-alpha;
+
+    margin-bottom: 4rem;
+
+    border-radius: $border-radius-04;
+
+    width: $url-width;
+    height: 12rem;
+
+    .urlDrag {
+        display: grid;
+        place-items: center;
+
+        color: $grey-color-admin;
+        font-size: $fs28;
+
+        padding: 0 0.2rem;
+
+        border-right: 1px solid;
+    }
+
+    .urlDetails {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        height: 100%;
+        width: 100%;
+
+        padding: 2rem;
+
+        input {
+            background-color: transparent;
+
+            width: 60%;
+            border: none;
+
+            height: 2.4rem;
+
+            font-size: $fs14;
+            font-family: $ffBeta;
+        }
+
+        .urlContents {
+            width: 100%;
+
+            input {
+                font-weight: $fw-bold;
             }
         }
     }
