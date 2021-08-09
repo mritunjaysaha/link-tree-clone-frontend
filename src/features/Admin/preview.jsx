@@ -4,8 +4,9 @@ function PreviewNav() {
     return (
         <nav className={styles.previewNav}>
             <p>
-                My Linktree<span>http://</span>
+                My Linktree:&nbsp;<span>http://</span>
             </p>
+            <button className={styles.previewShareButton}>Share</button>
         </nav>
     );
 }

@@ -3,7 +3,9 @@
 
 $admin-text-primary: #0a0b0d;
 $border-color: #d7dce1;
+$share-button: #71767b;
 $dm64: 6.4rem;
+$urlSectionWidth: 60vw;
 
 .adminContainer {
     display: flex;
@@ -35,9 +37,10 @@ $dm64: 6.4rem;
 }
 
 .urlSection {
+    position: relative;
     margin-left: $dm64;
     border-right: 1px solid $border-color;
-    width: 60vw;
+    width: $urlSectionWidth;
 }
 
 .urlNav {
@@ -56,6 +59,8 @@ $dm64: 6.4rem;
         height: $dm64;
 
         margin-right: 4.8rem;
+
+        cursor: pointer;
     }
 
     .UrlNavItemActive {
@@ -67,9 +72,45 @@ $dm64: 6.4rem;
 }
 
 .previewSection {
+    position: relative;
 }
 
 .previewNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: calc(100vw - 60vw - 6.4rem);
+    height: $dm64;
+
+    padding: 0 2.4rem;
+
+    border-bottom: 0.1rem solid $border-color;
+
+    p {
+        font-weight: $fw-bold;
+
+        span {
+            font-weight: $fw-normal;
+        }
+    }
+
+    .previewShareButton {
+        background-color: $bg-color-alpha;
+
+        color: $share-button;
+        font-size: $fs14;
+        font-family: $ffBeta;
+
+        padding: 0.8rem 1.2rem;
+
+        border: 0.1rem solid $border-color;
+        border-radius: $border-radius-04;
+
+        &:hover {
+            background-color: $veryLightGrey;
+        }
+    }
 }
 
 .previewMobile {

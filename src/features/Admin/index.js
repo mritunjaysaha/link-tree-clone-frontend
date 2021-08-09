@@ -11,6 +11,9 @@ export function Admin() {
             <section className={styles.urlSection}>
                 <Urls />
             </section>
+            <section className={styles.previewSection}>
+                <Preview />
+            </section>
         </section>
     );
 }
