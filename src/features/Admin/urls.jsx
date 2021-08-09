@@ -14,12 +14,12 @@ function UrlNav() {
 function UrlContainer() {
     return (
         <section className={styles.urlContainer}>
-            {/* <div className={styles.buttonContainer}>
+            <div className={styles.buttonContainer}>
                 <button>Add New Link</button>
                 <button>
                     <GoZap />
                 </button>
-            </div> */}
+            </div>
         </section>
     );
 }
