@@ -8,6 +8,9 @@ export function Admin() {
     return (
         <section className={styles.adminContainer}>
             <SideNav />
+            <section className={styles.urlSection}>
+                <Urls />
+            </section>
         </section>
     );
 }

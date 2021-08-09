@@ -4,9 +4,9 @@ import { GoZap } from "react-icons/go";
 function UrlNav() {
     return (
         <nav className={styles.urlNav}>
-            <div className={styles.sideNavItem}>Links</div>
-            <div className={styles.sideNavItem}>Appearance</div>
-            <div className={styles.sideNavItem}>Settings</div>
+            <div className={styles.urlNavItem}>Links</div>
+            <div className={styles.urlNavItem}>Appearance</div>
+            <div className={styles.urlNavItem}>Settings</div>
         </nav>
     );
 }
@@ -14,12 +14,12 @@ function UrlNav() {
 function UrlContainer() {
     return (
         <section className={styles.urlContainer}>
-            <div className={styles.buttonContainer}>
+            {/* <div className={styles.buttonContainer}>
                 <button>Add New Link</button>
                 <button>
                     <GoZap />
                 </button>
-            </div>
+            </div> */}
         </section>
     );
 }
