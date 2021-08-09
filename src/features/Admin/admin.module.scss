@@ -53,6 +53,7 @@ $urlSectionWidth: 60vw;
     padding-left: 2.4rem;
 
     .urlNavItem {
+        position: relative;
         display: grid;
         place-items: center;
 
@@ -61,6 +62,24 @@ $urlSectionWidth: 60vw;
         margin-right: 4.8rem;
 
         cursor: pointer;
+
+        transition: border 0.3s;
+
+        &::after {
+            content: "";
+
+            position: absolute;
+            bottom: 0;
+            display: block;
+            width: 0%;
+            height: 2px;
+            background: $lightGrey;
+            transition: width 0.3s;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
     }
 
     .UrlNavItemActive {
