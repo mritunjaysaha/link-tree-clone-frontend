@@ -52,7 +52,7 @@ function App() {
                 <Route exact path={urls.login} component={LogIn} />
                 {/* <Route exact path={urls.admin} component={Admin} /> */}
                 <Switch>
-                    <PrivateRoute exact path={urls.admin} component={Admin} />
+                    <Route exact path={urls.admin} component={Admin} />
                 </Switch>
             </BrowserRouter>
         </div>
