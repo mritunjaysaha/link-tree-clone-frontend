@@ -125,10 +125,10 @@ $grey-color-admin: #acb5bf;
             display: grid;
             place-items: center;
 
-            background-color: $bg-color-gamma;
+            background-color: $lightPurple;
 
             padding: 1rem;
-            height: 4.4rem;
+            height: 4.8rem;
 
             color: $text-color-gamma;
             font-family: $ffBeta;
@@ -149,61 +149,88 @@ $grey-color-admin: #acb5bf;
 
                 font-size: $fs24;
             }
+
+            &:hover {
+                opacity: 0.7;
+            }
         }
     }
-}
 
-.urlItem {
-    position: relative;
-    display: flex;
-    background-color: $bg-color-alpha;
-
-    margin-bottom: 4rem;
-
-    border-radius: $border-radius-04;
-
-    width: $url-width;
-    height: 12rem;
-
-    .urlDrag {
-        display: grid;
-        place-items: center;
-
-        color: $grey-color-admin;
-        font-size: $fs28;
-
-        padding: 0 0.2rem;
-
-        border-right: 1px solid;
-    }
-
-    .urlDetails {
+    .urlItem {
+        position: relative;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        background-color: $bg-color-alpha;
 
-        height: 100%;
-        width: 100%;
+        margin-bottom: 1.4rem;
 
-        padding: 2rem;
+        border-radius: $border-radius-04;
 
-        input {
-            background-color: transparent;
+        width: $url-width;
+        height: 12.8rem;
 
-            width: 60%;
-            border: none;
+        border-bottom: 0.2rem solid $lightGrey;
 
-            height: 2.4rem;
+        .urlDrag {
+            display: grid;
+            place-items: center;
 
-            font-size: $fs14;
-            font-family: $ffBeta;
+            color: $grey-color-admin;
+            font-size: $fs28;
+
+            padding: 0 0.2rem;
+
+            border-right: 1px solid $lightGrey;
+
+            cursor: grab;
         }
 
-        .urlContents {
+        .urlDetails {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            height: 100%;
             width: 100%;
 
+            padding: 2rem;
+
             input {
-                font-weight: $fw-bold;
+                background-color: transparent;
+
+                width: max-content;
+                border: none;
+
+                height: 2.4rem;
+
+                font-size: $fs14;
+                font-family: $ffBeta;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .urlContents {
+                width: 100%;
+
+                input {
+                    font-weight: $fw-bold;
+                }
+            }
+        }
+
+        .adminIcon {
+            color: #bec1c3;
+            font-size: $fs18;
+        }
+
+        .iconContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .adminIcon {
+                font-size: $fs22;
             }
         }
     }
@@ -213,118 +240,119 @@ $grey-color-admin: #acb5bf;
     position: fixed;
     top: 0;
     right: 0;
-}
 
-.previewNav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    .previewNav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    width: calc(100vw - 60vw - 6.4rem);
-    height: $dm64;
+        width: calc(100vw - 60vw - 6.4rem);
+        height: $dm64;
 
-    padding: 0 2.4rem;
+        padding: 0 2.4rem;
 
-    border-bottom: 0.1rem solid $border-color;
+        border-bottom: 0.1rem solid $border-color;
 
-    p {
-        font-weight: $fw-bold;
+        p {
+            font-weight: $fw-bold;
 
-        span {
-            font-weight: $fw-normal;
+            span {
+                font-weight: $fw-normal;
+            }
+        }
+
+        .previewShareButton {
+            background-color: $bg-color-alpha;
+
+            color: $share-button;
+            font-size: $fs14;
+            font-family: $ffBeta;
+
+            padding: 0.8rem 1.2rem;
+
+            border: 0.1rem solid $border-color;
+            border-radius: $border-radius-04;
+
+            &:hover {
+                background-color: $veryLightGrey;
+            }
         }
     }
 
-    .previewShareButton {
-        background-color: $bg-color-alpha;
-
-        color: $share-button;
-        font-size: $fs14;
-        font-family: $ffBeta;
-
-        padding: 0.8rem 1.2rem;
-
-        border: 0.1rem solid $border-color;
-        border-radius: $border-radius-04;
-
-        &:hover {
-            background-color: $veryLightGrey;
-        }
-    }
-}
-
-.previewMobile {
-    display: grid;
-    place-items: center;
-
-    background-color: $bg-color-admin;
-    height: calc(100vh - 6.4rem);
-    width: 100%;
-}
-
-.mobileOuter {
-    display: grid;
-    place-items: center;
-
-    background-color: $black;
-    width: 30rem;
-    height: 60rem;
-
-    border-radius: 4rem;
-}
-
-.mobileInner {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        "photo"
-        "photo"
-        "username"
-        "username"
-        "urls"
-        "urls"
-        "urls"
-        "urls"
-        "urls"
-        "urls"
-        "urls"
-        "urls"
-        "logo";
-
-    background-color: #71767b;
-
-    padding: 4rem;
-
-    width: 27rem;
-    height: 57rem;
-
-    border-radius: 3rem;
-
-    .photo,
-    .username,
-    .logo {
+    .previewMobile {
         display: grid;
         place-items: center;
+
+        background-color: $bg-color-admin;
+        height: calc(100vh - 6.4rem);
+        width: 100%;
     }
 
-    .photo {
-        grid-area: photo;
+    .mobileOuter {
+        display: grid;
+        place-items: center;
+
+        background-color: $black;
+        width: 30rem;
+        height: 60rem;
+
+        border-radius: 4rem;
     }
 
-    .username {
-        grid-area: username;
-    }
+    .mobileInner {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "photo"
+            "photo"
+            "username"
+            "username"
+            "urls"
+            "urls"
+            "urls"
+            "urls"
+            "urls"
+            "urls"
+            "urls"
+            "urls"
+            "logo";
 
-    .urls {
-        grid-area: urls;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        // temp color
+        background-color: #71767b;
 
-    .logo {
-        grid-area: logo;
+        padding: 4rem;
+
+        width: 27rem;
+        height: 57rem;
+
+        border-radius: 3rem;
+
+        .photo,
+        .username,
+        .logo {
+            display: grid;
+            place-items: center;
+        }
+
+        .photo {
+            grid-area: photo;
+        }
+
+        .username {
+            grid-area: username;
+        }
+
+        .urls {
+            grid-area: urls;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            grid-area: logo;
+        }
     }
 }

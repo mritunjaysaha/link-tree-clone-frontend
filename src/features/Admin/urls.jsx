@@ -1,9 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import styles from "./admin.module.scss";
 import { GoZap, GoKebabVertical } from "react-icons/go";
+import { MdDelete } from "react-icons/md";
+import { HiOutlinePhotograph } from "react-icons/hi";
+
+import { UilPen } from "@iconscout/react-unicons";
 
 function UrlItem() {
+    const titleRef = useRef();
+    const urlRef = useRef();
+
+    function handleTitleClick() {
+        titleRef.current.focus();
+    }
+
+    function handleUrlClick() {
+        urlRef.current.focus();
+    }
+
     return (
         <>
             <div className={styles.urlItem}>
@@ -16,16 +31,45 @@ function UrlItem() {
                 <div className={styles.urlDetails}>
                     {/* url name */}
                     <div className={styles.urlContents}>
-                        <input type="text" placeholder="Title" />{" "}
+                        <input
+                            name="test"
+                            type="text"
+                            placeholder="Title"
+                            value="value"
+                            ref={titleRef}
+                        />
+                        <span>
+                            <UilPen
+                                className={styles.adminIcon}
+                                onClick={handleTitleClick}
+                            />
+                        </span>
                         <div>{/* switch button */}</div>
                     </div>
                     {/* url link */}
                     <div>
-                        <input type="text" placeholder="url" />
+                        <input
+                            type="text"
+                            placeholder="url"
+                            value="url"
+                            ref={urlRef}
+                        />
+                        <span>
+                            <UilPen
+                                className={styles.adminIcon}
+                                onClick={handleUrlClick}
+                            />
+                        </span>
                     </div>
-                    <div>
-                        <div>{/* icons */}iii</div>
-                        <div>{/* delete */}</div>
+                    <div className={styles.iconContainer}>
+                        <div>
+                            {/* icons */}
+                            <HiOutlinePhotograph className={styles.adminIcon} />
+                        </div>
+                        <div>
+                            {/* delete */}
+                            <MdDelete className={styles.adminIcon} />
+                        </div>
                     </div>
                 </div>
             </div>
