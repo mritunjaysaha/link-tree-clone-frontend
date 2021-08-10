@@ -44,7 +44,7 @@ function UrlNav() {
 }
 
 function UrlContainer() {
-    const [urls, setUrls] = useState();
+    const [urls, setUrls] = useState([1, 2, 3]);
 
     return (
         <section className={styles.urlContainer}>

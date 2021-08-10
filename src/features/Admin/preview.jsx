@@ -13,8 +13,15 @@ function PreviewNav() {
 
 function MobilePreview() {
     return (
-        <section>
-            <div className={styles.previewMobile}></div>
+        <section className={styles.previewMobile}>
+            <div className={styles.mobileOuter}>
+                <div className={styles.mobileInner}>
+                    <div className={styles.photo}>img</div>
+                    <div className={styles.username}>username</div>
+                    <ul className={styles.urls}>url</ul>
+                    <div className={styles.logo}>linktree</div>
+                </div>
+            </div>
         </section>
     );
 }
