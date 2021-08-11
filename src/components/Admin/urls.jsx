@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-import styles from "./admin.module.scss";
+import styles from "./urls.module.scss";
 import { GoZap, GoKebabVertical } from "react-icons/go";
 
 import {
@@ -12,7 +12,7 @@ import {
 
 function UrlDeleteContainer({ handleDelete }) {
     return (
-        <div className={styles.urlDeleteContainer}>
+        <div className={`${styles.urlDeleteContainer} ${styles.fadeIn}`}>
             <div className={styles.deleteCloseDiv}>
                 <p>Delete</p>
                 <UilTimes className={styles.adminIcon} onClick={handleDelete} />

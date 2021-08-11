@@ -1,0 +1,116 @@
+@import "./admin.module.scss";
+
+.previewNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: calc(100vw - 60vw - 6.4rem);
+    height: $dm64;
+
+    padding: 0 2.4rem;
+
+    border-bottom: 0.1rem solid $border-color;
+
+    p {
+        font-weight: $fw-bold;
+
+        span {
+            font-weight: $fw-normal;
+        }
+    }
+
+    .previewShareButton {
+        background-color: $bg-color-alpha;
+
+        color: $share-button;
+        font-size: $fs14;
+        font-family: $ffBeta;
+
+        padding: 0.8rem 1.2rem;
+
+        border: 0.1rem solid $border-color;
+        border-radius: $border-radius-04;
+
+        &:hover {
+            background-color: $veryLightGrey;
+        }
+    }
+}
+
+.previewMobile {
+    display: grid;
+    place-items: center;
+
+    background-color: $bg-color-admin;
+    height: calc(100vh - 6.4rem);
+    width: 100%;
+}
+
+.mobileOuter {
+    display: grid;
+    place-items: center;
+
+    background-color: $black;
+    width: 30rem;
+    height: 60rem;
+
+    border-radius: 4rem;
+}
+
+.mobileInner {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "photo"
+        "photo"
+        "username"
+        "username"
+        "urls"
+        "urls"
+        "urls"
+        "urls"
+        "urls"
+        "urls"
+        "urls"
+        "urls"
+        "logo";
+
+    // temp color
+    background-color: #71767b;
+
+    padding: 4rem;
+
+    width: 27rem;
+    height: 57rem;
+
+    border-radius: 3rem;
+
+    .photo,
+    .username,
+    .logo {
+        display: grid;
+        place-items: center;
+    }
+
+    .photo {
+        grid-area: photo;
+    }
+
+    .username {
+        grid-area: username;
+    }
+
+    .urls {
+        grid-area: urls;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        grid-area: logo;
+    }
+}

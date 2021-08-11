@@ -1,4 +1,4 @@
-import styles from "./admin.module.scss";
+import styles from "./preview.module.scss";
 
 function PreviewNav() {
     return (
