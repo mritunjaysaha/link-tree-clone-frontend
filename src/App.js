@@ -10,7 +10,7 @@ import { Dashboard } from "./components/Dashboard";
 
 import { setAuthToken } from "./utils/setAuthToken";
 import { setCredentials } from "./features/Auth/authSlice";
-import { Admin } from "./features/Admin";
+import { Admin } from "./components/Admin/index";
 
 import { PrivateRoute } from "./helpers/privateRoute";
 
