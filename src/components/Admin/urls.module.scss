@@ -128,6 +128,8 @@
         width: 2rem;
         margin: 0;
         padding: 0;
+
+        cursor: pointer;
     }
 
     .adminIconActive {
@@ -139,7 +141,6 @@
         display: flex;
 
         width: $url-width;
-        height: 12.8rem;
 
         .urlDrag {
             display: grid;
@@ -163,7 +164,7 @@
             height: 100%;
             width: 100%;
 
-            padding: 2rem;
+            padding: 1.4rem 2rem;
 
             input {
                 background-color: transparent;
@@ -194,6 +195,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 0.4rem;
 
             .adminIcon {
                 font-size: $fs22;
@@ -201,10 +203,10 @@
         }
     }
 
-    .urlDeleteContainer {
+    .urlUtilityContainer {
         width: 100%;
 
-        .deleteCloseDiv {
+        .urlCloseDiv {
             position: relative;
             display: flex;
             align-items: center;
@@ -224,12 +226,12 @@
 
             .adminIcon {
                 position: absolute;
-                right: 0;
+                right: 0.4rem;
             }
         }
 
-        .deleteButtonsContainer {
-            padding: 0 2rem;
+        .urlButtonsContainer {
+            padding: 0 2rem 1.4rem;
 
             font-family: $ffBeta;
             font-size: $fs14;
@@ -238,21 +240,23 @@
                 text-align: center;
                 padding: 1.4rem 0;
             }
-            div {
+
+            button {
+                width: 100%;
+
+                padding: 1rem;
+
+                text-transform: capitalize;
+                font-size: $fs16;
+                font-weight: $fw-bold;
+
+                border: none;
+                border-radius: $border-radius-12;
+            }
+
+            .urlDeleteButtons {
                 display: flex;
-                padding-bottom: 1.4rem;
                 button {
-                    width: 100%;
-
-                    padding: 1rem;
-
-                    text-transform: capitalize;
-                    font-size: $fs16;
-                    font-weight: $fw-bold;
-
-                    border: none;
-                    border-radius: $border-radius-12;
-
                     &:first-of-type {
                         margin-right: 2rem;
 
@@ -272,6 +276,13 @@
                     }
                 }
             }
+        }
+
+        .urlThumbnailsButton {
+            background-color: $lightPurple;
+            margin: 0;
+
+            color: $text-color-gamma;
         }
     }
 }

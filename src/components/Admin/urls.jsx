@@ -12,14 +12,14 @@ import {
 
 function UrlDeleteContainer({ handleDelete }) {
     return (
-        <div className={`${styles.urlDeleteContainer} ${styles.fadeIn}`}>
-            <div className={styles.deleteCloseDiv}>
+        <div className={`${styles.urlUtilityContainer} ${styles.fadeIn}`}>
+            <div className={styles.urlCloseDiv}>
                 <p>Delete</p>
                 <UilTimes className={styles.adminIcon} onClick={handleDelete} />
             </div>
-            <div className={styles.deleteButtonsContainer}>
+            <div className={styles.urlButtonsContainer}>
                 <p>Delete this forever?</p>
-                <div>
+                <div className={styles.urlDeleteButtons}>
                     <button type="button">cancel</button>
                     <button type="button">delete</button>
                 </div>
@@ -28,8 +28,34 @@ function UrlDeleteContainer({ handleDelete }) {
     );
 }
 
+function UrlThumbnailContainer({ handleThumbnail }) {
+    return (
+        <div className={`${styles.urlUtilityContainer} ${styles.fadeIn}`}>
+            <div className={styles.urlCloseDiv}>
+                <p>Add Thumbnail</p>
+                <UilTimes
+                    className={styles.adminIcon}
+                    onClick={handleThumbnail}
+                />
+            </div>
+            <div className={styles.urlButtonsContainer}>
+                <p>Add a Thumbnail or Icon to this Link.</p>
+                <div>
+                    <button
+                        type="button"
+                        className={styles.urlThumbnailsButton}
+                    >
+                        set thumbnail
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function UrlItem() {
     const [isDelete, setIsDelete] = useState(false);
+    const [isThumbnail, setIsThumbnail] = useState(false);
     const titleRef = useRef();
     const urlRef = useRef();
 
@@ -43,6 +69,12 @@ function UrlItem() {
 
     function handleDelete() {
         setIsDelete(!isDelete);
+        setIsThumbnail(isThumbnail ? !isThumbnail : isThumbnail);
+    }
+
+    function handleThumbnail() {
+        setIsThumbnail(!isThumbnail);
+        setIsDelete(isDelete ? !isDelete : isDelete);
     }
 
     return (
@@ -91,7 +123,14 @@ function UrlItem() {
                         <div className={styles.iconContainer}>
                             <div>
                                 {/* icons */}
-                                <UilScenery className={styles.adminIcon} />
+                                <UilScenery
+                                    className={`${styles.adminIcon} ${
+                                        isThumbnail
+                                            ? styles.adminIconActive
+                                            : ""
+                                    }`}
+                                    onClick={handleThumbnail}
+                                />
                             </div>
                             <div>
                                 {/* delete */}
@@ -109,6 +148,13 @@ function UrlItem() {
                 {/* Conditionally render delete component */}
                 {isDelete ? (
                     <UrlDeleteContainer handleDelete={handleDelete} />
+                ) : (
+                    ""
+                )}
+
+                {/* conditionally render thumbnail component */}
+                {isThumbnail ? (
+                    <UrlThumbnailContainer handleThumbnail={handleThumbnail} />
                 ) : (
                     ""
                 )}
