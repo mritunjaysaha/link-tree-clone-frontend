@@ -1,59 +1,5 @@
 @import "../admin.module.scss";
 
-.urlNav {
-    position: fixed;
-    top: 0;
-
-    display: flex;
-    align-items: center;
-
-    height: $dm64;
-    width: 100%;
-
-    padding-left: 2.4rem;
-
-    border-bottom: 1px solid $border-color;
-
-    .urlNavItem {
-        position: relative;
-        display: grid;
-        place-items: center;
-
-        font-size: $fs16;
-        font-weight: $fw-normal;
-        letter-spacing: 0.05rem;
-        line-height: 2.4rem;
-
-        height: $dm64;
-
-        margin-right: 4rem;
-
-        cursor: pointer;
-
-        transition: border 0.3s;
-
-        &::after {
-            content: "";
-
-            position: absolute;
-            bottom: 0;
-            display: block;
-            width: 0%;
-            height: 2px;
-            background: $lightGrey;
-            transition: width 0.3s;
-        }
-
-        &:hover::after {
-            width: 100%;
-        }
-    }
-
-    .UrlNavItemActive {
-        border-bottom: 1px solid $admin-text-primary;
-    }
-}
-
 .urlContainer {
     position: relative;
 

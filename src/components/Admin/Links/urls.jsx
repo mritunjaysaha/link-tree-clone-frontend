@@ -163,16 +163,6 @@ function UrlItem() {
     );
 }
 
-function UrlNav() {
-    return (
-        <nav className={styles.urlNav}>
-            <div className={styles.urlNavItem}>Links</div>
-            <div className={styles.urlNavItem}>Appearance</div>
-            <div className={styles.urlNavItem}>Settings</div>
-        </nav>
-    );
-}
-
 function UrlContainer() {
     const [urls, setUrls] = useState([1, 2, 3]);
 
@@ -196,8 +186,6 @@ function UrlContainer() {
 export function Urls() {
     return (
         <>
-            <UrlNav />
-
             <UrlContainer />
         </>
     );
