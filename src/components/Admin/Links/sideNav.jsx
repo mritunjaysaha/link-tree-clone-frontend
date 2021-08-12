@@ -1,5 +1,5 @@
-import styles from "./admin.module.scss";
-import linktree from "../../assets/linktree.svg";
+import styles from "../admin.module.scss";
+import linktree from "../../../assets/linktree.svg";
 
 export function SideNav() {
     return (

@@ -1,6 +1,6 @@
-import { SideNav } from "./sideNav";
-import { Urls } from "./urls";
-import { Preview } from "./preview";
+import { SideNav } from "./Links/sideNav";
+import { Urls } from "./Links/urls";
+import { Preview } from "./Links/preview";
 
 import styles from "./admin.module.scss";
 
