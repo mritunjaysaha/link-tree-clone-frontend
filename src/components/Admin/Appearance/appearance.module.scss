@@ -82,7 +82,12 @@
         }
 
         .inputDiv {
-            margin-top: 4rem;
+            margin-top: 1rem;
+            width: 100%;
+
+            .input {
+                width: 100%;
+            }
         }
     }
 }

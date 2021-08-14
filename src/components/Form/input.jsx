@@ -1,6 +1,5 @@
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import styles from "./input.module.scss";
 
 const grey = "#263238";
 const lightGrey = "#dce0e2";
@@ -9,7 +8,7 @@ const veryLightGrey = "#f5f6f8";
 const error = "red";
 const black = "#131415";
 
-const MUITextField = withStyles({
+export const MUITextField = withStyles({
     root: {
         "& .MuiFormLabel-root": {
             fontSize: "1.6rem",
