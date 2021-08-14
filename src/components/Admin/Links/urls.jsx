@@ -163,7 +163,7 @@ function UrlItem() {
     );
 }
 
-function UrlContainer() {
+export function UrlContainer() {
     const [urls, setUrls] = useState([1, 2, 3]);
 
     return (
@@ -180,13 +180,5 @@ function UrlContainer() {
                 ))}{" "}
             </div>
         </section>
-    );
-}
-
-export function Urls() {
-    return (
-        <>
-            <UrlContainer />
-        </>
     );
 }

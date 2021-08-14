@@ -1,9 +1,8 @@
 @import "../admin.module.scss";
 
 .urlContainer {
+    z-index: 100;
     position: relative;
-
-    background-color: $bg-color-admin;
 
     display: flex;
     flex-direction: column;

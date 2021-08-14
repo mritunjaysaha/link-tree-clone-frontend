@@ -44,31 +44,37 @@ $light-blue: #7fdaff;
     position: fixed;
     margin-left: $dm64;
     border-right: 1px solid $border-color;
+    min-height: 100vh;
     width: $url-section-width;
+
+    background-color: $bg-color-admin;
 }
 
 .urlNav {
-    z-index: 10000;
+    z-index: 200;
     position: fixed;
     top: 0;
 
     display: flex;
     align-items: center;
 
+    background-color: $white;
     margin-left: $dm64;
 
     height: $dm64;
-    width: 100%;
+    width: $url-section-width;
 
     padding-left: 2.4rem;
 
     border-bottom: 1px solid $border-color;
+    border-right: 1px solid $border-color;
 
     .urlNavItem {
         position: relative;
         display: grid;
         place-items: center;
 
+        color: $admin-text-primary;
         font-size: $fs16;
         font-weight: $fw-normal;
         letter-spacing: 0.05rem;
@@ -99,7 +105,7 @@ $light-blue: #7fdaff;
         }
     }
 
-    .UrlNavItemActive {
+    .urlNavItemActive {
         border-bottom: 1px solid $admin-text-primary;
     }
 }

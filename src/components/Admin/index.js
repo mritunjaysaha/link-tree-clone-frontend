@@ -1,7 +1,7 @@
 import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
 
 import { SideNav } from "./Links/sideNav";
-import { Urls } from "./Links/urls";
+import { UrlContainer } from "./Links/urls";
 import { Preview } from "./Links/preview";
 
 import styles from "./admin.module.scss";
@@ -9,14 +9,6 @@ import styles from "./admin.module.scss";
 import { urls } from "../../data/data";
 
 import { Appearance } from "./Appearance";
-
-function UrlComponent() {
-    return (
-        <section className={styles.urlSection}>
-            <Urls />
-        </section>
-    );
-}
 
 function UrlNav({ url }) {
     return (
@@ -44,14 +36,16 @@ export function Admin() {
             <SideNav />
             <UrlNav url={url} />
 
-            <Switch>
-                <Route exact path={path}>
-                    <UrlComponent />
-                </Route>
-                <Route exact path={`admin/appearance`}>
-                    <Appearance />
-                </Route>
-            </Switch>
+            <section className={styles.urlSection}>
+                <Switch>
+                    <Route exact path={path}>
+                        <UrlContainer />
+                    </Route>
+                    <Route exact path={`admin/appearance`}>
+                        <Appearance />
+                    </Route>
+                </Switch>
+            </section>
 
             <section className={styles.previewSection}>
                 <Preview />
