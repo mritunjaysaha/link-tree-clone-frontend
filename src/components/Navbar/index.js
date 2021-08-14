@@ -5,10 +5,10 @@ import linktree from "../../assets/linktree.svg";
 
 export function Navbar() {
     const { pathname } = useLocation();
-
+    const arr = ["/", "/login", "/register"];
     return (
         <>
-            {pathname !== urls.admin ? (
+            {arr.includes(pathname) ? (
                 <nav className={styles.nav}>
                     <div className={styles.logo}>
                         <Link to={urls.dashboard}>

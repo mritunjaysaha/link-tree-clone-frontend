@@ -47,12 +47,13 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                 {/* TODO Add private routes for ADMIN */}
-                <Route exact path={urls.dashboard} component={Dashboard} />
-                <Route exact path={urls.signup} component={SignUp} />
-                <Route exact path={urls.login} component={LogIn} />
-                {/* <Route exact path={urls.admin} component={Admin} /> */}
+
                 <Switch>
-                    <Route exact path={urls.admin} component={Admin} />
+                    <Route exact path={urls.dashboard} component={Dashboard} />
+                    <Route exact path={urls.signup} component={SignUp} />
+                    <Route exact path={urls.login} component={LogIn} />
+
+                    <Route path={urls.admin} component={Admin} />
                 </Switch>
             </BrowserRouter>
         </div>
