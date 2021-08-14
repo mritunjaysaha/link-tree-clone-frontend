@@ -1,17 +1,24 @@
 import styles from "./appearance.module.scss";
+import { TextField } from "@material-ui/core";
 
 function Profile() {
     return (
         <section className={styles.profileSection}>
             <p>profile</p>
-            <figure>
-                <img src="" alt="" />
+            <div className={styles.profileInner}>
+                <figure>
+                    <img src="" alt="" />
 
-                <figcaption>
-                    <button>Pick an image</button>
-                    <button>Remove</button>
-                </figcaption>
-            </figure>
+                    <figcaption>
+                        <button>Pick an image</button>
+                        <button>Remove</button>
+                    </figcaption>
+                </figure>
+
+                <div className={styles.inputDiv}>
+                    <TextField />
+                </div>
+            </div>
         </section>
     );
 }
