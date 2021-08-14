@@ -41,13 +41,16 @@ $light-blue: #7fdaff;
 }
 
 .urlSection {
-    position: fixed;
+    position: relative;
     margin-left: $dm64;
     border-right: 1px solid $border-color;
-    min-height: 100vh;
+
+    height: 100vh;
     width: $url-section-width;
 
     background-color: $bg-color-admin;
+
+    overflow: hidden;
 }
 
 .urlNav {
