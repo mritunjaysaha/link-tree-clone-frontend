@@ -6,6 +6,11 @@ function Profile() {
             <p>profile</p>
             <figure>
                 <img src="" alt="" />
+
+                <figcaption>
+                    <button>Pick an image</button>
+                    <button>Remove</button>
+                </figcaption>
             </figure>
         </section>
     );
@@ -15,10 +20,8 @@ function Theme() {}
 
 export function Appearance() {
     return (
-        <>
-            {/* <Profile />
-             */}
-            Appearance
-        </>
+        <section className={styles.appearanceSection}>
+            <Profile />
+        </section>
     );
 }

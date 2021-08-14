@@ -1,4 +1,81 @@
 @import "../admin.module.scss";
 
+.appearanceSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 12rem 0 8rem;
+
+    width: 100%;
+}
+
 .profileSection {
+    z-index: 200;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: $url-width;
+
+    p {
+        margin-bottom: 2rem;
+        text-transform: capitalize;
+
+        font-size: $fs20;
+        font-weight: $fw-bold;
+    }
+
+    figure {
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        padding: 3rem;
+        border-radius: $border-radius-04;
+
+        img {
+            background-color: red;
+            height: 8rem;
+            aspect-ratio: 1/1;
+
+            border-radius: 50%;
+
+            margin-right: 2rem;
+        }
+
+        figcaption {
+            display: flex;
+            justify-content: space-between;
+
+            width: 100%;
+
+            button {
+                width: 100%;
+                border: none;
+
+                font-size: $fs16;
+                font-weight: $fw-bold;
+
+                padding: 1rem 0;
+                border-radius: $border-radius-08;
+
+                &:first-of-type {
+                    background-color: $lightPurple;
+
+                    color: $white;
+
+                    margin-right: 2rem;
+                }
+
+                &:last-of-type {
+                    color: #696e74;
+                }
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
 }

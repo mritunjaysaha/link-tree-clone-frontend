@@ -41,7 +41,7 @@ export function Admin() {
                     <Route exact path={path}>
                         <UrlContainer />
                     </Route>
-                    <Route exact path={`admin/appearance`}>
+                    <Route exact path={`${path}/appearance`}>
                         <Appearance />
                     </Route>
                 </Switch>
