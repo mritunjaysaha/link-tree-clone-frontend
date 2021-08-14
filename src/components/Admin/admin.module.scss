@@ -13,7 +13,7 @@ $light-blue: #7fdaff;
 
 .adminContainer {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
 }
 
@@ -48,6 +48,7 @@ $light-blue: #7fdaff;
 }
 
 .urlNav {
+    z-index: 10000;
     position: fixed;
     top: 0;
 
