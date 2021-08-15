@@ -39,31 +39,30 @@ export function PickImageModal({ handleClose, open }) {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Transition modal</h2>
-                        <p id="transition-modal-description">
-                            react-transition-group animates me.
-                        </p>
-                    </div>
+                    <ImageModal handleClose={handleClose} />
                 </Fade>
             </Modal>
         </div>
     );
 }
 
-export function PickAnImageModal() {
+function ImageModal({ handleClose }) {
     return (
-        <section className={styles.modalInner}>
-            <div>
+        <section className={styles.imageModalSection}>
+            <div className>
                 <p>Upload Profile Image</p>
-                <UilTimes />
+                <UilTimes onClick={handleClose} className={styles.adminIcon} />
             </div>
-            <figure>
-                <img src="" alt="" />
-                <figcaption>
-                    <h3>Upload your own image</h3>
-                    <p>From your computer</p>
-                    <UilAngleRight />
+            <figure className={styles.container}>
+                <img src="" alt="" className={styles.image} />
+                <figcaption className={styles.contents}>
+                    <div className={styles.text}>
+                        <h3>Upload your own image</h3>
+                        <p>From your computer</p>
+                    </div>
+                    <div className={styles.icon}>
+                        <UilAngleRight className={styles.adminIcon} />
+                    </div>
                 </figcaption>
             </figure>
         </section>

@@ -17,6 +17,20 @@ $light-blue: #7fdaff;
     width: 100vw;
 }
 
+.adminIcon {
+    color: #bec1c3;
+
+    width: 2rem;
+    margin: 0;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+.adminIconActive {
+    color: $light-blue;
+}
+
 .sideNav {
     z-index: 100;
     position: fixed;
