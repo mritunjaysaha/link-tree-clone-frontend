@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
 import styles from "./signup.module.scss";
+import { urls } from "../../data/data";
 
 const validationSchema = yup.object({
     email: yup
@@ -22,46 +22,38 @@ const validationSchema = yup.object({
 });
 
 export function SignUp() {
-    const [isDisabled, setIsDisabled] = useState(true);
+    const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
             email: "",
-            name: "",
+            username: "",
             password: "",
         },
         validationSchema: validationSchema,
-        onSubmit: () => {
-            const user = {
-                email: formik.values.email,
-                name: formik.values.username,
-                password: formik.values.password,
-            };
-
-            axios
-                .post("http://localhost:9000/api/signup", user)
-                .then((res) => {
-                    console.log("signup", res.data);
-                })
-                .catch((err) => console.log(err));
-
-            // TODO: Add programmatic routing to login page
-        },
     });
 
-    // TODO Update backend schema for username
-    // TODO Add backend validation to check username
-    // TODO Handle disabled
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log("clicked");
 
-    useEffect(() => {
-        if (
-            !!formik.values.email &&
-            !!formik.values.name &&
-            formik.values.password.length >= 6
-        ) {
-            setIsDisabled(false);
-        }
-    }, [formik]);
+        const user = {
+            email: formik.values.email,
+            username: formik.values.username,
+            password: formik.values.password,
+        };
+        console.log(JSON.stringify(user));
+        axios
+            .post("http://localhost:9000/api/signup", user)
+            .then((res) => {
+                console.log("signup", res.data);
+
+                history.push(urls.login);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     return (
         <section className={styles.signupSection}>
@@ -70,7 +62,7 @@ export function SignUp() {
                 <p className={styles.signupP}>
                     Free forever. No payment needed.
                 </p>
-                <form onSubmit={formik.handleSubmit} noValidate>
+                <form onSubmit={handleSubmit} noValidate>
                     <InputField
                         name="email"
                         type="email"
@@ -84,10 +76,10 @@ export function SignUp() {
                         helperText={formik.touched.email && formik.errors.email}
                     />
                     <InputField
-                        name="name"
+                        name="username"
                         type="text"
                         label="username"
-                        value={formik.values.name}
+                        value={formik.values.username}
                         onChange={formik.handleChange}
                         className={styles.formInput}
                         error={
@@ -113,7 +105,11 @@ export function SignUp() {
                     <button
                         type="submit"
                         className={styles.button}
-                        disabled={isDisabled}
+                        disabled={
+                            !formik.values.email ||
+                            !formik.values.username ||
+                            !formik.values.password
+                        }
                     >
                         Sign up with email
                     </button>

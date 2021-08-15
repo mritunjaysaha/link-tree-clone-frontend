@@ -1,14 +1,13 @@
 import { useState, useRef } from "react";
-
-import styles from "./urls.module.scss";
 import { GoZap, GoKebabVertical } from "react-icons/go";
-
 import {
     UilPen,
     UilTrashAlt,
     UilScenery,
     UilTimes,
 } from "@iconscout/react-unicons";
+
+import styles from "./urls.module.scss";
 
 function UrlDeleteContainer({ handleDelete }) {
     return (
