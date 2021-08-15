@@ -26,7 +26,6 @@
     }
 
     .container {
-        margin-top: 4rem;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr;
@@ -35,12 +34,21 @@
         gap: 0px 0px;
         grid-auto-flow: row;
         grid-template-areas: "image image contents contents contents contents contents contents contents contents contents";
+
+        padding: 2rem;
+        margin-top: 4rem;
+
+        border-radius: $border-radius-08;
+
+        &:hover {
+            background-color: $veryLightGrey;
+        }
     }
 
     .image {
         grid-area: image;
 
-        width: 7.2rem;
+        width: 6rem;
         aspect-ratio: 1/1;
 
         border-radius: $border-radius-08;
