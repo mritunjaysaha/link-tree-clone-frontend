@@ -1,6 +1,7 @@
 import styles from "./appearance.module.scss";
 import { withStyles } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
+import { TextField, TextareaAutosize } from "@material-ui/core";
+import { useState } from "react";
 
 const grey = "#263238";
 const lightGrey = "#dce0e2";
@@ -11,7 +12,7 @@ const black = "#131415";
 const green = "#39E09B";
 const lightGreen = "#C3F6E1";
 
-export const MUITextField = withStyles({
+const MUITextField = withStyles({
     root: {
         "& .MuiFormLabel-root": {
             fontSize: "1.6rem",
@@ -31,9 +32,6 @@ export const MUITextField = withStyles({
             marginBottom: "1rem",
             borderBottom: `0.1rem solid ${lightGrey}`,
             color: `${black}`,
-            "&:hover": {
-                border: "none",
-            },
             "&:focus-within": {
                 border: "none",
                 borderBottom: `0.1rem solid ${green}`,
@@ -62,7 +60,29 @@ export const MUITextField = withStyles({
     },
 })(TextField);
 
+const MUITextArea = withStyles({
+    root: {
+        "& textarea": {
+            background: "red",
+        },
+    },
+})(TextareaAutosize);
+
 function Profile() {
+    const [name, setName] = useState("");
+    const [bio, setBio] = useState("");
+    const max = 80;
+
+    function handleName(e) {
+        setName(e.target.value);
+    }
+
+    function handleBio(e) {
+        if (bio.length <= 80) {
+            setBio(e.target.value);
+        }
+    }
+
     return (
         <section className={styles.profileSection}>
             <p>profile</p>
@@ -81,13 +101,25 @@ function Profile() {
                         fullWidth
                         variant="filled"
                         type="text"
-                        name="project-title"
-                        label="Project Title"
-                        // value={user.username}
-                        // onChange={handleChange}
-
+                        name="name"
+                        label="Profile Title"
+                        value={name}
+                        onChange={handleName}
                         className={styles.input}
                     />
+
+                    <p>Bio</p>
+                    <MUITextArea
+                        name="bio"
+                        placeholder="Empty"
+                        minRows="5"
+                        value={bio}
+                        onChange={handleBio}
+                        className={styles.textarea}
+                    />
+                    <p className={styles.wordCountP}>
+                        {bio.length}/{max}
+                    </p>
                 </div>
             </div>
         </section>

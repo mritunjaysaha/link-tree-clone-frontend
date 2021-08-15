@@ -29,7 +29,7 @@
 
     .profileInner {
         background-color: $white;
-        padding: 3rem;
+        padding: 3rem 3rem 2rem;
         border-radius: $border-radius-04;
 
         figure {
@@ -85,8 +85,44 @@
             margin-top: 1rem;
             width: 100%;
 
-            .input {
+            p {
+                margin: 2rem 0 0;
+                color: #82868b;
+                font-size: $fs12;
+                font-weight: $fw-normal;
+                margin-bottom: 0.4rem;
+            }
+
+            .input,
+            .textarea {
                 width: 100%;
+            }
+
+            .textarea {
+                padding: 1rem;
+
+                border: 0.1rem solid $border-color;
+                border-radius: $border-radius-04;
+
+                &:hover {
+                    border: 0.1rem solid $grey-color-admin;
+                }
+
+                &:focus {
+                    outline: none;
+                    border: 0.1rem solid $grey-color-admin;
+                }
+            }
+
+            .wordCountP {
+                display: grid;
+                place-items: end;
+
+                width: 100%;
+                padding: 0;
+                margin: 0;
+
+                color: $text-color-alpha;
             }
         }
     }
