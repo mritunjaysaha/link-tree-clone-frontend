@@ -2,15 +2,13 @@ import styles from "./appearance.module.scss";
 import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
 import { useState } from "react";
+import { PickImageModal } from "./appearanceModals";
 
-const grey = "#263238";
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
-const veryLightGrey = "#f5f6f8";
 const error = "red";
 const black = "#131415";
 const green = "#39E09B";
-const lightGreen = "#C3F6E1";
 
 const MUITextField = withStyles({
     root: {
@@ -69,6 +67,7 @@ const MUITextArea = withStyles({
 })(TextareaAutosize);
 
 function Profile() {
+    const [openModal, setOpenModal] = useState(false);
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const max = 80;
@@ -83,46 +82,53 @@ function Profile() {
         }
     }
 
+    function handleModal() {
+        setOpenModal(!openModal);
+    }
+
     return (
-        <section className={styles.profileSection}>
-            <p>profile</p>
-            <div className={styles.profileInner}>
-                <figure>
-                    <img src="" alt="" />
+        <>
+            <section className={styles.profileSection}>
+                <p>profile</p>
+                <div className={styles.profileInner}>
+                    <figure>
+                        <img src="" alt="" />
 
-                    <figcaption>
-                        <button>Pick an image</button>
-                        <button>Remove</button>
-                    </figcaption>
-                </figure>
+                        <figcaption>
+                            <button onClick={handleModal}>Pick an image</button>
+                            <button>Remove</button>
+                        </figcaption>
+                    </figure>
 
-                <div className={styles.inputDiv}>
-                    <MUITextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        name="name"
-                        label="Profile Title"
-                        value={name}
-                        onChange={handleName}
-                        className={styles.input}
-                    />
+                    <div className={styles.inputDiv}>
+                        <MUITextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            name="name"
+                            label="Profile Title"
+                            value={name}
+                            onChange={handleName}
+                            className={styles.input}
+                        />
 
-                    <p>Bio</p>
-                    <MUITextArea
-                        name="bio"
-                        placeholder="Empty"
-                        minRows="5"
-                        value={bio}
-                        onChange={handleBio}
-                        className={styles.textarea}
-                    />
-                    <p className={styles.wordCountP}>
-                        {bio.length}/{max}
-                    </p>
+                        <p>Bio</p>
+                        <MUITextArea
+                            name="bio"
+                            placeholder="Empty"
+                            minRows="5"
+                            value={bio}
+                            onChange={handleBio}
+                            className={styles.textarea}
+                        />
+                        <p className={styles.wordCountP}>
+                            {bio.length}/{max}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            <PickImageModal handleClose={handleModal} open={openModal} />
+        </>
     );
 }
 
