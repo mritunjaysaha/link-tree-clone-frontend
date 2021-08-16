@@ -65,8 +65,9 @@ $upload-light-grey: #e2e2e2;
 
             margin: 4rem 2.4rem 2.4rem;
 
-            transition: background-color 0.3s ease-in;
+            transition: all 0.3s ease-in;
 
+            cursor: pointer;
             &:hover {
                 background-color: $bg-color-alpha;
 

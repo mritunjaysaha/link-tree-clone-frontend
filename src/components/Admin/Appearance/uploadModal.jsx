@@ -1,7 +1,7 @@
 import styles from "./uploadModal.module.scss";
 import { UilFilePlus, UilTimes, UilLaptop } from "@iconscout/react-unicons";
 
-export function UploadModal() {
+export function UploadModal({ handleClose }) {
     return (
         <section className={styles.uploadModalContainer}>
             <nav>
@@ -15,6 +15,7 @@ export function UploadModal() {
                     <UilLaptop className={styles.adminIcon} />
                     <UilTimes
                         className={`${styles.adminIcon} ${styles.closeIcon}`}
+                        onClick={handleClose}
                     />
                 </div>
                 <div className={styles.dragComponentOuter}>
