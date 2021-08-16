@@ -6,6 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import { useState } from "react";
+
+import { UploadModal } from "./uploadModal";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function PickImageModal({ handleClose, open }) {
+export function MUIModal({ handleClose, open, component: Component }) {
     const classes = useStyles();
 
     return (
@@ -39,21 +42,27 @@ export function PickImageModal({ handleClose, open }) {
                 }}
             >
                 <Fade in={open}>
-                    <ImageModal handleClose={handleClose} />
+                    <Component handleClose={handleClose} />
                 </Fade>
             </Modal>
         </div>
     );
 }
 
-function ImageModal({ handleClose }) {
+export function ImageModal({ handleClose }) {
+    const [openDragModal, setOpenDragModal] = useState(false);
+
+    function handleDragModal() {
+        setOpenDragModal(!openDragModal);
+    }
+
     return (
         <section className={styles.imageModalSection}>
             <div className>
                 <p>Upload Profile Image</p>
                 <UilTimes onClick={handleClose} className={styles.adminIcon} />
             </div>
-            <figure className={styles.container}>
+            <figure className={styles.container} onClick={handleDragModal}>
                 <img src="" alt="" className={styles.image} />
                 <figcaption className={styles.contents}>
                     <div className={styles.text}>
@@ -65,6 +74,11 @@ function ImageModal({ handleClose }) {
                     </div>
                 </figcaption>
             </figure>
+            <MUIModal
+                handleClose={handleDragModal}
+                open={openDragModal}
+                component={UploadModal}
+            />
         </section>
     );
 }

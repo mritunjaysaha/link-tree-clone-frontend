@@ -2,7 +2,7 @@ import styles from "./appearance.module.scss";
 import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
 import { useState } from "react";
-import { PickImageModal } from "./appearanceModals";
+import { ImageModal, MUIModal } from "./appearanceModals";
 
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
@@ -127,7 +127,11 @@ function Profile() {
                     </div>
                 </div>
             </section>
-            <PickImageModal handleClose={handleModal} open={openModal} />
+            <MUIModal
+                handleClose={handleModal}
+                open={openModal}
+                component={ImageModal}
+            />
         </>
     );
 }
