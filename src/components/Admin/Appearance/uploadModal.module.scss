@@ -83,6 +83,13 @@ $upload-light-grey: #e2e2e2;
                     width: 8rem;
                     height: auto;
                 }
+
+                .thumbsDiv {
+                    img {
+                        height: 30rem;
+                        aspect-ratio: 1/1;
+                    }
+                }
             }
         }
     }
