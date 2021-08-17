@@ -1,7 +1,15 @@
 import styles from "./uploadModal.module.scss";
 import { UilFilePlus, UilTimes, UilLaptop } from "@iconscout/react-unicons";
+import { useDropzone } from "react-dropzone";
+import { useCallback } from "react";
 
 export function UploadModal({ handleClose }) {
+    const onDrop = useCallback((acceptedFiles) => {
+        console.log(acceptedFiles);
+    });
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
     return (
         <section className={styles.uploadModalContainer}>
             <nav>
@@ -18,7 +26,8 @@ export function UploadModal({ handleClose }) {
                         onClick={handleClose}
                     />
                 </div>
-                <div className={styles.dragComponentOuter}>
+                <div {...getRootProps()} className={styles.dragComponentOuter}>
+                    <input {...getInputProps()} />
                     <div className={styles.dragComponentInner}>
                         <UilFilePlus className={styles.fileIcon} />
                         <h3>Select files to upload</h3>
