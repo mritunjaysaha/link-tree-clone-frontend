@@ -10,9 +10,11 @@ const createImage = (url) =>
         image.addEventListener("error", (error) => reject(error));
         image.setAttribute("crossOrigin", "anonymous"); // needed to avoid cross-origin issues on CodeSandbox
         image.src = url;
+        console.log({ url });
     });
 
 async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
+    console.log({ imageSrc });
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -50,7 +52,7 @@ async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     );
 
     // As Base64 string
-    // return canvas.toDataURL('image/jpeg');
+    return canvas.toDataURL("image/jpeg");
 
     // As a blob
     return new Promise((resolve) => {
@@ -70,6 +72,8 @@ export function ImageCropper({ image, handleClose }) {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
+
+    console.log({ image });
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -107,19 +111,37 @@ export function ImageCropper({ image, handleClose }) {
                     />
                 </div>
                 <div className={styles.cropperContainerMid}>
-                    <Cropper
-                        image={image}
-                        crop={crop}
-                        zoom={zoom}
-                        aspect={4 / 3}
-                        onCropChange={setCrop}
-                        onCropComplete={onCropComplete}
-                        onZoomChange={setZoom}
-                    />
+                    {!croppedImage ? (
+                        <Cropper
+                            image={image}
+                            crop={crop}
+                            zoom={zoom}
+                            aspect={1 / 1}
+                            onCropChange={setCrop}
+                            onCropComplete={onCropComplete}
+                            onZoomChange={setZoom}
+                        />
+                    ) : (
+                        <img
+                            className={styles.uploadImg}
+                            src={croppedImage || ""}
+                            alt=""
+                        />
+                    )}
                 </div>
                 <div className={styles.cropperContainerDiv}>
                     <button>reset</button>
-                    <button onClick={showCroppedImage}>save</button>
+
+                    {!croppedImage ? (
+                        <button
+                            className={styles.saveButton}
+                            onClick={showCroppedImage}
+                        >
+                            save
+                        </button>
+                    ) : (
+                        <button className={styles.uploadButton}>upload</button>
+                    )}
                 </div>
             </section>
         </section>

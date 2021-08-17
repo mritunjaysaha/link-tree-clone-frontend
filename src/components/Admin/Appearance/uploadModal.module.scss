@@ -7,6 +7,7 @@ $image-modal-height: 50rem;
 // upload modal colors
 $upload-modal-grey: #eeeeee;
 $upload-modal-light-grey: #e2e2e2;
+$cropper-modal-border-color: #d1d1d1;
 
 $cropper-blue: #2e68fb;
 
@@ -20,15 +21,14 @@ $cropper-blue: #2e68fb;
     position: relative;
     width: $image-modal-width;
     height: $image-modal-height;
-    // width: 90rem;
-    // height: 50rem;
+
     display: flex;
-    background-color: $upload-modal-light-grey;
+    background-color: $upload-modal-grey;
 
     font-family: $ffGamma;
 
     nav {
-        background-color: $upload-modal-light-grey;
+        background-color: $upload-modal-grey;
         width: 6.4rem;
 
         display: flex;
@@ -114,7 +114,7 @@ $cropper-blue: #2e68fb;
     width: inherit;
     padding: 1rem 0;
 
-    border-right: 1px solid $grey-color-admin;
+    border-right: 0.1rem solid $cropper-modal-border-color;
 
     .cropperNavItem {
         display: grid;
@@ -124,14 +124,14 @@ $cropper-blue: #2e68fb;
 
         .cropIcon {
             color: $cropper-blue;
-            width: 3.4rem;
+            width: 2.8rem;
             height: auto;
         }
+
         p {
             color: $cropper-blue;
             text-transform: capitalize;
             font-size: $fs12;
-            font-weight: $fw-semi-bold;
         }
     }
 }
@@ -156,19 +156,17 @@ $cropper-blue: #2e68fb;
         }
 
         p {
-            font-size: $fs14;
+            font-size: $fs12;
         }
 
         &:first-of-type {
             padding: 1rem;
-            margin-bottom: 2rem;
         }
 
         &:last-of-type {
             padding: 0.7rem;
-            margin-top: 2rem;
 
-            border-top: 1px solid $grey-color-admin;
+            border-top: 0.1rem solid $cropper-modal-border-color;
         }
 
         button {
@@ -179,26 +177,41 @@ $cropper-blue: #2e68fb;
             border-radius: $border-radius-04;
 
             text-transform: capitalize;
+            font-family: $ffGamma;
             font-size: $fs12;
+            border: none;
 
             &:first-of-type {
-                color: $grey-color-admin;
-                border: 1px solid $grey-color-admin;
+                color: $grey;
+                border: 1px solid $cropper-modal-border-color;
             }
+        }
 
-            &:last-of-type {
-                color: $cropper-blue;
-                border: 1px solid $cropper-blue;
-            }
+        .saveButton {
+            color: $cropper-blue;
+            border: 1px solid $cropper-blue;
+        }
+
+        .uploadButton {
+            background-color: $cropper-blue;
+            color: $white;
         }
     }
 
     .cropperContainerMid {
         position: relative;
 
-        margin: 0 auto;
+        margin: 1rem auto 1rem;
 
-        width: 90%;
-        height: 90%;
+        width: calc(75rem - 8rem);
+        height: calc(48rem - 10rem);
+
+        display: flex;
+        justify-content: center;
+
+        .uploadImg {
+            height: 100%;
+            object-fit: contain;
+        }
     }
 }
