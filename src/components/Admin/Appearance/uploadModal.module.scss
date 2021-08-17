@@ -1,23 +1,35 @@
 @import "../admin.module.scss";
 
-$upload-grey: #eeeeee;
-$upload-light-grey: #e2e2e2;
+// image modal dimensions
+$image-modal-width: 75rem;
+$image-modal-height: 50rem;
+
+// upload modal colors
+$upload-modal-grey: #eeeeee;
+$upload-modal-light-grey: #e2e2e2;
+
+$cropper-blue: #2e68fb;
 
 .adminIcon {
     color: $black;
     width: 2.4rem;
+    height: auto;
 }
 
 .uploadModalContainer {
     position: relative;
-    width: 72rem;
-    height: 48rem;
-
+    width: $image-modal-width;
+    height: $image-modal-height;
+    // width: 90rem;
+    // height: 50rem;
     display: flex;
+    background-color: $upload-modal-light-grey;
+
+    font-family: $ffGamma;
 
     nav {
-        background-color: $upload-light-grey;
-        width: 4.8rem;
+        background-color: $upload-modal-light-grey;
+        width: 6.4rem;
 
         display: flex;
         justify-content: center;
@@ -27,7 +39,7 @@ $upload-light-grey: #e2e2e2;
             place-items: center;
             width: 100%;
             height: 4rem;
-            background-color: $upload-grey;
+            background-color: $upload-modal-grey;
         }
         span {
             display: none;
@@ -38,7 +50,7 @@ $upload-light-grey: #e2e2e2;
         display: flex;
         flex-direction: column;
         width: 100%;
-        background-color: $upload-grey;
+        background-color: $upload-modal-grey;
 
         .topDiv {
             width: 100%;
@@ -92,5 +104,101 @@ $upload-light-grey: #e2e2e2;
                 }
             }
         }
+    }
+}
+
+.cropperNav {
+    display: flex;
+
+    height: 100%;
+    width: inherit;
+    padding: 1rem 0;
+
+    border-right: 1px solid $grey-color-admin;
+
+    .cropperNavItem {
+        display: grid;
+        place-items: center;
+
+        height: max-content;
+
+        .cropIcon {
+            color: $cropper-blue;
+            width: 3.4rem;
+            height: auto;
+        }
+        p {
+            color: $cropper-blue;
+            text-transform: capitalize;
+            font-size: $fs12;
+            font-weight: $fw-semi-bold;
+        }
+    }
+}
+
+.cropperContainerSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .cropperContainerDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .leftArrowIcon {
+            color: $grey-color-admin;
+        }
+
+        .closeIcon {
+            color: $grey;
+        }
+
+        p {
+            font-size: $fs14;
+        }
+
+        &:first-of-type {
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        &:last-of-type {
+            padding: 0.7rem;
+            margin-top: 2rem;
+
+            border-top: 1px solid $grey-color-admin;
+        }
+
+        button {
+            background-color: transparent;
+
+            padding: 1rem 2.8rem;
+
+            border-radius: $border-radius-04;
+
+            text-transform: capitalize;
+            font-size: $fs12;
+
+            &:first-of-type {
+                color: $grey-color-admin;
+                border: 1px solid $grey-color-admin;
+            }
+
+            &:last-of-type {
+                color: $cropper-blue;
+                border: 1px solid $cropper-blue;
+            }
+        }
+    }
+
+    .cropperContainerMid {
+        position: relative;
+
+        margin: 0 auto;
+
+        width: 90%;
+        height: 90%;
     }
 }

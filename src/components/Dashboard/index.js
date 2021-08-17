@@ -1,7 +1,7 @@
 import styles from "./dashboard.module.scss";
 import { Link } from "react-router-dom";
 import { urls } from "../../data/data";
-import { ImageCropper } from "../Admin/Appearance/imageCropper";
+
 export function Dashboard() {
     return (
         <section className={styles.dashboardSection}>
