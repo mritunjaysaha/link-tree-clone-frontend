@@ -66,6 +66,7 @@ export function UploadModal() {
     useEffect(() => {
         console.log({ files });
         if (files.length === 1) {
+            console.log("here");
             dispatch(cropModalReducer());
         }
 
@@ -76,7 +77,7 @@ export function UploadModal() {
 
     return (
         <section className={styles.uploadModalContainer}>
-            {files.length ? (
+            {files.length && cropModal ? (
                 <ImageCropper image={files[0].preview} />
             ) : (
                 <UploadComponent

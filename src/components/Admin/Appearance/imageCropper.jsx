@@ -88,10 +88,6 @@ export function ImageCropper({ image }) {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
 
-    function handleBack() {
-        dispatch(cropModalReducer());
-    }
-
     const saveCroppedImage = useCallback(async () => {
         try {
             const croppedImage = await getCroppedImg(image, croppedAreaPixels);
@@ -135,14 +131,18 @@ export function ImageCropper({ image }) {
                 <div className={styles.cropperContainerDiv}>
                     <UilArrowLeft
                         className={`${styles.adminIcon} ${styles.leftArrowIcon}`}
-                        onClick={handleBack}
+                        onClick={() => {
+                            dispatch(cropModalReducer());
+                            console.log("clicked");
+                        }}
                     />
                     <p>Edit image</p>
                     <UilTimes
                         className={`${styles.adminIcon} ${styles.closeIcon}`}
                         onClick={() => {
-                            dispatch(pickModalReducer());
-                            dispatch(uploadModalReducer());
+                            // dispatch(pickModalReducer());
+                            // dispatch(uploadModalReducer());
+                            dispatch(cropModalReducer());
                         }}
                     />
                 </div>
