@@ -2,12 +2,13 @@ import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import styles from "./uploadModal.module.scss";
 import { UilTimes, UilArrowLeft, UilCropAlt } from "@iconscout/react-unicons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     uploadModalReducer,
     cropModalReducer,
     pickModalReducer,
 } from "./appearanceSlice";
+import axios from "axios";
 
 const createImage = (url) =>
     new Promise((resolve, reject) => {
@@ -60,12 +61,12 @@ async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     // As Base64 string
     return canvas.toDataURL("image/jpeg");
 
-    // As a blob
-    return new Promise((resolve) => {
-        canvas.toBlob((file) => {
-            resolve(URL.createObjectURL(file));
-        }, "image/jpeg");
-    });
+    // // As a blob
+    // return new Promise((resolve) => {
+    //     canvas.toBlob((file) => {
+    //         resolve(URL.createObjectURL(file));
+    //     }, "image/jpeg");
+    // });
 }
 
 /**
@@ -80,6 +81,7 @@ export function ImageCropper({ image }) {
     const [croppedImage, setCroppedImage] = useState(null);
 
     const dispatch = useDispatch();
+    // TODO: add selector to fetch user
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -98,6 +100,11 @@ export function ImageCropper({ image }) {
             console.error(e);
         }
     }, [croppedAreaPixels, image]);
+
+    const uploadCroppedImage = () => {
+        // TODO:add axios request to backend
+        // axios.post(`/api/user/photo/${userId}`,)
+    };
 
     return (
         <section className={styles.uploadModalContainer}>
@@ -154,7 +161,12 @@ export function ImageCropper({ image }) {
                             save
                         </button>
                     ) : (
-                        <button className={styles.uploadButton}>upload</button>
+                        <button
+                            className={styles.uploadButton}
+                            onClick={uploadCroppedImage}
+                        >
+                            upload
+                        </button>
                     )}
                 </div>
             </section>

@@ -76,20 +76,16 @@ export function UploadModal() {
 
     return (
         <section className={styles.uploadModalContainer}>
-            {!cropModal ? (
-                <UploadComponent
+        
+
+            {files.length ? <ImageCropper image={files[0].preview} /> : <UploadComponent
                     getRootProps={getRootProps}
                     getInputProps={getInputProps}
                     handleClose={() => {
                         dispatch(pickModalReducer());
                         dispatch(uploadModalReducer());
                     }}
-                />
-            ) : (
-                ""
-            )}
-
-            {cropModal ? <ImageCropper image={files[0].preview} /> : ""}
+                />}
         </section>
     );
 }
