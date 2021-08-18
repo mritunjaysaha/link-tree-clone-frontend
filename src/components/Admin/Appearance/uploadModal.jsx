@@ -4,7 +4,11 @@ import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { ImageCropper } from "./imageCropper";
 import { useSelector, useDispatch } from "react-redux";
-import { uploadModalReducer, cropModalReducer } from "./appearanceSlice";
+import {
+    uploadModalReducer,
+    cropModalReducer,
+    pickModalReducer,
+} from "./appearanceSlice";
 /**
  *
  * @param {getRootProps} getRootProps - Pass useDropzone's getRootProps
@@ -41,7 +45,7 @@ function UploadComponent({ getRootProps, getInputProps, handleClose }) {
     );
 }
 
-export function UploadModal({ handleClose }) {
+export function UploadModal() {
     const { cropModal } = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
@@ -77,6 +81,7 @@ export function UploadModal({ handleClose }) {
                     getRootProps={getRootProps}
                     getInputProps={getInputProps}
                     handleClose={() => {
+                        dispatch(pickModalReducer());
                         dispatch(uploadModalReducer());
                     }}
                 />

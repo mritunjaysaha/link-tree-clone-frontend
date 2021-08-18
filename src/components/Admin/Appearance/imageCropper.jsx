@@ -3,7 +3,11 @@ import Cropper from "react-easy-crop";
 import styles from "./uploadModal.module.scss";
 import { UilTimes, UilArrowLeft, UilCropAlt } from "@iconscout/react-unicons";
 import { useDispatch } from "react-redux";
-import { uploadModalReducer, cropModalReducer } from "./appearanceSlice";
+import {
+    uploadModalReducer,
+    cropModalReducer,
+    pickModalReducer,
+} from "./appearanceSlice";
 
 const createImage = (url) =>
     new Promise((resolve, reject) => {
@@ -81,16 +85,11 @@ export function ImageCropper({ image }) {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
 
-    function handleClose() {
-        dispatch(cropModalReducer());
-        dispatch(uploadModalReducer());
-    }
-
     function handleBack() {
         dispatch(cropModalReducer());
     }
 
-    const showCroppedImage = useCallback(async () => {
+    const saveCroppedImage = useCallback(async () => {
         try {
             const croppedImage = await getCroppedImg(image, croppedAreaPixels);
             console.log("donee", { croppedImage });
@@ -119,7 +118,10 @@ export function ImageCropper({ image }) {
                     <p>Edit image</p>
                     <UilTimes
                         className={`${styles.adminIcon} ${styles.closeIcon}`}
-                        onClick={handleClose}
+                        onClick={() => {
+                            dispatch(pickModalReducer());
+                            dispatch(uploadModalReducer());
+                        }}
                     />
                 </div>
                 <div className={styles.cropperContainerMid}>
@@ -147,7 +149,7 @@ export function ImageCropper({ image }) {
                     {!croppedImage ? (
                         <button
                             className={styles.saveButton}
-                            onClick={showCroppedImage}
+                            onClick={saveCroppedImage}
                         >
                             save
                         </button>
