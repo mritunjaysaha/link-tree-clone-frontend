@@ -4,7 +4,7 @@ import { getIsAuthenticated } from "../features/Auth/authSlice";
 import { urls } from "../data/data";
 
 export function PrivateRoute({ component: Component, ...rest }) {
-    const isAuthenticated = useSelector(getIsAuthenticated);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     console.log({ isAuthenticated });
 
     return (

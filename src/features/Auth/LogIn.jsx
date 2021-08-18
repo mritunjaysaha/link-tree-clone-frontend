@@ -29,10 +29,10 @@ export function LogIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const userData = { name: user.username, password: user.password };
+        const userData = { username: user.username, password: user.password };
 
         axios
-            .post("http://localhost:9000/api/login", userData)
+            .post("/api/login", userData)
             .then((res) => {
                 const { token, user } = res.data;
                 const userData = {
@@ -40,6 +40,8 @@ export function LogIn() {
                     token,
                 };
                 dispatch(setCredentials(userData));
+
+                localStorage.setItem("jwtToken", token);
 
                 history.push("/admin");
             })

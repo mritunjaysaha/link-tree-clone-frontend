@@ -42,9 +42,8 @@ export function SignUp() {
             username: formik.values.username,
             password: formik.values.password,
         };
-        console.log(JSON.stringify(user));
         axios
-            .post("http://localhost:9000/api/signup", user)
+            .post("/api/signup", user)
             .then((res) => {
                 console.log("signup", res.data);
 

@@ -11,12 +11,16 @@ export const authSlice = createSlice({
             state.user = user;
             state.isAuthenticated = !!token;
 
-            console.log(state);
+            console.log("authSlice", userData);
+        },
+        setIsAuthenticated: (state, payload) => {
+            const auth = Boolean(payload);
+            return { ...state, isAuthenticated: auth, user: payload };
         },
     },
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, setIsAuthenticated } = authSlice.actions;
 
 export const selectCurrentUser = (state) => state.user;
 
