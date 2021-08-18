@@ -3,6 +3,8 @@ import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
 import { useState } from "react";
 import { ImageModal, MUIModal } from "./appearanceModals";
+import { useSelector, useDispatch } from "react-redux";
+import { pickModalReducer } from "./appearanceSlice";
 
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
@@ -67,7 +69,9 @@ const MUITextArea = withStyles({
 })(TextareaAutosize);
 
 function Profile() {
-    const [openModal, setOpenModal] = useState(false);
+    const { pickModal } = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
+
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const max = 80;
@@ -83,7 +87,7 @@ function Profile() {
     }
 
     function handleModal() {
-        setOpenModal(!openModal);
+        dispatch(pickModalReducer());
     }
 
     return (
@@ -129,7 +133,7 @@ function Profile() {
             </section>
             <MUIModal
                 handleClose={handleModal}
-                open={openModal}
+                open={pickModal}
                 component={ImageModal}
             />
         </>

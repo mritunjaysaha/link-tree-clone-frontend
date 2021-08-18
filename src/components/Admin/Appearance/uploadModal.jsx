@@ -3,7 +3,8 @@ import { UilFilePlus, UilTimes, UilLaptop } from "@iconscout/react-unicons";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { ImageCropper } from "./imageCropper";
-
+import { useSelector, useDispatch } from "react-redux";
+import { uploadModalReducer, cropModalReducer } from "./appearanceSlice";
 /**
  *
  * @param {getRootProps} getRootProps - Pass useDropzone's getRootProps
@@ -41,10 +42,12 @@ function UploadComponent({ getRootProps, getInputProps, handleClose }) {
 }
 
 export function UploadModal({ handleClose }) {
+    const { cropModal } = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
+
     const [files, setFiles] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
-        console.log({ acceptedFiles });
         setFiles(
             acceptedFiles.map((file) =>
                 Object.assign(file, {
@@ -56,24 +59,32 @@ export function UploadModal({ handleClose }) {
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-    useEffect(
-        () => () => {
+    useEffect(() => {
+        console.log({ files });
+        if (files.length === 1) {
+            dispatch(cropModalReducer());
+        }
+
+        return () => {
             files.forEach((file) => URL.revokeObjectURL(file.preview));
-        },
-        [files]
-    );
+        };
+    }, [files]);
 
     return (
         <section className={styles.uploadModalContainer}>
-            {!files.length ? (
+            {!cropModal ? (
                 <UploadComponent
                     getRootProps={getRootProps}
                     getInputProps={getInputProps}
-                    handleClose={handleClose}
+                    handleClose={() => {
+                        dispatch(uploadModalReducer());
+                    }}
                 />
             ) : (
-                <ImageCropper image={files[0].preview} />
+                ""
             )}
+
+            {cropModal ? <ImageCropper image={files[0].preview} /> : ""}
         </section>
     );
 }

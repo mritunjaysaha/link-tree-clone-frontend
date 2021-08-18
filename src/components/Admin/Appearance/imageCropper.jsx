@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import styles from "./uploadModal.module.scss";
 import { UilTimes, UilArrowLeft, UilCropAlt } from "@iconscout/react-unicons";
+import { useDispatch } from "react-redux";
+import { uploadModalReducer, cropModalReducer } from "./appearanceSlice";
 
 const createImage = (url) =>
     new Promise((resolve, reject) => {
@@ -67,17 +69,26 @@ async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
  * @param {image} image - Image url
  * @returns
  */
-export function ImageCropper({ image, handleClose }) {
+export function ImageCropper({ image }) {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
 
-    console.log({ image });
+    const dispatch = useDispatch();
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
+
+    function handleClose() {
+        dispatch(cropModalReducer());
+        dispatch(uploadModalReducer());
+    }
+
+    function handleBack() {
+        dispatch(cropModalReducer());
+    }
 
     const showCroppedImage = useCallback(async () => {
         try {
@@ -103,6 +114,7 @@ export function ImageCropper({ image, handleClose }) {
                 <div className={styles.cropperContainerDiv}>
                     <UilArrowLeft
                         className={`${styles.adminIcon} ${styles.leftArrowIcon}`}
+                        onClick={handleBack}
                     />
                     <p>Edit image</p>
                     <UilTimes

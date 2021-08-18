@@ -1,14 +1,15 @@
+import { useState } from "react";
 import { UilTimes, UilAngleRight } from "@iconscout/react-unicons";
-import styles from "./modal.module.scss";
-
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { useState } from "react";
-
 import { UploadModal } from "./uploadModal";
+
+import { useSelector, useDispatch } from "react-redux";
+import { pickModalReducer, uploadModalReducer } from "./appearanceSlice";
+
+import styles from "./modal.module.scss";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -50,10 +51,11 @@ export function MUIModal({ handleClose, open, component: Component }) {
 }
 
 export function ImageModal({ handleClose }) {
-    const [openDragModal, setOpenDragModal] = useState(false);
+    const { uploadModal } = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
 
     function handleDragModal() {
-        setOpenDragModal(!openDragModal);
+        dispatch(uploadModalReducer());
     }
 
     return (
@@ -76,7 +78,7 @@ export function ImageModal({ handleClose }) {
             </figure>
             <MUIModal
                 handleClose={handleDragModal}
-                open={openDragModal}
+                open={uploadModal}
                 component={UploadModal}
             />
         </section>
