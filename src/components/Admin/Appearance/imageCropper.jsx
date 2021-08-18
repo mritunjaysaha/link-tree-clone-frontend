@@ -140,9 +140,8 @@ export function ImageCropper({ image }) {
                     <UilTimes
                         className={`${styles.adminIcon} ${styles.closeIcon}`}
                         onClick={() => {
-                            // dispatch(pickModalReducer());
-                            // dispatch(uploadModalReducer());
-                            dispatch(cropModalReducer());
+                            dispatch(pickModalReducer());
+                            dispatch(uploadModalReducer());
                         }}
                     />
                 </div>
