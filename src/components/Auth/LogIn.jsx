@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "./authSlice";
 import axios from "axios";
 
 import { InputField } from "../../components/Form/input";
-import styles from "./login.module.scss";
-
 import { urls } from "../../data/data";
+
+import { setAuth } from "../../features/Auth/authSlice";
+
+import styles from "./login.module.scss";
 
 export function LogIn() {
     const dispatch = useDispatch();
@@ -34,12 +35,9 @@ export function LogIn() {
         axios
             .post("/api/login", userData)
             .then((res) => {
-                const { token, user } = res.data;
-                const userData = {
-                    user,
-                    token,
-                };
-                dispatch(setCredentials(userData));
+                const { token } = res.data;
+
+                dispatch(setAuth(token));
 
                 localStorage.setItem("jwtToken", token);
 

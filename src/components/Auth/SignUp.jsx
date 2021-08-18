@@ -3,8 +3,9 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
-import styles from "./signup.module.scss";
 import { urls } from "../../data/data";
+
+import styles from "./signup.module.scss";
 
 const validationSchema = yup.object({
     email: yup

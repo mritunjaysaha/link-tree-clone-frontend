@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { UilTimes, UilAngleRight } from "@iconscout/react-unicons";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -7,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import { UploadModal } from "./uploadModal";
 
 import { useSelector, useDispatch } from "react-redux";
-import { pickModalReducer, uploadModalReducer } from "./appearanceSlice";
+import { uploadModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 
 import styles from "./modal.module.scss";
 

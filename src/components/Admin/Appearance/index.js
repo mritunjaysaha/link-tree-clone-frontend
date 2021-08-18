@@ -4,7 +4,7 @@ import { TextField, TextareaAutosize } from "@material-ui/core";
 import { useState } from "react";
 import { ImageModal, MUIModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
-import { pickModalReducer } from "./appearanceSlice";
+import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";

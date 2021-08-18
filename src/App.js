@@ -1,22 +1,20 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { useDispatch } from "react-redux";
 
-import { LogIn } from "./features/Auth/LogIn";
-import { SignUp } from "./features/Auth/SignUp";
+import { LogIn } from "./components/Auth/LogIn";
+import { SignUp } from "./components/Auth/SignUp";
 
 import { Navbar } from "./components/Navbar";
 import { Dashboard } from "./components/Dashboard";
 
 import { setAuthToken } from "./utils/setAuthToken";
-import { setIsAuthenticated } from "./features/Auth/authSlice";
+import { setAuth } from "./features/Auth/authSlice";
 import { Admin } from "./components/Admin/index";
 
 import { PrivateRoute } from "./helpers/privateRoute";
 
 import { urls } from "./data/data";
 import axios from "axios";
-import { useEffect } from "react";
 import { store } from "./app/store";
 
 axios.defaults.baseURL = "http://localhost:9000/";
@@ -36,7 +34,7 @@ if (localStorage.jwtToken) {
     console.log({ decoded });
 
     // set user and isAuthenticated
-    store.dispatch(setIsAuthenticated(decoded));
+    store.dispatch(setAuth(decoded));
 
     // check for expired token
     const currentTime = Date.now() / 1000;

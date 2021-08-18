@@ -8,7 +8,7 @@ import {
     uploadModalReducer,
     cropModalReducer,
     pickModalReducer,
-} from "./appearanceSlice";
+} from "../../../features/Admin/appearance/appearanceSlice";
 /**
  *
  * @param {getRootProps} getRootProps - Pass useDropzone's getRootProps
@@ -76,16 +76,18 @@ export function UploadModal() {
 
     return (
         <section className={styles.uploadModalContainer}>
-        
-
-            {files.length ? <ImageCropper image={files[0].preview} /> : <UploadComponent
+            {files.length ? (
+                <ImageCropper image={files[0].preview} />
+            ) : (
+                <UploadComponent
                     getRootProps={getRootProps}
                     getInputProps={getInputProps}
                     handleClose={() => {
                         dispatch(pickModalReducer());
                         dispatch(uploadModalReducer());
                     }}
-                />}
+                />
+            )}
         </section>
     );
 }

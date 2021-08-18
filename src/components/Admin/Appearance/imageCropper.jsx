@@ -7,7 +7,7 @@ import {
     uploadModalReducer,
     cropModalReducer,
     pickModalReducer,
-} from "./appearanceSlice";
+} from "../../../features/Admin/appearance/appearanceSlice";
 import axios from "axios";
 
 const createImage = (url) =>
