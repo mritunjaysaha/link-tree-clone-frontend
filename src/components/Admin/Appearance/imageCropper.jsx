@@ -80,8 +80,9 @@ export function ImageCropper({ image }) {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
 
+    const { userID } = useSelector((state) => state.user);
+
     const dispatch = useDispatch();
-    // TODO: add selector to fetch user
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -102,9 +103,23 @@ export function ImageCropper({ image }) {
     }, [croppedAreaPixels, image]);
 
     const uploadCroppedImage = () => {
-        // TODO:add axios request to backend
-        // axios.post(`/api/user/photo/${userId}`,)
+        let data = new FormData();
+        if (croppedImage) {
+            data.append("photo", croppedImage);
+        }
+
+        axios
+            .post(`api/user/photo/${userID}`, data)
+            .then(() => {
+                dispatch(pickModalReducer());
+                dispatch(uploadModalReducer());
+            })
+            .catch((err) => console.log(err));
     };
+
+    function handleResetButton() {
+        setCroppedImage(null);
+    }
 
     return (
         <section className={styles.uploadModalContainer}>
@@ -151,7 +166,7 @@ export function ImageCropper({ image }) {
                     )}
                 </div>
                 <div className={styles.cropperContainerDiv}>
-                    <button>reset</button>
+                    <button onClick={handleResetButton}>reset</button>
 
                     {!croppedImage ? (
                         <button

@@ -4,6 +4,8 @@ import { urls } from "../../data/data";
 import linktree from "../../assets/linktree.svg";
 
 export function Navbar() {
+    // TODO: add active nav item
+
     const { pathname } = useLocation();
     const arr = ["/", "/login", "/register"];
     return (

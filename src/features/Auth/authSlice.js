@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const authSlice = createSlice({
     name: "user",
-    initialState: { isAuthenticated: false, user: null, token: null },
+    initialState: { isAuthenticated: false, userID: null },
     reducers: {
-        setAuth: (state, payload) => {
-            const auth = Boolean(payload);
-            return { ...state, isAuthenticated: auth, user: payload };
+        setAuth: (state, user) => {
+            console.log({ user });
+            console.log(user.payload._id);
+            state.isAuthenticated = Boolean(user.payload._id);
+            state.userID = user.payload._id;
         },
     },
 });
