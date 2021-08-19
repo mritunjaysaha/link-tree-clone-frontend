@@ -19,10 +19,10 @@ function UploadComponent({ getRootProps, getInputProps, handleClose }) {
     return (
         <>
             <nav>
-                <p className={styles.navActive}>
+                <div className={styles.navItem} onMouseEnter>
                     <UilLaptop className={styles.adminIcon} />
                     <span>My Device</span>
-                </p>
+                </div>
             </nav>
             <section className={styles.contentsSection}>
                 <div className={styles.topDiv}>
