@@ -61,7 +61,7 @@ async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     // As Base64 string
     return canvas.toDataURL("image/jpeg");
 
-    // // As a blob
+    // As a blob
     // return new Promise((resolve) => {
     //     canvas.toBlob((file) => {
     //         resolve(URL.createObjectURL(file));
@@ -80,7 +80,7 @@ export function ImageCropper({ image }) {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
 
-    const { userID } = useSelector((state) => state.user);
+    const { _id } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
 
@@ -100,12 +100,12 @@ export function ImageCropper({ image }) {
 
     const uploadCroppedImage = () => {
         let data = new FormData();
-        if (croppedImage) {
-            data.append("photo", croppedImage);
-        }
+        data.append("photo", croppedImage);
+
+        console.log(data);
 
         axios
-            .post(`api/user/photo/${userID}`, data)
+            .post(`api/user/photo/${_id}`, data)
             .then(() => {
                 dispatch(pickModalReducer());
                 dispatch(uploadModalReducer());

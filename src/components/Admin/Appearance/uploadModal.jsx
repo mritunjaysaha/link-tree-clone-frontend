@@ -19,7 +19,7 @@ function UploadComponent({ getRootProps, getInputProps, handleClose }) {
     return (
         <>
             <nav>
-                <div className={styles.navItem} onMouseEnter>
+                <div className={styles.navItem}>
                     <UilLaptop className={styles.adminIcon} />
                     <span>My Device</span>
                 </div>

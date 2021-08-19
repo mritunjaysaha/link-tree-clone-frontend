@@ -1,10 +1,12 @@
 import styles from "./appearance.module.scss";
 import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImageModal, MUIModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
+import axios from "axios";
+import { encode } from "base-64";
 
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
@@ -70,10 +72,13 @@ const MUITextArea = withStyles({
 
 function Profile() {
     const { pickModal } = useSelector((state) => state.modal);
+    const { _id } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
+    const [photo, setPhoto] = useState("");
+
     const max = 80;
 
     function handleName(e) {
@@ -90,14 +95,26 @@ function Profile() {
         dispatch(pickModalReducer());
     }
 
+    useEffect(() => {
+        axios
+            .get(`/api/user/photo/${_id}`)
+            .then((res) => {
+                const src = res.data.photo.data.data;
+
+                const buff = new Buffer(src, "binary");
+
+                setPhoto(buff);
+            })
+            .catch((err) => console.log("image GET error", err));
+    }, [_id]);
+
     return (
         <>
             <section className={styles.profileSection}>
                 <p>profile</p>
                 <div className={styles.profileInner}>
                     <figure>
-                        <img src="" alt="" />
-
+                        <img src={photo} alt="" />
                         <figcaption>
                             <button onClick={handleModal}>Pick an image</button>
                             <button>Remove</button>

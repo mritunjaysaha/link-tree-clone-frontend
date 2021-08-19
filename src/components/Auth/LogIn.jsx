@@ -6,8 +6,7 @@ import axios from "axios";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 
-import { setAuth } from "../../features/Auth/authSlice";
-
+import { setUserData } from "../../features/Auth/authSlice";
 import styles from "./login.module.scss";
 
 export function LogIn() {
@@ -35,9 +34,9 @@ export function LogIn() {
         axios
             .post("/api/login", userData)
             .then((res) => {
-                const { token } = res.data;
+                const { user, token } = res.data;
 
-                dispatch(setAuth(token));
+                dispatch(setUserData(user));
 
                 localStorage.setItem("jwtToken", token);
 

@@ -1,4 +1,8 @@
 import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import axios from "axios";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../features/Auth/authSlice";
 
 import { SideNav } from "./Links/sideNav";
 import { UrlContainer } from "./Links/urls";
@@ -9,6 +13,7 @@ import styles from "./admin.module.scss";
 import { urls } from "../../data/data";
 
 import { Appearance } from "./Appearance";
+import { useEffect } from "react";
 
 function UrlNav({ url }) {
     return (
@@ -28,8 +33,25 @@ function UrlNav({ url }) {
 
 export function Admin() {
     const { path, url } = useRouteMatch();
+    const { _id } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
-    console.log({ path, url });
+    useEffect(() => {
+        axios
+            .get(`/api/user/${_id}`)
+            .then((res) => dispatch(setUserData(res.data)))
+            .catch((err) => console.log(err));
+    }, [_id, dispatch]);
+
+    useEffect(() => {
+        async function getImage() {
+            axios
+                .get(`/api/user/${_id}`)
+                .then((res) => console.log(res.data))
+                .catch((err) => console.log(err));
+        }
+        getImage();
+    }, []);
 
     return (
         <section className={styles.adminContainer}>
