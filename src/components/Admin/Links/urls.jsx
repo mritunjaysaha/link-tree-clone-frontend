@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import { GoZap, GoKebabVertical } from "react-icons/go";
 import {
     UilPen,
