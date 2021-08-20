@@ -1,12 +1,15 @@
-import styles from "./appearance.module.scss";
+import { useState } from "react";
+
 import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
-import { useState } from "react";
+import axios from "axios";
+
 import { ImageModal, MUIModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
-import axios from "axios";
 import { removePhoto } from "../../../features/Auth/authSlice";
+
+import styles from "./appearance.module.scss";
 
 // replace these with styles variables from styles/abstract/variables.scss
 const lightGrey = "#dce0e2";
@@ -76,13 +79,13 @@ function Profile() {
     const { photo, _id } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const [name, setName] = useState("");
+    const [profileTitle, setProfileTitle] = useState("");
     const [bio, setBio] = useState("");
 
     const max = 80;
 
-    function handleName(e) {
-        setName(e.target.value);
+    function handleProfileTitle(e) {
+        setProfileTitle(e.target.value);
     }
 
     function handleBio(e) {
@@ -105,6 +108,20 @@ function Profile() {
             .catch((err) => console.log("Failed to remove photo"));
     }
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const data = { profileTitle, bio };
+
+        await axios
+            .put(`/api/user/${_id}`, data)
+            .then((res) => {
+                console.log("successfully updated profile title and bio");
+            })
+            .catch((err) =>
+                console.log("failed to update profile title and bio")
+            );
+    }
+
     return (
         <>
             <section className={styles.profileSection}>
@@ -117,7 +134,6 @@ function Profile() {
                             <button onClick={handleRemove}>Remove</button>
                         </figcaption>
                     </figure>
-
                     <div className={styles.inputDiv}>
                         <MUITextField
                             fullWidth
@@ -125,9 +141,10 @@ function Profile() {
                             type="text"
                             name="name"
                             label="Profile Title"
-                            value={name}
-                            onChange={handleName}
+                            value={profileTitle}
+                            onChange={handleProfileTitle}
                             className={styles.input}
+                            onBlur={handleSubmit}
                         />
 
                         <p>Bio</p>
@@ -138,6 +155,7 @@ function Profile() {
                             value={bio}
                             onChange={handleBio}
                             className={styles.textarea}
+                            onBlur={handleSubmit}
                         />
                         <p className={styles.wordCountP}>
                             {bio.length}/{max}
