@@ -9,6 +9,7 @@ import {
     pickModalReducer,
 } from "../../../features/Admin/appearance/appearanceSlice";
 import axios from "axios";
+import { setPhoto } from "../../../features/Auth/authSlice";
 
 const createImage = (url) =>
     new Promise((resolve, reject) => {
@@ -106,9 +107,10 @@ export function ImageCropper({ image }) {
 
         axios
             .post(`api/user/photo/${_id}`, data)
-            .then(() => {
+            .then((res) => {
                 dispatch(pickModalReducer());
                 dispatch(uploadModalReducer());
+                dispatch(setPhoto(res.data.photo.data));
             })
             .catch((err) => console.log(err));
     };

@@ -1,13 +1,14 @@
 import styles from "./appearance.module.scss";
 import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ImageModal, MUIModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 import axios from "axios";
-import { encode } from "base-64";
+import { removePhoto } from "../../../features/Auth/authSlice";
 
+// replace these with styles variables from styles/abstract/variables.scss
 const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
 const error = "red";
@@ -72,12 +73,11 @@ const MUITextArea = withStyles({
 
 function Profile() {
     const { pickModal } = useSelector((state) => state.modal);
-    const { _id } = useSelector((state) => state.user);
+    const { photo, _id } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
-    const [photo, setPhoto] = useState("");
 
     const max = 80;
 
@@ -95,18 +95,15 @@ function Profile() {
         dispatch(pickModalReducer());
     }
 
-    useEffect(() => {
-        axios
-            .get(`/api/user/photo/${_id}`)
+    async function handleRemove() {
+        await axios
+            .delete(`/api/user/photo/${_id}`)
             .then((res) => {
-                const src = res.data.photo.data.data;
-
-                const buff = new Buffer(src, "binary");
-
-                setPhoto(buff);
+                console.log("Photo successfully deleted");
+                dispatch(removePhoto());
             })
-            .catch((err) => console.log("image GET error", err));
-    }, [_id]);
+            .catch((err) => console.log("Failed to remove photo"));
+    }
 
     return (
         <>
@@ -114,10 +111,10 @@ function Profile() {
                 <p>profile</p>
                 <div className={styles.profileInner}>
                     <figure>
-                        <img src={photo} alt="" />
+                        <img src={new Buffer(photo, "binary")} alt="" />
                         <figcaption>
                             <button onClick={handleModal}>Pick an image</button>
-                            <button>Remove</button>
+                            <button onClick={handleRemove}>Remove</button>
                         </figcaption>
                     </figure>
 
