@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 
-import { setUserData } from "../../features/Auth/authSlice";
+import { setUserData, setAuth } from "../../features/Auth/authSlice";
 import styles from "./login.module.scss";
 
 export function LogIn() {
@@ -35,12 +36,13 @@ export function LogIn() {
             .post("/api/login", userData)
             .then((res) => {
                 const { user, token } = res.data;
+                console.log({ user, token });
 
-                dispatch(setUserData(user));
+                dispatch(setAuth(user));
 
                 localStorage.setItem("jwtToken", token);
 
-                history.push("/admin");
+                history.push(urls.admin);
             })
             .catch((err) => {
                 setError("Incorrect login details. Please retry.");

@@ -16,12 +16,12 @@ export const authSlice = createSlice({
             const { email, _id, username, photo, profileTitle, bio } = payload;
 
             state.isAuthenticated = !!_id;
-            state.username = username;
-            state._id = _id;
-            state.email = email;
-            state.photo = photo.data.data;
-            state.profileTitle = profileTitle;
-            state.bio = bio;
+            state.username = username ? username : "";
+            state._id = _id ? _id : "";
+            state.email = email ? email : "";
+            state.photo = photo.data.data ? photo.data.data : "";
+            state.profileTitle = profileTitle ? profileTitle : "";
+            state.bio = bio ? bio : "";
         },
         setAuth: (state, { payload }) => {
             state.isAuthenticated = !!payload._id;

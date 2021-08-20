@@ -17,7 +17,7 @@ import { urls } from "./data/data";
 import axios from "axios";
 import { store } from "./app/store";
 
-axios.defaults.baseURL = "https://link-tree-clone-backend.vercel.app/";
+axios.defaults.baseURL = "http://localhost:9000/";
 
 // check for token to keep user logged in
 if (localStorage.jwtToken) {
