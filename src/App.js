@@ -54,9 +54,10 @@ function App() {
                     <Route exact path={urls.dashboard} component={Dashboard} />
                     <Route exact path={urls.signup} component={SignUp} />
                     <Route exact path={urls.login} component={LogIn} />
-                    <Route path="/:username" component={UserViewPage} />
 
                     <PrivateRoute path={urls.admin} component={Admin} />
+
+                    <Route path="/:username" component={UserViewPage} />
                 </Switch>
             </BrowserRouter>
         </div>
