@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import AutosizeInput from "react-input-autosize";
 import { GoZap, GoKebabVertical } from "react-icons/go";
 import {
     UilPen,
@@ -91,7 +91,7 @@ function UrlItem() {
                     <div className={styles.urlDetails}>
                         {/* url name */}
                         <div className={styles.urlContents}>
-                            <input
+                            <AutosizeInput
                                 name="test"
                                 type="text"
                                 placeholder="Title"
@@ -108,7 +108,7 @@ function UrlItem() {
                         </div>
                         {/* url link */}
                         <div>
-                            <input
+                            <AutosizeInput
                                 type="text"
                                 placeholder="url"
                                 value="url"

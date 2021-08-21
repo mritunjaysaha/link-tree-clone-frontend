@@ -103,10 +103,11 @@
             input {
                 background-color: transparent;
 
-                width: max-content;
                 border: none;
 
                 height: 2.4rem;
+                width: max-content;
+                margin-right: 1rem;
 
                 font-size: $fs14;
                 font-family: $ffBeta;
