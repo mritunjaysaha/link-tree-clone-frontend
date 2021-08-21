@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AutosizeInput from "react-input-autosize";
 import { GoZap, GoKebabVertical } from "react-icons/go";
@@ -8,8 +8,10 @@ import {
     UilScenery,
     UilTimes,
 } from "@iconscout/react-unicons";
+import { useSelector } from "react-redux";
 
 import styles from "./urls.module.scss";
+import axios from "axios";
 
 function UrlDeleteContainer({ handleDelete }) {
     return (
@@ -54,11 +56,29 @@ function UrlThumbnailContainer({ handleThumbnail }) {
     );
 }
 
-function UrlItem() {
+/**
+ *
+ * @param {key} Date - date when the UrlItem was rendered
+ * @param {data} Object - link object fields -- _id, name, url, author
+ * @returns
+ */
+function UrlItem({ key, linkData }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
+
     const titleRef = useRef();
     const urlRef = useRef();
+
+    // ? fetch the user id rom redux store
+    const { _id: userId } = useSelector((state) => state.user);
+
+    // ? pulling out name and url from linkData
+    // ? linkData contains the details of the link
+    const { name, url, _id: linkId } = linkData;
+    const [urlData, setUrlData] = useState({
+        name: name ? name : "",
+        url: url ? url : "",
+    });
 
     function handleTitleClick() {
         titleRef.current.focus();
@@ -78,9 +98,48 @@ function UrlItem() {
         setIsDelete(isDelete ? !isDelete : isDelete);
     }
 
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setUrlData((urlData) => ({ ...urlData, [name]: value }));
+
+        console.log("urlData", urlData);
+    }
+
+    /**
+     * * handleOnBlur function will update the link when the focus moves outside
+     * ? if the link is new then send request to create link
+     * ? else use the existing link's _id to update the link details
+     *
+     * ^ To create a link we need user id
+     * ^ To update a link we need user id and link id
+     */
+    async function handleOnBlur() {
+        if (linkData.isNew) {
+            const newLink = {
+                ...urlData,
+                author: userId,
+            };
+            console.log(JSON.stringify(newLink));
+
+            await axios
+                .post(`/api/link/${userId}`, newLink)
+                .then((res) => {
+                    console.log("link successfully created", res);
+                })
+                .catch((err) => console.log(err.message));
+        } else {
+            await axios
+                .put(`/api/link/${userId}/${linkId}`, urlData)
+                .then((res) => {
+                    console.log("link successfully updated", res);
+                })
+                .catch((err) => console.log(err.message));
+        }
+    }
+
     return (
         <>
-            <section className={styles.urlItemSection}>
+            <section className={styles.urlItemSection} key={key}>
                 <div className={styles.urlItemDiv}>
                     {/* draggable holder */}
                     <div className={styles.urlDrag}>
@@ -92,11 +151,13 @@ function UrlItem() {
                         {/* url name */}
                         <div className={styles.urlContents}>
                             <AutosizeInput
-                                name="test"
+                                ref={titleRef}
+                                name="name"
                                 type="text"
                                 placeholder="Title"
-                                value="value"
-                                ref={titleRef}
+                                value={urlData.name}
+                                onChange={handleChange}
+                                onBlur={handleOnBlur}
                             />
                             <span>
                                 <UilPen
@@ -109,10 +170,13 @@ function UrlItem() {
                         {/* url link */}
                         <div>
                             <AutosizeInput
+                                ref={urlRef}
+                                name="url"
                                 type="text"
                                 placeholder="url"
-                                value="url"
-                                ref={urlRef}
+                                value={urlData.url}
+                                onChange={handleChange}
+                                onBlur={handleOnBlur}
                             />
                             <span>
                                 <UilPen
@@ -165,20 +229,39 @@ function UrlItem() {
 }
 
 export function UrlContainer() {
-    const [urls, setUrls] = useState([1, 2, , 4, 4, 3]);
+    const username = "testuser";
+    const [urls, setUrls] = useState([]);
+
+    useEffect(() => {
+        async function getURLS() {
+            await axios
+                .get(`/api/link/${username}`)
+                .then((res) => {
+                    console.log("getURLS", res.data);
+                    setUrls(res.data.links);
+                })
+                .catch((err) => console.log(err.message, err.error));
+        }
+        getURLS();
+    }, []);
+
+    function handleAddButton() {
+        setUrls([...urls, { isNew: true, name: "", url: "" }]);
+    }
 
     return (
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
-                <button>Add New Link</button>
+                <button onClick={handleAddButton}>Add New Link</button>
                 <button>
                     <GoZap />
                 </button>
             </div>
             <div>
-                {urls.map((data) => (
-                    <UrlItem />
-                ))}{" "}
+                {urls.map((linkData) => {
+                    console.log({ linkData });
+                    return <UrlItem key={new Date()} linkData={linkData} />;
+                })}
             </div>
         </section>
     );

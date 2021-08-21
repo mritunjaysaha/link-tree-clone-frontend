@@ -43,16 +43,6 @@ export function Admin() {
             .catch((err) => console.log(err));
     }, [_id, dispatch]);
 
-    useEffect(() => {
-        async function getImage() {
-            axios
-                .get(`/api/user/${_id}`)
-                .then((res) => console.log(res.data))
-                .catch((err) => console.log(err));
-        }
-        getImage();
-    }, []);
-
     return (
         <section className={styles.adminContainer}>
             <SideNav />

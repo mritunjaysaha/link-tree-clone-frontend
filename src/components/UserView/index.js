@@ -15,7 +15,7 @@ function UserView({ username }) {
     useEffect(() => {
         if (username) {
             axios
-                .get(`/api/user/${username}`)
+                .get(`/api/user/userview/${username}`)
                 .then((res) => {
                     setUser((prev) => ({ ...prev, ...res.data.user }));
                 })
