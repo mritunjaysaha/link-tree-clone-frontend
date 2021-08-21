@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 import { LogIn } from "./components/Auth/LogIn";
 import { SignUp } from "./components/Auth/SignUp";
@@ -11,10 +12,11 @@ import { setAuthToken } from "./utils/setAuthToken";
 import { setAuth } from "./features/Auth/authSlice";
 import { Admin } from "./components/Admin/index";
 
+import { UserViewPage } from "./components/UserView";
+
 import { PrivateRoute } from "./helpers/privateRoute";
 
 import { urls } from "./data/data";
-import axios from "axios";
 import { store } from "./app/store";
 
 axios.defaults.baseURL = "http://localhost:9000/";
@@ -52,6 +54,7 @@ function App() {
                     <Route exact path={urls.dashboard} component={Dashboard} />
                     <Route exact path={urls.signup} component={SignUp} />
                     <Route exact path={urls.login} component={LogIn} />
+                    <Route path="/:username" component={UserViewPage} />
 
                     <PrivateRoute path={urls.admin} component={Admin} />
                 </Switch>
