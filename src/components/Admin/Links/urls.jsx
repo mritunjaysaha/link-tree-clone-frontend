@@ -88,7 +88,12 @@ function UrlItem({ key, linkData }) {
         urlRef.current.focus();
     }
 
-    function handleDelete() {
+    async function handleDelete() {
+        await axios
+            .delete(`/api/link/${userId}/${linkId}`)
+            .then((res) => console.log("link successfully deleted"))
+            .catch((err) => console.log("failed to delete link", err.message));
+
         setIsDelete(!isDelete);
         setIsThumbnail(isThumbnail ? !isThumbnail : isThumbnail);
     }
@@ -101,8 +106,6 @@ function UrlItem({ key, linkData }) {
     function handleChange(e) {
         const { name, value } = e.target;
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
-
-        console.log("urlData", urlData);
     }
 
     /**
@@ -119,7 +122,6 @@ function UrlItem({ key, linkData }) {
                 ...urlData,
                 author: userId,
             };
-            console.log(JSON.stringify(newLink));
 
             await axios
                 .post(`/api/link/${userId}`, newLink)
@@ -237,7 +239,6 @@ export function UrlContainer() {
             await axios
                 .get(`/api/link/${username}`)
                 .then((res) => {
-                    console.log("getURLS", res.data);
                     setUrls(res.data.links);
                 })
                 .catch((err) => console.log(err.message, err.error));
@@ -247,6 +248,7 @@ export function UrlContainer() {
 
     function handleAddButton() {
         setUrls([...urls, { isNew: true, name: "", url: "" }]);
+        console.log("urls", urls);
     }
 
     return (
@@ -258,10 +260,14 @@ export function UrlContainer() {
                 </button>
             </div>
             <div>
-                {urls.map((linkData) => {
-                    console.log({ linkData });
-                    return <UrlItem key={new Date()} linkData={linkData} />;
-                })}
+                {urls
+                    ? urls.map((linkData) => {
+                          console.log({ linkData });
+                          return (
+                              <UrlItem key={new Date()} linkData={linkData} />
+                          );
+                      })
+                    : ""}
             </div>
         </section>
     );
