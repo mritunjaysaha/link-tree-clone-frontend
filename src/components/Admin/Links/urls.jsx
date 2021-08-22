@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AutosizeInput from "react-input-autosize";
 import { GoZap, GoKebabVertical } from "react-icons/go";
@@ -8,12 +9,12 @@ import {
     UilScenery,
     UilTimes,
 } from "@iconscout/react-unicons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateLinks } from "../../../features/Auth/authSlice";
 
 import styles from "./urls.module.scss";
-import axios from "axios";
 
-function UrlDeleteContainer({ handleDelete }) {
+function UrlDeleteContainer({ handleDelete, handleCancel }) {
     return (
         <div className={`${styles.urlUtilityContainer} ${styles.fadeIn}`}>
             <div className={styles.urlCloseDiv}>
@@ -23,8 +24,12 @@ function UrlDeleteContainer({ handleDelete }) {
             <div className={styles.urlButtonsContainer}>
                 <p>Delete this forever?</p>
                 <div className={styles.urlDeleteButtons}>
-                    <button type="button">cancel</button>
-                    <button type="button">delete</button>
+                    <button type="button" onClick={handleCancel}>
+                        cancel
+                    </button>
+                    <button type="button" onClick={handleDelete}>
+                        delete
+                    </button>
                 </div>
             </div>
         </div>
@@ -62,7 +67,7 @@ function UrlThumbnailContainer({ handleThumbnail }) {
  * @param {data} Object - link object fields -- _id, name, url, author
  * @returns
  */
-function UrlItem({ key, linkData }) {
+function UrlItem({ key, link, handleFilterArray }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -74,7 +79,7 @@ function UrlItem({ key, linkData }) {
 
     // ? pulling out name and url from linkData
     // ? linkData contains the details of the link
-    const { name, url, _id: linkId } = linkData;
+    const { name, url, _id: linkId } = link;
     const [urlData, setUrlData] = useState({
         name: name ? name : "",
         url: url ? url : "",
@@ -88,14 +93,19 @@ function UrlItem({ key, linkData }) {
         urlRef.current.focus();
     }
 
-    async function handleDelete() {
+    function handleDelete() {
+        console.log("handleDelete");
+        setIsDelete(!isDelete);
+        setIsThumbnail(isThumbnail ? !isThumbnail : isThumbnail);
+    }
+
+    async function handleDeleteRequest() {
+        console.log("handleDeleteRequest");
+
         await axios
             .delete(`/api/link/${userId}/${linkId}`)
             .then((res) => console.log("link successfully deleted"))
             .catch((err) => console.log("failed to delete link", err.message));
-
-        setIsDelete(!isDelete);
-        setIsThumbnail(isThumbnail ? !isThumbnail : isThumbnail);
     }
 
     function handleThumbnail() {
@@ -117,11 +127,16 @@ function UrlItem({ key, linkData }) {
      * ^ To update a link we need user id and link id
      */
     async function handleOnBlur() {
-        if (linkData.isNew) {
+        const { name, url } = urlData;
+
+        if (link.isNew && (name || url)) {
             const newLink = {
-                ...urlData,
+                name,
+                url,
                 author: userId,
             };
+
+            link.isNew = false;
 
             await axios
                 .post(`/api/link/${userId}`, newLink)
@@ -214,7 +229,14 @@ function UrlItem({ key, linkData }) {
                 </div>
                 {/* Conditionally render delete component */}
                 {isDelete ? (
-                    <UrlDeleteContainer handleDelete={handleDelete} />
+                    <UrlDeleteContainer
+                        handleDelete={() => {
+                            handleDelete();
+                            handleFilterArray();
+                            handleDeleteRequest();
+                        }}
+                        handleCancel={handleDelete}
+                    />
                 ) : (
                     ""
                 )}
@@ -232,23 +254,29 @@ function UrlItem({ key, linkData }) {
 
 export function UrlContainer() {
     const username = "testuser";
-    const [urls, setUrls] = useState([]);
+    const dispatch = useDispatch();
+    const { links } = useSelector((state) => state.user);
+
+    console.log("state links", links);
 
     useEffect(() => {
         async function getURLS() {
             await axios
                 .get(`/api/link/${username}`)
                 .then((res) => {
-                    setUrls(res.data.links);
+                    dispatch(updateLinks(res.data.links));
                 })
                 .catch((err) => console.log(err.message, err.error));
         }
         getURLS();
-    }, []);
+    }, [dispatch]);
 
     function handleAddButton() {
-        setUrls([...urls, { isNew: true, name: "", url: "" }]);
-        console.log("urls", urls);
+        // setUrls([
+        //     ...urls,
+        //     { order: urls.length + 1, isNew: true, name: "", url: "" },
+        // ]);
+        // console.log("urls", urls);
     }
 
     return (
@@ -260,12 +288,10 @@ export function UrlContainer() {
                 </button>
             </div>
             <div>
-                {urls
-                    ? urls.map((linkData) => {
-                          console.log({ linkData });
-                          return (
-                              <UrlItem key={new Date()} linkData={linkData} />
-                          );
+                {links
+                    ? links.map((link) => {
+                          console.log({ link });
+                          return <UrlItem key={link._id} link={link} />;
                       })
                     : ""}
             </div>

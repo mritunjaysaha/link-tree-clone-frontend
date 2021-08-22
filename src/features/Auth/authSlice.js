@@ -10,10 +10,12 @@ export const authSlice = createSlice({
         photo: [],
         profileTitle: "",
         bio: "",
+        links: [],
     },
     reducers: {
         setUserData: (state, { payload }) => {
-            const { email, _id, username, photo, profileTitle, bio } = payload;
+            const { email, _id, username, photo, profileTitle, bio, links } =
+                payload;
 
             state.isAuthenticated = !!_id;
             state.username = username ? username : "";
@@ -22,6 +24,7 @@ export const authSlice = createSlice({
             state.photo = photo.data.data ? photo.data.data : "";
             state.profileTitle = profileTitle ? profileTitle : "";
             state.bio = bio ? bio : "";
+            state.links = links ? links : [];
         },
         setAuth: (state, { payload }) => {
             state.isAuthenticated = !!payload._id;
@@ -33,8 +36,11 @@ export const authSlice = createSlice({
         removePhoto: (state) => {
             state.photo = "";
         },
+        updateLinks: (state, { payload }) => {
+            return { ...state, links: payload };
+        },
     },
 });
 
-export const { setUserData, setAuth, setPhoto, removePhoto } =
+export const { setUserData, setAuth, setPhoto, removePhoto, updateLinks } =
     authSlice.actions;
