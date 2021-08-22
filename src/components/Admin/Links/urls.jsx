@@ -272,11 +272,12 @@ export function UrlContainer() {
     }, [dispatch]);
 
     function handleAddButton() {
-        // setUrls([
-        //     ...urls,
-        //     { order: urls.length + 1, isNew: true, name: "", url: "" },
-        // ]);
-        // console.log("urls", urls);
+        dispatch(
+            updateLinks([
+                ...links,
+                { order: links.length + 1, isNew: true, name: "", url: "" },
+            ])
+        );
     }
 
     return (
