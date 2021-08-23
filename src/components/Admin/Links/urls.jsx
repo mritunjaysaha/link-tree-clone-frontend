@@ -66,7 +66,7 @@ function UrlThumbnailContainer({ handleThumbnail }) {
  * @param {data} Object - link object fields -- _id, name, url, author
  * @returns
  */
-function UrlItem({ link, handleReload, handleFilteredLinks }) {
+function UrlItem({ link, handleReload, filterLinksArr }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -233,7 +233,7 @@ function UrlItem({ link, handleReload, handleFilteredLinks }) {
                         handleDelete={() => {
                             handleDelete();
                             handleDeleteRequest();
-                            handleReload();
+                            filterLinksArr(link);
                         }}
                         handleCancel={handleDelete}
                     />
@@ -285,6 +285,12 @@ export function UrlContainer() {
         setReload(!reload);
     }
 
+    function filterLinksArray(link) {
+        filteredLinks = filteredLinks.filter((fLink) => link._id !== fLink._id);
+
+        dispatch(updateLinks(filteredLinks));
+    }
+
     return (
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
@@ -302,6 +308,7 @@ export function UrlContainer() {
                                   link={link}
                                   dispatch={dispatch}
                                   handleReload={handleReload}
+                                  filterLinksArr={filterLinksArray}
                               />
                           );
                       })
