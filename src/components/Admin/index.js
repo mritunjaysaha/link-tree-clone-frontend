@@ -39,7 +39,21 @@ export function Admin() {
     useEffect(() => {
         axios
             .get(`/api/user/${_id}`)
-            .then((res) => dispatch(setUserData(res.data)))
+            .then((res) => {
+                const user = res.data;
+
+                const data = {
+                    _id: user._id,
+                    user: user.username,
+                    email: user.email,
+                    links: [],
+                    photo: user.photo ? user.photo : "",
+                    profileTitle: user.profileTitle ? user.profileTitle : "",
+                    bio: user.bio ? user.bio : "",
+                };
+
+                dispatch(setUserData(data));
+            })
             .catch((err) => console.log(err));
     }, [_id, dispatch]);
 

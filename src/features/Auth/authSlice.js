@@ -4,8 +4,8 @@ export const authSlice = createSlice({
     name: "user",
     initialState: {
         isAuthenticated: false,
-        username: "",
         _id: "",
+        username: "",
         email: "",
         photo: [],
         profileTitle: "",
@@ -14,17 +14,19 @@ export const authSlice = createSlice({
     },
     reducers: {
         setUserData: (state, { payload }) => {
-            const { email, _id, username, photo, profileTitle, bio, links } =
-                payload;
+            console.log({ payload });
 
-            state.isAuthenticated = !!_id;
-            state.username = username ? username : "";
-            state._id = _id ? _id : "";
-            state.email = email ? email : "";
-            state.photo = photo.data.data ? photo.data.data : "";
-            state.profileTitle = profileTitle ? profileTitle : "";
-            state.bio = bio ? bio : "";
-            state.links = links ? links : [];
+            // const { email, _id, username, photo, profileTitle, bio, links } =
+            //     payload;
+
+            // state.isAuthenticated = !!_id;
+            // state.username = username ? username : "";
+            // state._id = _id ? _id : "";
+            // state.email = email ? email : "";
+            // state.photo = photo.data.data ? photo.data.data : "";
+            // state.profileTitle = profileTitle ? profileTitle : "";
+            // state.bio = bio ? bio : "";
+            // state.links = links ? links : [];
         },
         setAuth: (state, { payload }) => {
             state.isAuthenticated = !!payload._id;
