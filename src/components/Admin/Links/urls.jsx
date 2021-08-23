@@ -66,7 +66,7 @@ function UrlThumbnailContainer({ handleThumbnail }) {
  * @param {data} Object - link object fields -- _id, name, url, author
  * @returns
  */
-function UrlItem({ link, dispatch, handleReload }) {
+function UrlItem({ link, handleReload, handleFilteredLinks }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -232,8 +232,8 @@ function UrlItem({ link, dispatch, handleReload }) {
                     <UrlDeleteContainer
                         handleDelete={() => {
                             handleDelete();
-                            // handleFilterArray();
                             handleDeleteRequest();
+                            handleReload();
                         }}
                         handleCancel={handleDelete}
                     />
@@ -257,7 +257,8 @@ export function UrlContainer() {
     const dispatch = useDispatch();
     const { links } = useSelector((state) => state.user);
     const [reload, setReload] = useState(false);
-    console.log("state links", links);
+
+    let filteredLinks = links;
 
     useEffect(() => {
         async function getURLS() {
@@ -293,8 +294,8 @@ export function UrlContainer() {
                 </button>
             </div>
             <div>
-                {links
-                    ? links.map((link) => {
+                {filteredLinks
+                    ? filteredLinks.map((link) => {
                           return (
                               <UrlItem
                                   key={link._id ? link._id : new Date()}
