@@ -47,10 +47,12 @@ export function Admin() {
                     user: user.username,
                     email: user.email,
                     links: [],
-                    photo: user.photo ? user.photo : "",
+                    photo: user.photo ? user.photo : { data: { data: [] } },
                     profileTitle: user.profileTitle ? user.profileTitle : "",
                     bio: user.bio ? user.bio : "",
                 };
+
+                console.log("data", data);
 
                 dispatch(setUserData(data));
             })

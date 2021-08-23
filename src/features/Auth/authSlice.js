@@ -16,17 +16,17 @@ export const authSlice = createSlice({
         setUserData: (state, { payload }) => {
             console.log({ payload });
 
-            // const { email, _id, username, photo, profileTitle, bio, links } =
-            //     payload;
+            const { email, _id, username, photo, profileTitle, bio, links } =
+                payload;
 
-            // state.isAuthenticated = !!_id;
-            // state.username = username ? username : "";
-            // state._id = _id ? _id : "";
-            // state.email = email ? email : "";
-            // state.photo = photo.data.data ? photo.data.data : "";
-            // state.profileTitle = profileTitle ? profileTitle : "";
-            // state.bio = bio ? bio : "";
-            // state.links = links ? links : [];
+            state.isAuthenticated = !!_id;
+            state.username = username ? username : "";
+            state._id = _id ? _id : "";
+            state.email = email ? email : "";
+            state.photo = photo.data.data ? photo.data.data : "";
+            state.profileTitle = profileTitle ? profileTitle : "";
+            state.bio = bio ? bio : "";
+            state.links = links ? links : [];
         },
         setAuth: (state, { payload }) => {
             state.isAuthenticated = !!payload._id;
