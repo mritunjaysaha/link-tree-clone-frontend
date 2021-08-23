@@ -63,11 +63,10 @@ function UrlThumbnailContainer({ handleThumbnail }) {
 
 /**
  *
- * @param {key} Date - date when the UrlItem was rendered
  * @param {data} Object - link object fields -- _id, name, url, author
  * @returns
  */
-function UrlItem({ key, link, handleFilterArray }) {
+function UrlItem({ link, dispatch, handleReload }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -129,19 +128,19 @@ function UrlItem({ key, link, handleFilterArray }) {
     async function handleOnBlur() {
         const { name, url } = urlData;
 
-        if (link.isNew && (name || url)) {
+        if (!link._id) {
             const newLink = {
                 name,
                 url,
                 author: userId,
             };
 
-            link.isNew = false;
-
             await axios
                 .post(`/api/link/${userId}`, newLink)
                 .then((res) => {
                     console.log("link successfully created", res);
+
+                    handleReload();
                 })
                 .catch((err) => console.log(err.message));
         } else {
@@ -156,7 +155,7 @@ function UrlItem({ key, link, handleFilterArray }) {
 
     return (
         <>
-            <section className={styles.urlItemSection} key={key}>
+            <section className={styles.urlItemSection}>
                 <div className={styles.urlItemDiv}>
                     {/* draggable holder */}
                     <div className={styles.urlDrag}>
@@ -232,7 +231,7 @@ function UrlItem({ key, link, handleFilterArray }) {
                     <UrlDeleteContainer
                         handleDelete={() => {
                             handleDelete();
-                            handleFilterArray();
+                            // handleFilterArray();
                             handleDeleteRequest();
                         }}
                         handleCancel={handleDelete}
@@ -256,7 +255,7 @@ export function UrlContainer() {
     const username = "testuser";
     const dispatch = useDispatch();
     const { links } = useSelector((state) => state.user);
-
+    const [reload, setReload] = useState(false);
     console.log("state links", links);
 
     useEffect(() => {
@@ -269,15 +268,19 @@ export function UrlContainer() {
                 .catch((err) => console.log(err.message, err.error));
         }
         getURLS();
-    }, [dispatch]);
+    }, [dispatch, reload]);
 
     function handleAddButton() {
         dispatch(
             updateLinks([
+                { _id: "", order: links.length + 1, name: "", url: "" },
                 ...links,
-                { order: links.length + 1, isNew: true, name: "", url: "" },
             ])
         );
+    }
+
+    function handleReload() {
+        setReload(!reload);
     }
 
     return (
@@ -291,8 +294,14 @@ export function UrlContainer() {
             <div>
                 {links
                     ? links.map((link) => {
-                          console.log({ link });
-                          return <UrlItem key={link._id} link={link} />;
+                          return (
+                              <UrlItem
+                                  key={link._id ? link._id : new Date()}
+                                  link={link}
+                                  dispatch={dispatch}
+                                  handleReload={handleReload}
+                              />
+                          );
                       })
                     : ""}
             </div>

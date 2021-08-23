@@ -14,8 +14,6 @@ export const authSlice = createSlice({
     },
     reducers: {
         setUserData: (state, { payload }) => {
-            console.log({ payload });
-
             const { email, _id, username, photo, profileTitle, bio, links } =
                 payload;
 

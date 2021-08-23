@@ -52,8 +52,6 @@ export function Admin() {
                     bio: user.bio ? user.bio : "",
                 };
 
-                console.log("data", data);
-
                 dispatch(setUserData(data));
             })
             .catch((err) => console.log(err));
