@@ -78,7 +78,7 @@ function UrlItem({ link, dispatch, handleReload }) {
 
     // ? pulling out name and url from linkData
     // ? linkData contains the details of the link
-    const { name, url, _id: linkId } = link;
+    const { name, url, _id: linkId, order } = link;
     const [urlData, setUrlData] = useState({
         name: name ? name : "",
         url: url ? url : "",
@@ -133,6 +133,7 @@ function UrlItem({ link, dispatch, handleReload }) {
                 name,
                 url,
                 author: userId,
+                order,
             };
 
             await axios
