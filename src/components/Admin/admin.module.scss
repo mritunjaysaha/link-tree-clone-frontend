@@ -85,8 +85,8 @@ $light-blue: #7fdaff;
 
     padding-left: 2.4rem;
 
-    border-bottom: 1px solid $border-color;
-    border-right: 1px solid $border-color;
+    border-bottom: 0.2rem solid $border-color;
+    border-right: 0.2rem solid $border-color;
 
     .urlNavItem {
         position: relative;
@@ -125,7 +125,7 @@ $light-blue: #7fdaff;
     }
 
     .urlNavItemActive {
-        border-bottom: 1px solid $admin-text-primary;
+        border-bottom: 0.2rem solid $admin-text-primary;
     }
 }
 

@@ -1,4 +1,10 @@
-import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import {
+    Switch,
+    Route,
+    useRouteMatch,
+    Link,
+    useLocation,
+} from "react-router-dom";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,15 +22,44 @@ import { Appearance } from "./Appearance";
 import { useEffect } from "react";
 
 function UrlNav({ url }) {
+    const location = useLocation();
+
+    console.log("location", location.pathname.split("/admin"));
+
+    /**
+     * ? Link tab - output will be ["", ""]
+     * ? appearance tab - output will be ["", "/appearance"]
+     * ? settings tab - output will be ["", "/settings"]
+     * ! the last element will be used to identify the active link
+     */
+    const adminPath = location.pathname.split("/admin");
+
     return (
         <nav className={styles.urlNav}>
-            <Link to={`${url}`} className={styles.urlNavItem}>
+            <Link
+                to={`${url}`}
+                className={`${styles.urlNavItem} ${
+                    adminPath[1] === "" ? styles.urlNavItemActive : ""
+                }`}
+            >
                 Links
             </Link>
-            <Link to={`${url}/appearance`} className={styles.urlNavItem}>
+            <Link
+                to={`${url}/appearance`}
+                className={`${styles.urlNavItem} ${
+                    adminPath[1] === "/appearance"
+                        ? styles.urlNavItemActive
+                        : ""
+                }`}
+            >
                 Appearance
             </Link>
-            <Link to={`${url}/settings`} className={styles.urlNavItem}>
+            <Link
+                to={`${url}/settings`}
+                className={`${styles.urlNavItem} ${
+                    adminPath[1] === "/settings" ? styles.urlNavItemActive : ""
+                }`}
+            >
                 Settings
             </Link>
         </nav>
