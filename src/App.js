@@ -19,7 +19,7 @@ import { PrivateRoute } from "./helpers/privateRoute";
 import { urls } from "./data/data";
 import { store } from "./app/store";
 
-axios.defaults.baseURL = "http://localhost:9000/";
+axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
 // check for token to keep user logged in
 if (localStorage.jwtToken) {
