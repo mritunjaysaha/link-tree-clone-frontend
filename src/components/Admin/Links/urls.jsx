@@ -303,23 +303,6 @@ export function UrlContainer() {
         setReload(!reload);
     }
 
-    // function filterLinks(link) {
-    //     filteredLinksArr = filteredLinksArr.filter(
-    //         (fLink) => link._id !== fLink._id
-    //     );
-
-    //     dispatch(updateLinks(filteredLinksArr));
-    // }
-
-    const reorder = (list, startIndex, endIndex) => {
-        const result = Array.from(list);
-        const [removed] = result.splice(startIndex, 1);
-
-        result.splice(endIndex, 0, removed);
-
-        return result;
-    };
-
     return (
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
@@ -328,64 +311,7 @@ export function UrlContainer() {
                     <GoZap />
                 </button>
             </div>
-            <div>
-                {/* {filteredLinksArr
-                    ? filteredLinksArr.map((link) => {
-                          return (
-                              <UrlItem
-                                  key={link._id ? link._id : new Date()}
-                                  link={link}
-                                  dispatch={dispatch}
-                                  handleReload={handleReload}
-                                  //   filterLinksArr={filterLinks}
-                              />
-                          );
-                      })
-                    : ""} */}
-                <DragDropContext
-                    onDragEnd={(result) => {
-                        if (!result.destination) {
-                            return;
-                        }
-
-                        const reorderedItems = reorder(
-                            items,
-                            result.source.index,
-                            result.destination.index
-                        );
-
-                        setItems(reorderedItems);
-                    }}
-                >
-                    <Droppable droppableId="droppable">
-                        {(provided) => (
-                            <div
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {filteredLinksArr.map((link, index) => (
-                                    <Draggable
-                                        key={link._id}
-                                        draggableId={link._id} // need to be changed with ._id
-                                        index={index}
-                                    >
-                                        {(provided) => (
-                                            <UrlItem
-                                                draggableRef={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                link={link}
-                                                handleReload={handleReload}
-                                            />
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            </div>
+            <div></div>
         </section>
     );
 }
