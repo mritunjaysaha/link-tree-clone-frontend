@@ -89,7 +89,7 @@ export function Admin() {
 
                 dispatch(setUserData(data));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err.message));
     }, [_id, dispatch]);
 
     return (

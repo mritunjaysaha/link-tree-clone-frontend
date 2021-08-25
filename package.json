@@ -1,6 +1,6 @@
 {
   "name": "link-tree-clone-frontend",
-  "version": "0.1.13",
+  "version": "0.1.20",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -19,7 +19,6 @@
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "dotenv": "^10.0.0",
-    "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",

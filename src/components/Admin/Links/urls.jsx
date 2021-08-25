@@ -66,7 +66,13 @@ function UrlThumbnailContainer({ handleThumbnail }) {
  * @param {data} Object - link object fields -- _id, name, url, author
  * @returns
  */
-function UrlItem({ link, handleReload, filterLinksArr }) {
+function UrlItem({
+    link,
+    handleReload,
+    filterLinksArr,
+    draggableRef,
+    ...rest
+}) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -156,7 +162,11 @@ function UrlItem({ link, handleReload, filterLinksArr }) {
 
     return (
         <>
-            <section className={styles.urlItemSection}>
+            <section
+                className={styles.urlItemSection}
+                ref={draggableRef}
+                {...rest}
+            >
                 <div className={styles.urlItemDiv}>
                     {/* draggable holder */}
                     <div className={styles.urlDrag}>
@@ -258,7 +268,15 @@ export function UrlContainer() {
     const { links } = useSelector((state) => state.user);
     const [reload, setReload] = useState(false);
 
-    let filteredLinks = links;
+    const [items, setItems] = useState([
+        { order: 1, url: "aaa" },
+        { order: 2, url: "bbb" },
+        { order: 3, url: "ccc" },
+    ]);
+
+    // const [filteredLinksArr, setFilteredLinksArr] = useState(links);
+
+    let filteredLinksArr = links;
 
     useEffect(() => {
         async function getURLS() {
@@ -285,11 +303,22 @@ export function UrlContainer() {
         setReload(!reload);
     }
 
-    function filterLinksArray(link) {
-        filteredLinks = filteredLinks.filter((fLink) => link._id !== fLink._id);
+    // function filterLinks(link) {
+    //     filteredLinksArr = filteredLinksArr.filter(
+    //         (fLink) => link._id !== fLink._id
+    //     );
 
-        dispatch(updateLinks(filteredLinks));
-    }
+    //     dispatch(updateLinks(filteredLinksArr));
+    // }
+
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+
+        result.splice(endIndex, 0, removed);
+
+        return result;
+    };
 
     return (
         <section className={styles.urlContainer}>
@@ -300,19 +329,62 @@ export function UrlContainer() {
                 </button>
             </div>
             <div>
-                {filteredLinks
-                    ? filteredLinks.map((link) => {
+                {/* {filteredLinksArr
+                    ? filteredLinksArr.map((link) => {
                           return (
                               <UrlItem
                                   key={link._id ? link._id : new Date()}
                                   link={link}
                                   dispatch={dispatch}
                                   handleReload={handleReload}
-                                  filterLinksArr={filterLinksArray}
+                                  //   filterLinksArr={filterLinks}
                               />
                           );
                       })
-                    : ""}
+                    : ""} */}
+                <DragDropContext
+                    onDragEnd={(result) => {
+                        if (!result.destination) {
+                            return;
+                        }
+
+                        const reorderedItems = reorder(
+                            items,
+                            result.source.index,
+                            result.destination.index
+                        );
+
+                        setItems(reorderedItems);
+                    }}
+                >
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {filteredLinksArr.map((link, index) => (
+                                    <Draggable
+                                        key={link._id}
+                                        draggableId={link._id} // need to be changed with ._id
+                                        index={index}
+                                    >
+                                        {(provided) => (
+                                            <UrlItem
+                                                draggableRef={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                link={link}
+                                                handleReload={handleReload}
+                                            />
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
         </section>
     );
