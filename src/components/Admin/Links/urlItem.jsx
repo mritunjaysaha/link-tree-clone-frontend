@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AutosizeInput from "react-input-autosize";
 import { GoZap, GoKebabVertical } from "react-icons/go";
 import {
@@ -70,9 +69,10 @@ export function UrlItem({
     link,
     handleReload,
     filterLinksArr,
-    draggableRef,
+    innerRef,
     ...rest
 }) {
+    console.log("urlitem");
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -162,11 +162,7 @@ export function UrlItem({
 
     return (
         <>
-            <section
-                className={styles.urlItemSection}
-                ref={draggableRef}
-                {...rest}
-            >
+            <section className={styles.urlItemSection} ref={innerRef} {...rest}>
                 <div className={styles.urlItemDiv}>
                     {/* draggable holder */}
                     <div className={styles.urlDrag}>

@@ -1,10 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { UrlItem } from "../Links/urlItem";
 
-export function DragAndDrop({ initialData }) {
-    const [data, setData] = useState(initialData);
+export function DragAndDrop({ links }) {
+    console.log({ links });
 
-    console.log("drag and drop", data);
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        console.log("use effect", links);
+
+        const newLinks = {};
+        const linkOrder = [];
+
+        for (let i = 0; i < links.length; i++) {
+            newLinks[`link${i}`] = {
+                id: `link${i}`,
+                content: { name: links[i].name, url: links[i].url },
+            };
+            linkOrder.push(`link${i}`);
+        }
+
+        console.log({ newLinks, linkOrder });
+
+        setData({
+            links: newLinks,
+            columns: { column0: { id: "column0", linkOrder: linkOrder } },
+            columnOrder: ["column0"],
+        });
+
+        console.log("use effect", data);
+    }, [links]);
 
     function onDragEnd(result) {
         const { destination, source, draggableId } = result;
@@ -44,44 +70,52 @@ export function DragAndDrop({ initialData }) {
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            {data.columnOrder.map((id) => {
-                const column = data.columns[id];
-                const links = column.linkOrder.map(
-                    (linkId) => data.links[linkId]
-                );
+        <>
+            {data.links ? (
+                <DragDropContext onDragEnd={onDragEnd}>
+                    {data.columnOrder.map((id) => {
+                        const column = data.columns[id];
+                        const links = column.linkOrder.map(
+                            (linkId) => data.links[linkId]
+                        );
 
-                return (
-                    <Droppable key={column.id} droppableId={column.id}>
-                        {(provided) => (
-                            <div
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                HERE
-                                {links.map((link, index) => (
-                                    <Draggable
-                                        key={link.id}
-                                        draggableId={link.id}
-                                        index={index}
+                        return (
+                            <Droppable key={column.id} droppableId={column.id}>
+                                {(provided) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
                                     >
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
+                                        {console.log({ links })}
+
+                                        {links.map((link, index) => (
+                                            <Draggable
+                                                key={link.id}
+                                                draggableId={link.id}
+                                                index={index}
                                             >
-                                                {JSON.stringify(link.content)}
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                );
-            })}
-        </DragDropContext>
+                                                {(provided) => (
+                                                    <UrlItem
+                                                        innerRef={
+                                                            provided.innerRef
+                                                        }
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        link={link.content}
+                                                    />
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        );
+                    })}
+                </DragDropContext>
+            ) : (
+                ""
+            )}
+        </>
     );
 }

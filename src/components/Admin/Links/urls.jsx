@@ -11,14 +11,11 @@ export function UrlContainer() {
     const username = "testuser";
     const dispatch = useDispatch();
     const { links } = useSelector((state) => state.user);
-    const [reload, setReload] = useState(false);
-    const [showData, setShowData] = useState(false);
-
-    const [initialData, setInitialData] = useState({});
+    const [reload, setReload] = useState("");
 
     useEffect(() => {
-        async function getURLS() {
-            await axios
+        function getURLS() {
+            axios
                 .get(`/api/link/${username}`)
                 .then((res) => {
                     dispatch(updateLinks(res.data.links));
@@ -28,32 +25,18 @@ export function UrlContainer() {
         getURLS();
     }, [dispatch, reload]);
 
-    useEffect(() => {
-        const newLinks = {};
+    // useEffect(() => {
+    //     links.map((link, index) => {
+    //         newLinkData[`link${index}`] = {
+    //             id: `link${index}`,
+    //             content: link,
+    //         };
 
-        const newLinkOrder = [];
+    //         setLinkOrder((prev) => [...prev, `link${index}`]);
 
-        links.map((link, index) => {
-            newLinks[`link${index}`] = {
-                id: `link${index}`,
-                content: link,
-            };
-
-            newLinkOrder.push(`link${index}`);
-        });
-
-        console.log("ddd", newLinks, newLinkOrder);
-
-        setInitialData({
-            links: newLinks,
-            columns: {
-                column0: { id: "column0", linkOrder: newLinkOrder },
-            },
-            columnOrder: ["column0"],
-        });
-
-        console.log("here", initialData);
-    }, [links, showData]);
+    //         console.log({ linkOrder });
+    //     });
+    // }, [links]);
 
     function handleAddButton() {
         dispatch(
@@ -76,8 +59,9 @@ export function UrlContainer() {
                     <GoZap />
                 </button>
             </div>
+
             <div>
-                {initialData ? <DragAndDrop initialData={initialData} /> : ""}
+                <DragAndDrop links={links} />
             </div>
         </section>
     );
