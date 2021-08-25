@@ -12,6 +12,9 @@ export function UrlContainer() {
     const dispatch = useDispatch();
     const { links } = useSelector((state) => state.user);
     const [reload, setReload] = useState(false);
+    const [showData, setShowData] = useState(false);
+
+    const [initialData, setInitialData] = useState({});
 
     useEffect(() => {
         async function getURLS() {
@@ -24,6 +27,33 @@ export function UrlContainer() {
         }
         getURLS();
     }, [dispatch, reload]);
+
+    useEffect(() => {
+        const newLinks = {};
+
+        const newLinkOrder = [];
+
+        links.map((link, index) => {
+            newLinks[`link${index}`] = {
+                id: `link${index}`,
+                content: link,
+            };
+
+            newLinkOrder.push(`link${index}`);
+        });
+
+        console.log("ddd", newLinks, newLinkOrder);
+
+        setInitialData({
+            links: newLinks,
+            columns: {
+                column0: { id: "column0", linkOrder: newLinkOrder },
+            },
+            columnOrder: ["column0"],
+        });
+
+        console.log("here", initialData);
+    }, [links, showData]);
 
     function handleAddButton() {
         dispatch(
@@ -47,7 +77,7 @@ export function UrlContainer() {
                 </button>
             </div>
             <div>
-                <DragAndDrop />
+                {initialData ? <DragAndDrop initialData={initialData} /> : ""}
             </div>
         </section>
     );

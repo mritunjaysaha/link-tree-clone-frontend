@@ -16,15 +16,11 @@ import { Preview } from "./Links/preview";
 
 import styles from "./admin.module.scss";
 
-import { urls } from "../../data/data";
-
 import { Appearance } from "./Appearance";
 import { useEffect } from "react";
 
 function UrlNav({ url }) {
     const location = useLocation();
-
-    console.log("location", location.pathname.split("/admin"));
 
     /**
      * ? Link tab - output will be ["", ""]
