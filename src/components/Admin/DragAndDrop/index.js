@@ -60,13 +60,13 @@ export function DragAndDrop() {
         }
 
         const column = data.columns[source.droppableId];
-        const newTaskIds = Array.from(column.linkOrder);
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
+        const newLinkOrder = Array.from(column.linkOrder);
+        newLinkOrder.splice(source.index, 1);
+        newLinkOrder.splice(destination.index, 0, draggableId);
 
         const newColumn = {
             ...column,
-            taskIds: newTaskIds,
+            linkOrder: newLinkOrder,
         };
 
         const newState = {
@@ -76,6 +76,8 @@ export function DragAndDrop() {
                 [newColumn.id]: newColumn,
             },
         };
+
+        console.log(newState);
 
         setData(newState);
     }
@@ -88,10 +90,8 @@ export function DragAndDrop() {
                     (linkId) => data.links[linkId]
                 );
 
-                console.log("here", links);
-
                 return (
-                    <Droppable droppableId={column.id}>
+                    <Droppable key={column.id} droppableId={column.id}>
                         {(provided) => (
                             <div
                                 {...provided.droppableProps}
@@ -99,6 +99,7 @@ export function DragAndDrop() {
                             >
                                 {links.map((link, index) => (
                                     <Draggable
+                                        key={link.id}
                                         draggableId={link.id}
                                         index={index}
                                     >
