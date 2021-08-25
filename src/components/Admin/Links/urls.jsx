@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateLinks } from "../../../features/Auth/authSlice";
 
 import styles from "./urls.module.scss";
+import { DragAndDrop } from "../DragAndDrop";
 
 export function UrlContainer() {
     const username = "testuser";
@@ -45,7 +46,9 @@ export function UrlContainer() {
                     <GoZap />
                 </button>
             </div>
-            <div></div>
+            <div>
+                <DragAndDrop />
+            </div>
         </section>
     );
 }
