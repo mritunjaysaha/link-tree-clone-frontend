@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import AutosizeInput from "react-input-autosize";
-import { GoZap, GoKebabVertical } from "react-icons/go";
+import { GoKebabVertical } from "react-icons/go";
 import {
     UilPen,
     UilTrashAlt,
     UilScenery,
     UilTimes,
 } from "@iconscout/react-unicons";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import styles from "./urls.module.scss";
 

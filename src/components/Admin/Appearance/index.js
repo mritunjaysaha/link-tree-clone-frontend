@@ -172,8 +172,6 @@ function Profile() {
     );
 }
 
-function Theme() {}
-
 export function Appearance() {
     return (
         <section className={styles.appearanceSection}>

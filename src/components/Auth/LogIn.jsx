@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 
-import { setUserData, setAuth } from "../../features/Auth/authSlice";
+import { setAuth } from "../../features/Auth/authSlice";
 import styles from "./login.module.scss";
 
 export function LogIn() {

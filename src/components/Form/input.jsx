@@ -1,8 +1,6 @@
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-const grey = "#263238";
-const lightGrey = "#dce0e2";
 const lightGrey1 = "#696e74";
 const veryLightGrey = "#f5f6f8";
 const error = "red";

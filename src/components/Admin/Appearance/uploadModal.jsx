@@ -73,7 +73,7 @@ export function UploadModal() {
         return () => {
             files.forEach((file) => URL.revokeObjectURL(file.preview));
         };
-    }, [files]);
+    }, [files, dispatch]);
 
     return (
         <section className={styles.uploadModalContainer}>

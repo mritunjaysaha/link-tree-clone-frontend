@@ -47,6 +47,8 @@ export function DragAndDrop({ links, userId = "" }) {
             linkOrder.map((linkId, index) => {
                 const link = data.links[linkId].content;
                 updateOrder(link, index);
+
+                return 0;
             });
         }
     }, [data, userId]);
