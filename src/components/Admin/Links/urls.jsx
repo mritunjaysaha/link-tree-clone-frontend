@@ -40,8 +40,13 @@ export function UrlContainer() {
                 console.log(res.data.currentLink);
 
                 dispatch(
-                    updateLinks([{ _id: res.data.currentLink, ...newLink }])
+                    updateLinks([
+                        { _id: res.data.currentLink, ...newLink },
+                        ...links,
+                    ])
                 );
+
+                handleReload();
             })
             .catch((err) => console.log(err.message));
 
@@ -62,7 +67,7 @@ export function UrlContainer() {
             </div>
 
             <div>
-                <DragAndDrop links={links} />
+                <DragAndDrop links={links} userId={userId} />
             </div>
         </section>
     );

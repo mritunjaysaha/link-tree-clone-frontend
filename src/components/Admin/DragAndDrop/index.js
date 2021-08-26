@@ -1,12 +1,16 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { UrlItem } from "../Links/urlItem";
 
-export function DragAndDrop({ links }) {
-    console.log({ links });
-
+/**
+ *
+ * @param {links} links - array of links
+ * @param {userId} userId
+ * @returns
+ */
+export function DragAndDrop({ links, userId = "" }) {
     const [data, setData] = useState({});
-
     useEffect(() => {
         const newLinks = {};
         const linkOrder = [];
@@ -14,11 +18,7 @@ export function DragAndDrop({ links }) {
         for (let i = 0; i < links.length; i++) {
             newLinks[`link${i}`] = {
                 id: `link${i}`,
-                content: {
-                    _id: links[i]._id,
-                    name: links[i].name,
-                    url: links[i].url,
-                },
+                content: { ...links[i] },
             };
             linkOrder.push(`link${i}`);
         }
@@ -28,11 +28,10 @@ export function DragAndDrop({ links }) {
             columns: { column0: { id: "column0", linkOrder: linkOrder } },
             columnOrder: ["column0"],
         });
-
-        console.log("drag and drop", data);
     }, [links]);
 
     function onDragEnd(result) {
+        console.log("result", result);
         const { destination, source, draggableId } = result;
 
         if (!destination) {
@@ -64,8 +63,6 @@ export function DragAndDrop({ links }) {
             },
         };
 
-        console.log(newState);
-
         setData(newState);
     }
 
@@ -94,16 +91,18 @@ export function DragAndDrop({ links }) {
                                                 draggableId={link.id}
                                                 index={index}
                                             >
-                                                {(provided) => (
-                                                    <UrlItem
-                                                        innerRef={
-                                                            provided.innerRef
-                                                        }
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        link={link.content}
-                                                    />
-                                                )}
+                                                {(provided) => {
+                                                    return (
+                                                        <UrlItem
+                                                            innerRef={
+                                                                provided.innerRef
+                                                            }
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            link={link.content}
+                                                        />
+                                                    );
+                                                }}
                                             </Draggable>
                                         ))}
                                         {provided.placeholder}

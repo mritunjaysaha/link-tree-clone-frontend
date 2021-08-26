@@ -9,7 +9,6 @@ import {
     UilTimes,
 } from "@iconscout/react-unicons";
 import { useSelector, useDispatch } from "react-redux";
-import { updateLinks } from "../../../features/Auth/authSlice";
 
 import styles from "./urls.module.scss";
 
@@ -72,7 +71,6 @@ export function UrlItem({
     innerRef,
     ...rest
 }) {
-    console.log("url item", link);
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -84,7 +82,7 @@ export function UrlItem({
 
     // ? pulling out name and url from linkData
     // ? linkData contains the details of the link
-    const { name, url, _id: linkId, order } = link;
+    const { name, url, _id: linkId } = link;
     const [urlData, setUrlData] = useState({
         name: name ? name : "",
         url: url ? url : "",
@@ -123,16 +121,8 @@ export function UrlItem({
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
     }
 
-    /**
-     * * handleOnBlur function will update the link when the focus moves outside
-     * ? if the link is new then send request to create link
-     * ? else use the existing link's _id to update the link details
-     *
-     * ^ To create a link we need user id
-     * ^ To update a link we need user id and link id
-     */
     async function handleOnBlur() {
-        console.log("handleOnBlue", urlData, userId, linkId);
+        console.log("handleOnBlur", urlData);
         await axios
             .put(`/api/link/${userId}/${linkId}`, urlData)
             .then((res) => {
@@ -220,7 +210,6 @@ export function UrlItem({
                         handleDelete={() => {
                             handleDelete();
                             handleDeleteRequest();
-                            filterLinksArr(link);
                         }}
                         handleCancel={handleDelete}
                     />
