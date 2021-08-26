@@ -8,8 +8,6 @@ export function DragAndDrop({ links }) {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        console.log("use effect", links);
-
         const newLinks = {};
         const linkOrder = [];
 
@@ -21,15 +19,13 @@ export function DragAndDrop({ links }) {
             linkOrder.push(`link${i}`);
         }
 
-        console.log({ newLinks, linkOrder });
-
         setData({
             links: newLinks,
             columns: { column0: { id: "column0", linkOrder: linkOrder } },
             columnOrder: ["column0"],
         });
 
-        console.log("use effect", data);
+        console.log("drag and drop", data);
     }, [links]);
 
     function onDragEnd(result) {

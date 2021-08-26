@@ -10,7 +10,7 @@ import { DragAndDrop } from "../DragAndDrop";
 export function UrlContainer() {
     const username = "testuser";
     const dispatch = useDispatch();
-    const { links } = useSelector((state) => state.user);
+    const { links, _id: userId } = useSelector((state) => state.user);
     const [reload, setReload] = useState("");
 
     useEffect(() => {
@@ -25,26 +25,25 @@ export function UrlContainer() {
         getURLS();
     }, [dispatch, reload]);
 
-    // useEffect(() => {
-    //     links.map((link, index) => {
-    //         newLinkData[`link${index}`] = {
-    //             id: `link${index}`,
-    //             content: link,
-    //         };
+    async function handleAddButton() {
+        const newLink = {
+            name: "",
+            url: "",
+            author: userId,
+        };
 
-    //         setLinkOrder((prev) => [...prev, `link${index}`]);
+        console.log(axios.defaults.headers);
 
-    //         console.log({ linkOrder });
-    //     });
-    // }, [links]);
+        await axios
+            .post(`/api/link/${userId}`, newLink)
+            .then((res) => {
+                console.log(res.data.currentLink);
 
-    function handleAddButton() {
-        dispatch(
-            updateLinks([
-                { _id: "", order: links.length + 1, name: "", url: "" },
-                ...links,
-            ])
-        );
+                dispatch(
+                    updateLinks([{ _id: res.data.currentLink, ...newLink }])
+                );
+            })
+            .catch((err) => console.log(err.message));
     }
 
     function handleReload() {
