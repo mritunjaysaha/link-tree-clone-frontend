@@ -44,6 +44,8 @@ export function UrlContainer() {
                 );
             })
             .catch((err) => console.log(err.message));
+
+        console.log("hre", links, { userId });
     }
 
     function handleReload() {

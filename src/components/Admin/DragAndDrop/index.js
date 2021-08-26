@@ -14,7 +14,11 @@ export function DragAndDrop({ links }) {
         for (let i = 0; i < links.length; i++) {
             newLinks[`link${i}`] = {
                 id: `link${i}`,
-                content: { name: links[i].name, url: links[i].url },
+                content: {
+                    _id: links[i]._id,
+                    name: links[i].name,
+                    url: links[i].url,
+                },
             };
             linkOrder.push(`link${i}`);
         }

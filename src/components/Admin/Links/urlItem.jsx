@@ -72,7 +72,7 @@ export function UrlItem({
     innerRef,
     ...rest
 }) {
-    console.log("urlitem");
+    console.log("url item", link);
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
 
@@ -132,32 +132,13 @@ export function UrlItem({
      * ^ To update a link we need user id and link id
      */
     async function handleOnBlur() {
-        const { name, url } = urlData;
-
-        if (!link._id) {
-            const newLink = {
-                name,
-                url,
-                author: userId,
-                order,
-            };
-
-            await axios
-                .post(`/api/link/${userId}`, newLink)
-                .then((res) => {
-                    console.log("link successfully created", res);
-
-                    handleReload();
-                })
-                .catch((err) => console.log(err.message));
-        } else {
-            await axios
-                .put(`/api/link/${userId}/${linkId}`, urlData)
-                .then((res) => {
-                    console.log("link successfully updated", res);
-                })
-                .catch((err) => console.log(err.message));
-        }
+        console.log("handleOnBlue", urlData, userId, linkId);
+        await axios
+            .put(`/api/link/${userId}/${linkId}`, urlData)
+            .then((res) => {
+                console.log("link successfully updated", res);
+            })
+            .catch((err) => console.log(err.message));
     }
 
     return (
