@@ -30,6 +30,36 @@ export function DragAndDrop({ links, userId = "" }) {
         });
     }, [links]);
 
+    useEffect(() => {
+        async function updateOrder(link, index) {
+            const { _id: linkId } = link;
+
+            console.log("re", index, link.order, link.name);
+
+            const newLink = { order: index };
+
+            await axios
+                .put(`/api/link/${userId}/${linkId}`, newLink)
+                .then((res) => console.log("re successfully updated", res.data))
+                .catch((err) => console.log("re", err.message));
+        }
+
+        if (!!data.links) {
+            console.log("re", data);
+
+            const { linkOrder } = data.columns.column0;
+            console.log("re", linkOrder);
+            linkOrder.map((linkId, index) => {
+                const link = data.links[linkId].content;
+                updateOrder(link, index);
+            });
+
+            console.log("re----------------------------------");
+        }
+
+        console.log("re", data);
+    }, [data, userId]);
+
     function onDragEnd(result) {
         console.log("result", result);
         const { destination, source, draggableId } = result;
