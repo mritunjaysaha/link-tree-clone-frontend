@@ -18,6 +18,7 @@ export function UrlContainer() {
             axios
                 .get(`/api/link/${username}`)
                 .then((res) => {
+                    res.data.links.sort((a, b) => a.order - b.order);
                     dispatch(updateLinks(res.data.links));
                 })
                 .catch((err) => console.log(err.message, err.error));

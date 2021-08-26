@@ -18,11 +18,9 @@ const createImage = (url) =>
         image.addEventListener("error", (error) => reject(error));
         image.setAttribute("crossOrigin", "anonymous"); // needed to avoid cross-origin issues on CodeSandbox
         image.src = url;
-        console.log({ url });
     });
 
 async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
-    console.log({ imageSrc });
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -92,7 +90,6 @@ export function ImageCropper({ image }) {
     const saveCroppedImage = useCallback(async () => {
         try {
             const croppedImage = await getCroppedImg(image, croppedAreaPixels);
-            console.log("donee", { croppedImage });
             setCroppedImage(croppedImage);
         } catch (e) {
             console.error(e);
@@ -102,8 +99,6 @@ export function ImageCropper({ image }) {
     const uploadCroppedImage = () => {
         let data = new FormData();
         data.append("photo", croppedImage);
-
-        console.log(data);
 
         axios
             .post(`api/user/photo/${_id}`, data)
@@ -135,7 +130,6 @@ export function ImageCropper({ image }) {
                         className={`${styles.adminIcon} ${styles.leftArrowIcon}`}
                         onClick={() => {
                             dispatch(cropModalReducer());
-                            console.log("clicked");
                         }}
                     />
                     <p>Edit image</p>
