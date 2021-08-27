@@ -14,7 +14,7 @@ function PreviewNav() {
 }
 
 function MobilePreview() {
-    const user = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state);
 
     return (
         <section className={styles.previewMobile}>

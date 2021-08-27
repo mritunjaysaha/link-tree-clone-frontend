@@ -76,11 +76,16 @@ const MUITextArea = withStyles({
 
 function Profile() {
     const { pickModal } = useSelector((state) => state.modal);
-    const { photo, _id } = useSelector((state) => state.user);
+    const {
+        photo,
+        _id,
+        profileTitle: oldProfileTitle,
+        bio: oldBio,
+    } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const [profileTitle, setProfileTitle] = useState("");
-    const [bio, setBio] = useState("");
+    const [profileTitle, setProfileTitle] = useState(oldBio);
+    const [bio, setBio] = useState(oldProfileTitle);
 
     const max = 80;
 

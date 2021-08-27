@@ -12,6 +12,7 @@ export function UrlContainer() {
     const { links, _id: userId, username } = useSelector((state) => state.user);
     const [reload, setReload] = useState("");
 
+    console.log("url", links);
     useEffect(() => {
         function getURLS() {
             axios
@@ -32,8 +33,6 @@ export function UrlContainer() {
             url: "",
             author: userId,
         };
-
-        console.log(axios.defaults.headers);
 
         await axios
             .post(`/api/link/${userId}`, newLink)

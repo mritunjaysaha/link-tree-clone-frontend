@@ -10,7 +10,6 @@ import styles from "./userview.module.scss";
 
 export function UserViewContents({ user, isPreview = false }) {
     const { links, profileTitle, bio, photo, username } = user;
-
     return (
         <section
             className={
@@ -28,23 +27,23 @@ export function UserViewContents({ user, isPreview = false }) {
                     />
                 </picture>
                 <p className={styles.profileTitle}>
-                    {profileTitle ? profileTitle : `@${username}`}
+                    {console.log("username", username)}
+                    {!profileTitle ? `@${username}` : profileTitle}
                 </p>
                 {bio ? <p className={styles.bio}>{bio}</p> : ""}
             </header>
             <section className={styles.contentsSection}>
-                {/* bio */}
-
                 {/* links */}
                 {links.length > 0 ? (
                     <ul className={styles.linksContainer}>
-                        {links.map((link) => (
+                        {links.map((link, index) => (
                             <a
+                                key={index}
                                 rel="noopener noreferrer"
                                 target="_blank"
                                 href={link.url ? link.url : ""}
                             >
-                                <li key={link.order}>{link.name}</li>
+                                <li>{link.name}</li>
                             </a>
                         ))}
                     </ul>

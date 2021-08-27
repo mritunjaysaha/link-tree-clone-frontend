@@ -71,19 +71,9 @@ export function Admin() {
         axios
             .get(`/api/user/${_id}`)
             .then((res) => {
-                const user = res.data;
+                console.log("user now", res.data);
 
-                const data = {
-                    _id: user._id,
-                    user: user.username,
-                    email: user.email,
-                    links: [],
-                    photo: user.photo ? user.photo : { data: { data: [] } },
-                    profileTitle: user.profileTitle ? user.profileTitle : "",
-                    bio: user.bio ? user.bio : "",
-                };
-
-                dispatch(setUserData(data));
+                dispatch(setUserData(res.data));
             })
             .catch((err) => console.log(err.message));
     }, [_id, dispatch]);
