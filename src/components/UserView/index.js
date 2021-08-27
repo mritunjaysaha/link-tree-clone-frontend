@@ -48,15 +48,13 @@ function UserView({ user }) {
                     {links.length > 0 ? (
                         <ul className={styles.linksContainer}>
                             {links.map((link) => (
-                                <li key={link.order}>
-                                    <a
-                                        rel="noopener noreferrer"
-                                        target="_blank"
-                                        href={link.url ? link.url : ""}
-                                    >
-                                        {link.name}
-                                    </a>
-                                </li>
+                                <a
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    href={link.url ? link.url : ""}
+                                >
+                                    <li key={link.order}>{link.name}</li>
+                                </a>
                             ))}
                         </ul>
                     ) : (

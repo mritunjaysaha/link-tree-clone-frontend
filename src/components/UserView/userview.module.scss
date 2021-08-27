@@ -36,7 +36,7 @@
         margin-top: 4rem;
 
         picture {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
 
             img {
                 width: 9.2rem;
@@ -60,17 +60,24 @@
             text-align: center;
 
             width: 100%;
-            margin-top: 2rem;
 
             li {
                 background-color: white;
-                padding: 2rem;
-                // border: 1px solid yellow;
-
+                border: 0.2rem solid white;
+                padding: 1.6rem 0;
                 line-height: 2.4rem;
 
+                transition: all 0.2s linear;
+
                 a {
+                    width: 100%;
                     color: black;
+                }
+
+                &:hover {
+                    background: transparent;
+                    color: white;
+                    border: 0.2rem solid white;
                 }
             }
         }
@@ -84,7 +91,8 @@
         font-size: $fs24;
 
         img {
-            width: 3rem;
+            width: 2.4rem;
+            margin-right: 0.4rem;
         }
     }
 }
