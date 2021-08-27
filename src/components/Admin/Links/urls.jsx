@@ -28,6 +28,7 @@ export function UrlContainer() {
 
     async function handleAddButton() {
         const newLink = {
+            order: links.length + 1,
             name: "",
             url: "",
             author: userId,
@@ -42,16 +43,14 @@ export function UrlContainer() {
 
                 dispatch(
                     updateLinks([
-                        { _id: res.data.currentLink, ...newLink },
                         ...links,
+                        { _id: res.data.currentLink, ...newLink },
                     ])
                 );
 
                 handleReload();
             })
             .catch((err) => console.log(err.message));
-
-        console.log("hre", links, { userId });
     }
 
     function handleReload() {
