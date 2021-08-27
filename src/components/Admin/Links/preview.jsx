@@ -1,4 +1,7 @@
 import styles from "./preview.module.scss";
+import userStyles from "../../UserView/userview.module.scss";
+import { UserViewContents } from "../../UserView";
+import { useSelector } from "react-redux";
 
 function PreviewNav() {
     return (
@@ -12,16 +15,20 @@ function PreviewNav() {
 }
 
 function MobilePreview() {
+    const user = useSelector((state) => state.user);
+
     return (
         <section className={styles.previewMobile}>
-            <div className={styles.mobileOuter}>
+            {/* <div className={styles.mobileOuter}>
                 <div className={styles.mobileInner}>
                     <div className={styles.photo}>img</div>
                     <div className={styles.username}>username</div>
                     <ul className={styles.urls}>url</ul>
                     <div className={styles.logo}>linktree</div>
+
+                    <UserViewContents user={user} />
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 }

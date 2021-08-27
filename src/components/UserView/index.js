@@ -8,64 +8,70 @@ import { convertToBinary } from "../../utils/convertToBinary";
 import linktree from "../../assets/linktree.svg";
 import styles from "./userview.module.scss";
 
-function UserView({ user }) {
-    const { photo, links, profileTitle, bio, username } = useSelector(
-        (state) => state.user
+export function UserViewContents({ user }) {
+    const { links, profileTitle, bio, photo, username } = user;
+
+    return (
+        <section className={styles.userviewInnerSection}>
+            {/* User image */}
+            <header>
+                <picture>
+                    <img
+                        src={convertToBinary(photo)}
+                        alt={username ? username : ""}
+                    />
+                </picture>
+                <p className={styles.profileTitle}>
+                    {profileTitle ? profileTitle : `@${username}`}
+                </p>
+                {bio ? <p className={styles.bio}>{bio}</p> : ""}
+            </header>
+            <section className={styles.contentsSection}>
+                {/* bio */}
+
+                {/* links */}
+                {links.length > 0 ? (
+                    <ul className={styles.linksContainer}>
+                        {links.map((link) => (
+                            <a
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href={link.url ? link.url : ""}
+                            >
+                                <li key={link.order}>{link.name}</li>
+                            </a>
+                        ))}
+                    </ul>
+                ) : (
+                    ""
+                )}
+            </section>
+            <footer>
+                <img src={linktree} alt="linktree" />
+                <p>linktree</p>
+            </footer>
+        </section>
     );
+}
+function UserView({ user: username }) {
+    const user = useSelector((state) => state.user);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user) {
+        if (username) {
             axios
-                .get(`/api/user/userview/${user}`)
+                .get(`/api/user/userview/${username}`)
                 .then((res) => {
                     dispatch(setUserData(res.data));
                 })
                 .catch((err) => console.log(err.message));
         }
-    }, [user, dispatch]);
+    }, []);
 
     return (
         <section className={styles.userviewSection}>
-            <section className={styles.userviewInnerSection}>
-                {/* User image */}
-                <header>
-                    <picture>
-                        <img
-                            src={convertToBinary(photo)}
-                            alt={username ? username : ""}
-                        />
-                    </picture>
-                    <p className={styles.profileTitle}>
-                        {profileTitle ? profileTitle : `@${username}`}
-                    </p>
-                    {bio ? <p className={styles.bio}>{bio}</p> : ""}
-                </header>
-                <section className={styles.contentsSection}>
-                    {/* bio */}
-
-                    {/* links */}
-                    {links.length > 0 ? (
-                        <ul className={styles.linksContainer}>
-                            {links.map((link) => (
-                                <a
-                                    rel="noopener noreferrer"
-                                    target="_blank"
-                                    href={link.url ? link.url : ""}
-                                >
-                                    <li key={link.order}>{link.name}</li>
-                                </a>
-                            ))}
-                        </ul>
-                    ) : (
-                        ""
-                    )}
-                </section>
-                <footer>
-                    <img src={linktree} alt="linktree" />
-                    <p>linktree</p>
-                </footer>
-            </section>
+            <UserViewContents user={user} />
         </section>
     );
 }
