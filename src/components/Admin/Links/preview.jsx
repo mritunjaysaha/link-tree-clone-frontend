@@ -1,5 +1,4 @@
 import styles from "./preview.module.scss";
-import userStyles from "../../UserView/userview.module.scss";
 import { UserViewContents } from "../../UserView";
 import { useSelector } from "react-redux";
 
