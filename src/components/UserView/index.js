@@ -72,7 +72,7 @@ function UserView({ user: username }) {
                 })
                 .catch((err) => console.log(err.message));
         }
-    }, []);
+    }, [dispatch, username]);
 
     return (
         <section className={styles.userviewSection}>
