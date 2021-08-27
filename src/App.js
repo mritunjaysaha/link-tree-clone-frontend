@@ -14,7 +14,7 @@ import { Admin } from "./components/Admin/index";
 
 import { UserViewPage } from "./components/UserView";
 
-import { PrivateRoute } from "./helpers/privateRoute";
+import { PrivateRoute } from "./utils/privateRoute";
 
 import { urls } from "./data/data";
 import { store } from "./app/store";
