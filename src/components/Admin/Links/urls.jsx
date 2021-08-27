@@ -8,9 +8,8 @@ import styles from "./urls.module.scss";
 import { DragAndDrop } from "../DragAndDrop";
 
 export function UrlContainer() {
-    const username = "testuser";
     const dispatch = useDispatch();
-    const { links, _id: userId } = useSelector((state) => state.user);
+    const { links, _id: userId, username } = useSelector((state) => state.user);
     const [reload, setReload] = useState("");
 
     useEffect(() => {
@@ -24,7 +23,7 @@ export function UrlContainer() {
                 .catch((err) => console.log(err.message, err.error));
         }
         getURLS();
-    }, [dispatch, reload]);
+    }, [dispatch, reload, username]);
 
     async function handleAddButton() {
         const newLink = {

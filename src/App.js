@@ -9,7 +9,7 @@ import { Navbar } from "./components/Navbar";
 import { Dashboard } from "./components/Dashboard";
 
 import { setAuthToken } from "./utils/setAuthToken";
-import { setAuth } from "./features/Auth/authSlice";
+import { setAuth, setUserData } from "./features/Auth/authSlice";
 import { Admin } from "./components/Admin/index";
 
 import { UserViewPage } from "./components/UserView";
@@ -34,6 +34,15 @@ if (localStorage.jwtToken) {
 
     // set user and isAuthenticated
     store.dispatch(setAuth(decoded));
+
+    console.log("decoded", decoded);
+    axios
+        .get(`/api/user/${decoded._id}`)
+        .then((res) => {
+            console.log("res", res.data);
+            store.dispatch(setUserData(res.data));
+        })
+        .catch((err) => console.log(err.message));
     // check for expired token
     const currentTime = Date.now() / 1000;
 
