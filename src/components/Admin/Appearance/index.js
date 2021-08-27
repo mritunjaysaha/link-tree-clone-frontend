@@ -8,7 +8,7 @@ import { ImageModal, MUIModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 import { removePhoto } from "../../../features/Auth/authSlice";
-
+import { convertToBinary } from "../../../utils/convertToBinary";
 import styles from "./appearance.module.scss";
 
 // replace these with styles variables from styles/abstract/variables.scss
@@ -128,7 +128,7 @@ function Profile() {
                 <p>profile</p>
                 <div className={styles.profileInner}>
                     <figure>
-                        <img src={new Buffer(photo, "binary")} alt="" />
+                        <img src={convertToBinary(photo)} alt="" />
                         <figcaption>
                             <button onClick={handleModal}>Pick an image</button>
                             <button onClick={handleRemove}>Remove</button>
