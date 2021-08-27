@@ -19,16 +19,9 @@ function MobilePreview() {
 
     return (
         <section className={styles.previewMobile}>
-            {/* <div className={styles.mobileOuter}>
-                <div className={styles.mobileInner}>
-                    <div className={styles.photo}>img</div>
-                    <div className={styles.username}>username</div>
-                    <ul className={styles.urls}>url</ul>
-                    <div className={styles.logo}>linktree</div>
-
-                    <UserViewContents user={user} />
-                </div>
-            </div> */}
+            <div className={styles.mobileOuter}>
+                <UserViewContents user={user} isPreview={true} />
+            </div>
         </section>
     );
 }

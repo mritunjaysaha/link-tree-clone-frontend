@@ -8,13 +8,19 @@ import { convertToBinary } from "../../utils/convertToBinary";
 import linktree from "../../assets/linktree.svg";
 import styles from "./userview.module.scss";
 
-export function UserViewContents({ user }) {
+export function UserViewContents({ user, isPreview = false }) {
     const { links, profileTitle, bio, photo, username } = user;
 
     return (
-        <section className={styles.userviewInnerSection}>
+        <section
+            className={
+                isPreview
+                    ? `${styles.userviewPreview}`
+                    : `${styles.userviewInnerSection}`
+            }
+        >
             {/* User image */}
-            <header>
+            <header className={styles.header}>
                 <picture>
                     <img
                         src={convertToBinary(photo)}
@@ -46,7 +52,7 @@ export function UserViewContents({ user }) {
                     ""
                 )}
             </section>
-            <footer>
+            <footer className={styles.footer}>
                 <img src={linktree} alt="linktree" />
                 <p>linktree</p>
             </footer>
