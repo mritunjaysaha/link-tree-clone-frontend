@@ -9,8 +9,10 @@ import { DragAndDrop } from "../DragAndDrop";
 
 export function UrlContainer() {
     const dispatch = useDispatch();
-    const { links, _id: userId, username } = useSelector((state) => state.user);
+    const { _id: userId, username } = useSelector((state) => state.user);
     const [reload, setReload] = useState("");
+
+    const [links, setLinks] = useState([]);
 
     console.log("url", links);
     useEffect(() => {
@@ -20,6 +22,8 @@ export function UrlContainer() {
                 .then((res) => {
                     res.data.links.sort((a, b) => a.order - b.order);
                     dispatch(updateLinks(res.data.links));
+
+                    setLinks(res.data.links);
                 })
                 .catch((err) => console.log(err.message, err.error));
         }
@@ -65,7 +69,7 @@ export function UrlContainer() {
             </div>
 
             <div>
-                <DragAndDrop links={links} userId={userId} />
+                {links.length && <DragAndDrop links={links} userId={userId} />}
             </div>
         </section>
     );

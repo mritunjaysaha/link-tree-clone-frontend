@@ -71,8 +71,6 @@ export function Admin() {
         axios
             .get(`/api/user/${_id}`)
             .then((res) => {
-                console.log("user now", res.data);
-
                 dispatch(setUserData(res.data));
             })
             .catch((err) => console.log(err.message));

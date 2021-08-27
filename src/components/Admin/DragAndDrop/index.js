@@ -38,7 +38,9 @@ export function DragAndDrop({ links, userId = "" }) {
 
             await axios
                 .put(`/api/link/${userId}/${linkId}`, newLink)
-                .then((res) => {})
+                .then((res) => {
+                    console.log("successfully updated", res.data);
+                })
                 .catch((err) => console.log(err.message));
         }
 
