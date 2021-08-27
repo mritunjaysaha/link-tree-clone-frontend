@@ -13,10 +13,9 @@
 }
 
 .userviewInnerSection {
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 
     height: 100vh;
     width: 44vw;
@@ -28,7 +27,6 @@
     // padding: 4rem 0;
 
     header {
-        grid-area: 1 / 1 / 4 / 2;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -36,7 +34,7 @@
         margin-top: 4rem;
 
         picture {
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.2rem;
 
             img {
                 width: 9.2rem;
@@ -44,14 +42,24 @@
                 border-radius: 50%;
             }
         }
+
+        .profileTitle {
+            line-height: 2.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .bio {
+            line-height: 2.1rem;
+        }
     }
 
     .contentsSection {
-        grid-area: 4 / 1 / 11 / 2;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
+
+        margin-top: 3.2rem;
 
         .linksContainer {
             display: flex;
@@ -84,11 +92,17 @@
     }
 
     footer {
-        grid-area: 11 / 1 / 12 / 2;
+        position: absolute;
+        bottom: 0;
+
         display: flex;
         justify-content: center;
         align-items: center;
+
+        width: 100%;
+
         font-size: $fs24;
+        padding-bottom: 2rem;
 
         img {
             width: 2.4rem;

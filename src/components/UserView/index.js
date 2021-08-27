@@ -36,13 +36,13 @@ function UserView({ user }) {
                             alt={username ? username : ""}
                         />
                     </picture>
-                    <p className={styles.profileTitleP}>
+                    <p className={styles.profileTitle}>
                         {profileTitle ? profileTitle : `@${username}`}
                     </p>
+                    {bio ? <p className={styles.bio}>{bio}</p> : ""}
                 </header>
                 <section className={styles.contentsSection}>
                     {/* bio */}
-                    {bio ? <p className={styles.bio}>{bio}</p> : ""}
 
                     {/* links */}
                     {links.length > 0 ? (
