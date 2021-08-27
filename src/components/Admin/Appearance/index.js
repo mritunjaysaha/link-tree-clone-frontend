@@ -84,8 +84,10 @@ function Profile() {
     } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const [profileTitle, setProfileTitle] = useState(oldBio);
-    const [bio, setBio] = useState(oldProfileTitle);
+    console.log({ oldBio, oldProfileTitle });
+
+    const [profileTitle, setProfileTitle] = useState(oldProfileTitle);
+    const [bio, setBio] = useState(oldBio);
 
     const max = 80;
 

@@ -35,11 +35,9 @@ if (localStorage.jwtToken) {
     // set user and isAuthenticated
     store.dispatch(setAuth(decoded));
 
-    console.log("decoded", decoded);
     axios
         .get(`/api/user/${decoded._id}`)
         .then((res) => {
-            console.log("res", res.data);
             store.dispatch(setUserData(res.data));
         })
         .catch((err) => console.log(err.message));
