@@ -1,49 +1,73 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../features/Auth/authSlice";
+import { convertToBinary } from "../../utils/convertToBinary";
 
-function UserView({ username }) {
-    const [user, setUser] = useState({
-        username: "",
-        photo: [],
-        links: [],
-        bio: "",
-        profileTitle: "",
-        socialLinks: [],
-    });
+import linktree from "../../assets/linktree.svg";
+import styles from "./userview.module.scss";
+
+function UserView({ user }) {
+    const { photo, links, profileTitle, bio, username } = useSelector(
+        (state) => state.user
+    );
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (username) {
+        if (user) {
             axios
-                .get(`/api/user/userview/${username}`)
+                .get(`/api/user/userview/${user}`)
                 .then((res) => {
-                    setUser((prev) => ({ ...prev, ...res.data.user }));
+                    dispatch(setUserData(res.data));
                 })
                 .catch((err) => console.log(err.message));
         }
-    }, [username]);
+    }, [user, dispatch]);
 
     return (
-        <section>
-            {/* User image */}
-            {console.log("here", { user })}
-            <picture>
-                <img
-                    src={
-                        user.photo.length
-                            ? new Buffer(user.photo.data.data)
-                            : ""
-                    }
-                    alt={username ? username : ""}
-                />
-            </picture>
-            {/* profile title */}
-            <p>{user.profileTitle ? user.profileTitle : username}</p>
-            {/* bio */}
-            {user.bio ? <p>{user.bio}</p> : ""}
-            {/* links */}
-            {user.links.length ? <p>{JSON.stringify(user.links)}</p> : ""}
-            {/*TODO: social icons */}
+        <section className={styles.userviewSection}>
+            <section className={styles.userviewInnerSection}>
+                {/* User image */}
+                <header>
+                    <picture>
+                        <img
+                            src={convertToBinary(photo)}
+                            alt={username ? username : ""}
+                        />
+                    </picture>
+                    <p className={styles.profileTitleP}>
+                        {profileTitle ? profileTitle : `@${username}`}
+                    </p>
+                </header>
+                <section className={styles.contentsSection}>
+                    {/* bio */}
+                    {bio ? <p className={styles.bio}>{bio}</p> : ""}
+
+                    {/* links */}
+                    {links.length > 0 ? (
+                        <ul className={styles.linksContainer}>
+                            {links.map((link) => (
+                                <li key={link.order}>
+                                    <a
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        href={link.url ? link.url : ""}
+                                    >
+                                        {link.name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        ""
+                    )}
+                </section>
+                <footer>
+                    <img src={linktree} alt="linktree" />
+                    <p>linktree</p>
+                </footer>
+            </section>
         </section>
     );
 }
@@ -56,7 +80,7 @@ export function UserViewPage() {
             {!username ? (
                 <section>User not found</section>
             ) : (
-                <UserView username={username} />
+                <UserView user={username} />
             )}
         </>
     );
