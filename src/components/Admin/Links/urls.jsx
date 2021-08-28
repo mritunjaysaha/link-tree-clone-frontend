@@ -10,7 +10,6 @@ import { DragAndDrop } from "../DragAndDrop";
 export function UrlContainer() {
     const dispatch = useDispatch();
     const { _id: userId, username } = useSelector((state) => state.user);
-    const [reload, setReload] = useState("");
 
     const [links, setLinks] = useState([]);
 
@@ -28,7 +27,7 @@ export function UrlContainer() {
                 .catch((err) => console.log(err.message, err.error));
         }
         getURLS();
-    }, [dispatch, reload, username]);
+    }, [dispatch, username]);
 
     async function handleAddButton() {
         const newLink = {
@@ -50,13 +49,9 @@ export function UrlContainer() {
                     ])
                 );
 
-                handleReload();
+                setLinks([...links, { _id: res.data.currentLink, ...newLink }]);
             })
             .catch((err) => console.log(err.message));
-    }
-
-    function handleReload() {
-        setReload(!reload);
     }
 
     return (
