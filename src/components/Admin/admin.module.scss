@@ -31,31 +31,6 @@ $light-blue: #7fdaff;
     color: $light-blue;
 }
 
-.sideNav {
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-    width: $dm64;
-    height: 100vh;
-
-    padding: 2rem 0;
-
-    border-right: 0.1rem solid $border-color;
-
-    img {
-        width: 3.2rem;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-    }
-}
-
 .urlSection {
     z-index: 100;
     position: relative;

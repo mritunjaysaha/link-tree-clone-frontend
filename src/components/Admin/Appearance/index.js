@@ -4,7 +4,8 @@ import { withStyles } from "@material-ui/core";
 import { TextField, TextareaAutosize } from "@material-ui/core";
 import axios from "axios";
 
-import { ImageModal, MUIModal } from "./appearanceModals";
+import { MUIModal } from "../../Modal/muiModal";
+import { ImageModal } from "./appearanceModals";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 import { removePhoto } from "../../../features/Auth/authSlice";
