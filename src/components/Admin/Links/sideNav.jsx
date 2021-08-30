@@ -29,9 +29,6 @@ export function SideNav() {
             {showMenu && (
                 <div
                     className={styles.sideNavMenu}
-                    onMouseEnter={() => {
-                        setShowMenu(true);
-                    }}
                     onMouseLeave={() => {
                         setShowMenu(false);
                     }}
