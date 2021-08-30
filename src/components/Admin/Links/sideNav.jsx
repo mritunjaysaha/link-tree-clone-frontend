@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { convertToBinary } from "../../../utils/convertToBinary";
 
 import styles from "./sidenav.module.scss";
@@ -8,31 +8,43 @@ import linktree from "../../../assets/linktree.svg";
 
 export function SideNav() {
     const { photo, username } = useSelector((state) => state.user);
-
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = (event) => {
-        console.log("current target", event.currentTarget);
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [showMenu, setShowMenu] = useState(false);
 
     return (
         <nav className={styles.sideNav}>
             <img src={linktree} alt="linktree" />
-            <picture onClick={handleClick}>
+            <picture
+                onMouseEnter={() => {
+                    setShowMenu(true);
+                }}
+                onBlur={() => {
+                    setShowMenu(false);
+                }}
+            >
                 <img
                     src={convertToBinary(photo)}
                     alt={username ? username : ""}
                 />
             </picture>
-            <div className={styles.sideNavMenu}>
-                <p>My Account</p>
-                <p>Logout</p>
-            </div>
+            {showMenu && (
+                <div
+                    className={styles.sideNavMenu}
+                    onMouseEnter={() => {
+                        setShowMenu(true);
+                    }}
+                    onMouseLeave={() => {
+                        setShowMenu(false);
+                    }}
+                >
+                    <p>{username}</p>
+                    <ul>
+                        <li>
+                            <Link to="/">My Account</Link>
+                        </li>
+                        <li>Logout</li>
+                    </ul>
+                </div>
+            )}
         </nav>
     );
 }
