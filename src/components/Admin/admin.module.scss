@@ -32,7 +32,6 @@ $light-blue: #7fdaff;
 }
 
 .urlSection {
-    z-index: 100;
     position: relative;
     margin-left: $dm64;
     border-right: 1px solid $border-color;
@@ -43,6 +42,7 @@ $light-blue: #7fdaff;
     background-color: $bg-color-admin;
 
     overflow: hidden;
+    z-index: 100;
 }
 
 .urlNav {

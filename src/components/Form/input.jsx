@@ -48,7 +48,6 @@ export const MUITextField = withStyles({
         "& .MuiInputLabel-shrink": {
             color: `${lightGrey1}`,
         },
-        // MuiFormHelperText-root MuiFormHelperText-contained Mui-error
         "& .MuiFormHelperText-root": {
             marginTop: "-2rem",
             marginBottom: "2rem",

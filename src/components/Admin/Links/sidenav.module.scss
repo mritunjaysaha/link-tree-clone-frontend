@@ -1,7 +1,6 @@
 @import "../admin.module.scss";
 
 .sideNav {
-    z-index: 100;
     position: fixed;
     top: 0;
     left: 0;
@@ -17,7 +16,7 @@
     padding: 2rem 0;
 
     border-right: 0.1rem solid $border-color;
-
+    z-index: 200;
     img {
         position: relative;
         width: 3.2rem;
@@ -28,12 +27,12 @@
     }
 }
 
-.sideNavModal {
+.sideNavMenu {
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 10000;
 
-    background-color: white;
-    width: 24rem;
+    width: 24rem !important;
+    aspect-ratio: 1/1;
+    border: 1px solid red;
 }
