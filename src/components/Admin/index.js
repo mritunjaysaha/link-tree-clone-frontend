@@ -85,12 +85,10 @@ export function Admin() {
         axios
             .get(`/api/user/photo/${username}`)
             .then((res) => {
-                console.log("new photo", res.data);
-
                 dispatch(setPhoto(res.data.photo.data));
             })
             .catch((err) => console.log(err.message));
-    }, []);
+    }, [username, dispatch]);
 
     return (
         <section className={styles.adminContainer}>

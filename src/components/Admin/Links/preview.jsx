@@ -3,10 +3,13 @@ import { UserViewContents } from "../../UserView";
 import { useSelector } from "react-redux";
 
 function PreviewNav() {
+    const { username } = useSelector((state) => state.user);
+
     return (
         <nav className={styles.previewNav}>
             <p>
-                My Linktree:&nbsp;<span>http://</span>
+                My Link:&nbsp;
+                <span>http://link-tree-clone.vercel.app/{username}</span>
             </p>
             <button className={styles.previewShareButton}>Share</button>
         </nav>
