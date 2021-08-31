@@ -91,7 +91,6 @@ function Profile() {
                             onChange={handleProfileTitle}
                             onBlur={handleSubmit}
                         />
-
                         <p>Bio</p>
                         <TextareaAutosize
                             name="bio"

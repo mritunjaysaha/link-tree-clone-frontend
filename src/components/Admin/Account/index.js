@@ -8,20 +8,24 @@ export function Account() {
 
             <article>
                 <p>My Information</p>
-                <div>
+                <div className={styles.inputContainer}>
                     <MUITextFieldBorderBottom
                         fullWidth
-                        name="name"
-                        label="name"
+                        variant="filled"
                         type="text"
-                        value="mritunjaysaha"
+                        name="name"
+                        label="Profile Title"
+                        // value={profileTitle}
+                        // onChange={handleProfileTitle}
+                        // onBlur={handleSubmit}
                     />
                     <MUITextFieldBorderBottom
                         fullWidth
+                        variant="filled"
                         name="email"
                         label="email"
                         type="email"
-                        value="asjdkla"
+                        // value="asjdkla"
                     />
                 </div>
 

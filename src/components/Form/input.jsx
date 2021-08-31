@@ -75,7 +75,7 @@ export const MUITextFieldBorderBottom = withStyles({
         },
         "& .MuiFilledInput-input": {
             paddingLeft: "0",
-            marginBottom: "1rem",
+            margin: "0",
             borderBottom: `0.1rem solid ${lightGrey}`,
             color: `${black}`,
             "&:focus-within": {
@@ -95,13 +95,8 @@ export const MUITextFieldBorderBottom = withStyles({
             },
         },
         "& .MuiInputLabel-shrink": {
-            paddingLeft: "0",
             color: `${lightGrey1}`,
-        },
-        "& .MuiFormHelperText-root": {
-            marginTop: "-2rem",
-            marginBottom: "2rem",
-            fontSize: "1.4rem",
+            marginLeft: "-1rem",
         },
     },
 })(TextField);

@@ -9,12 +9,24 @@
         text-align: center;
         font-size: $fs32;
         font-weight: $fw-bold;
+        margin-bottom: 8rem;
     }
 
     article {
         p {
             font-size: $fs20;
             font-weight: $fw-bold;
+            margin-bottom: 1.6rem;
+        }
+
+        .inputContainer {
+            background-color: $bg-color-alpha;
+            border-radius: $border-radius-04;
+            padding: 0 2rem;
+
+            .marginBottom {
+                margin-bottom: 1.6rem;
+            }
         }
     }
 }
