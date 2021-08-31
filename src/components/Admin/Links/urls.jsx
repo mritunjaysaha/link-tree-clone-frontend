@@ -64,7 +64,11 @@ export function UrlContainer() {
             </div>
 
             <div>
-                {links.length && <DragAndDrop links={links} userId={userId} />}
+                {links.length ? (
+                    <DragAndDrop links={links} userId={userId} />
+                ) : (
+                    ""
+                )}
             </div>
         </section>
     );
