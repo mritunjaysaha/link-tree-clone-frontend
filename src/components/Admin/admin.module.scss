@@ -112,6 +112,13 @@ $light-blue: #7fdaff;
     right: 0;
 }
 
+.accountSection {
+    position: relative;
+    margin-left: $dm64;
+    width: calc(100vw - 6.4rem);
+    background-color: rebeccapurple;
+}
+
 .fadeIn {
     animation: fadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }

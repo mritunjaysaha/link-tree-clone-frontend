@@ -55,7 +55,6 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Navbar />
-                {/* TODO Add private routes for ADMIN */}
 
                 <Switch>
                     <Route exact path={urls.dashboard} component={Dashboard} />

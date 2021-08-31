@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
     Switch,
     Route,
@@ -9,15 +10,15 @@ import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../features/Auth/authSlice";
-
+// nav
 import { SideNav } from "./Links/sideNav";
 import { UrlContainer } from "./Links/urls";
 import { Preview } from "./Links/preview";
+// pae component
+import { Appearance } from "./Appearance";
+import { Account } from "./Account";
 
 import styles from "./admin.module.scss";
-
-import { Appearance } from "./Appearance";
-import { useEffect } from "react";
 
 function UrlNav({ url }) {
     const location = useLocation();
@@ -67,6 +68,11 @@ export function Admin() {
     const { _id } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
+    const location = useLocation();
+    const isAccount =
+        location.pathname.split("/")[2] === "account" ? true : false;
+    console.log("location", location, isAccount);
+
     useEffect(() => {
         axios
             .get(`/api/user/${_id}`)
@@ -79,10 +85,19 @@ export function Admin() {
     return (
         <section className={styles.adminContainer}>
             <SideNav />
-            <UrlNav url={url} />
+            {!isAccount && <UrlNav url={url} />}
 
-            <section className={styles.urlSection}>
+            <section
+                className={
+                    !isAccount
+                        ? `${styles.urlSection}`
+                        : `${styles.accountSection}`
+                }
+            >
                 <Switch>
+                    <Route exact path={`${path}/account`}>
+                        <Account />
+                    </Route>
                     <Route exact path={path}>
                         <UrlContainer />
                     </Route>
@@ -92,9 +107,11 @@ export function Admin() {
                 </Switch>
             </section>
 
-            <section className={styles.previewSection}>
-                <Preview />
-            </section>
+            {!isAccount && (
+                <section className={styles.previewSection}>
+                    <Preview />
+                </section>
+            )}
         </section>
     );
 }
