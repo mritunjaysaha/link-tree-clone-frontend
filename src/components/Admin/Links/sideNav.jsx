@@ -12,7 +12,6 @@ import { urls } from "../../../data/data";
 
 export function SideNav() {
     const { photo, username } = useSelector((state) => state.user);
-
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useDispatch();
@@ -42,7 +41,7 @@ export function SideNav() {
                 }}
             >
                 <img
-                    src={convertToBinary(photo ? photo : "")}
+                    src={convertToBinary(photo)}
                     alt={username ? username : ""}
                 />
             </picture>

@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../../features/Auth/authSlice";
+import { setPhoto, setUserData } from "../../features/Auth/authSlice";
 // nav
 import { SideNav } from "./Links/sideNav";
 import { UrlContainer } from "./Links/urls";
@@ -65,7 +65,7 @@ function UrlNav({ url }) {
 
 export function Admin() {
     const { path, url } = useRouteMatch();
-    const { _id } = useSelector((state) => state.user);
+    const { _id, username } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -80,6 +80,17 @@ export function Admin() {
             })
             .catch((err) => console.log(err.message));
     }, [_id, dispatch]);
+
+    useEffect(() => {
+        axios
+            .get(`/api/user/photo/${username}`)
+            .then((res) => {
+                console.log("new photo", res.data);
+
+                dispatch(setPhoto(res.data.photo.data));
+            })
+            .catch((err) => console.log(err.message));
+    }, []);
 
     return (
         <section className={styles.adminContainer}>

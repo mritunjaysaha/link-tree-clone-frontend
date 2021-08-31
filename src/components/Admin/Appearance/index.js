@@ -27,7 +27,6 @@ function Profile() {
     const [bio, setBio] = useState(oldBio);
 
     const max = 80;
-
     function handleProfileTitle(e) {
         setProfileTitle(e.target.value);
     }
