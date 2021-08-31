@@ -12,41 +12,45 @@
         margin-bottom: 8rem;
     }
 
-    article {
+    .divWrapper {
+        background-color: $bg-color-alpha;
+        border-radius: $border-radius-04;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    button {
+        border: none;
+        border-radius: $border-radius-12;
+
+        padding: 1.2rem 2rem;
+
+        color: $white;
+        font-size: $fs16;
+        font-weight: $fw-bold;
+    }
+
+    button[data-text="save details"] {
+        background-color: $purple;
+        &:disabled {
+            background-color: $lightGrey;
+            color: $grey;
+        }
+    }
+    button[data-text="delete account"] {
+        border-radius: $border-radius-08;
+        background-color: $text-color-error;
+    }
+    p {
+        font-size: $fs20;
+        font-weight: $fw-bold;
+        margin-bottom: 1.6rem;
+    }
+
+    form {
         margin-bottom: 4rem;
-        p {
-            font-size: $fs20;
-            font-weight: $fw-bold;
-            margin-bottom: 1.6rem;
-        }
-
-        .divWrapper {
-            background-color: $bg-color-alpha;
-            border-radius: $border-radius-04;
-            padding: 2rem;
-            margin-bottom: 2rem;
-
-            .inputDiv {
-                margin-bottom: 1rem;
-            }
-        }
-
-        button {
-            border: none;
-            border-radius: $border-radius-12;
-
-            padding: 1.2rem 2rem;
-
-            color: $white;
-            font-size: $fs16;
-            font-weight: $fw-bold;
-        }
-
-        button[data-text="save details"] {
-            background-color: $purple;
-        }
-        button[data-text="delete account"] {
-            background-color: $text-color-error;
+        .inputDiv {
+            margin-bottom: 1rem;
         }
     }
 }

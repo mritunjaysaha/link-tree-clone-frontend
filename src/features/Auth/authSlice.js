@@ -14,10 +14,19 @@ export const authSlice = createSlice({
     },
     reducers: {
         setUserData: (state, { payload }) => {
-            const { email, _id, username, photo, profileTitle, bio, links } =
-                payload;
+            const {
+                email,
+                _id,
+                username,
+                name,
+                photo,
+                profileTitle,
+                bio,
+                links,
+            } = payload;
 
             state.isAuthenticated = !!_id;
+            state.name = name ? name : "";
             state.username = username ? username : "";
             state._id = _id ? _id : "";
             state.email = email ? email : "";
