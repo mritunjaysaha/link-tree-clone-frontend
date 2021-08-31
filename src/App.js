@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-
+import { Helmet } from "react-helmet";
 import { LogIn } from "./components/Auth/LogIn";
 import { SignUp } from "./components/Auth/SignUp";
 
@@ -53,6 +53,11 @@ if (localStorage.jwtToken) {
 function App() {
     return (
         <div className="App">
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Linktree</title>
+            </Helmet>
+
             <BrowserRouter>
                 <Navbar />
 

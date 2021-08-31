@@ -7,7 +7,7 @@ import {
     useLocation,
 } from "react-router-dom";
 import axios from "axios";
-
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhoto, setUserData } from "../../features/Auth/authSlice";
 // nav
@@ -92,6 +92,11 @@ export function Admin() {
 
     return (
         <section className={styles.adminContainer}>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{username}</title>
+            </Helmet>
+
             <SideNav />
             {!isAccount && <UrlNav url={url} />}
 
