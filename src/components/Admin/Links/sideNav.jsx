@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { convertToBinary } from "../../../utils/convertToBinary";
 
 import styles from "./sidenav.module.scss";
@@ -11,20 +11,18 @@ import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
 
 export function SideNav() {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.data);
 
-    console.log("new", user);
-
-    const { username, photo } = user;
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     async function handleLogout() {
         await axios
             .get(`/api/logout`)
-            .then((res) => {
-                <Redirect to="/login" />;
+            .then(() => {
+                history.push(urls.login);
                 localStorage.removeItem("jwtToken");
                 setAuthToken("");
                 dispatch(setAuth({ _id: "" }));
@@ -44,8 +42,8 @@ export function SideNav() {
                 }}
             >
                 <img
-                    src={convertToBinary(photo)}
-                    alt={username ? username : ""}
+                    src={convertToBinary(!!user.photo ? user.photo : "")}
+                    alt={!!user.username ? user.username : ""}
                 />
             </picture>
             {showMenu && (
@@ -58,7 +56,7 @@ export function SideNav() {
                         setShowMenu(false);
                     }}
                 >
-                    <p>{username}</p>
+                    <p>{!!user.username ? user.username : ""}</p>
                     <ul>
                         <li>
                             <Link to={`${urls.admin}/account`}>My Account</Link>

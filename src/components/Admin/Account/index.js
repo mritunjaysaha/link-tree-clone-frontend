@@ -10,20 +10,22 @@ import { urls } from "../../../data/data";
 
 export function Account() {
     const history = useHistory();
-    const user = useSelector((state) => state.user);
-
-    const { email, name, _id: userId } = user;
+    const user = useSelector((state) => state.user.data);
+    const { _id: userId } = useSelector((state) => state.user);
     console.log("accounts", user);
 
     const [userDetails, setUserDetails] = useState({
-        name: name ? name : "",
-        email: email ? email : "",
+        name: !!user.name ? user.name : "",
+        email: !!user.email ? !!user.email : "",
     });
-    const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(() => {
-        setUserDetails((prev) => ({ ...prev, email, name }));
-    }, [email, name]);
+        setUserDetails((prev) => ({
+            ...prev,
+            email: user.email,
+            name: user.name,
+        }));
+    }, [user]);
 
     function handleChange(e) {
         const { name, value } = e.target;
