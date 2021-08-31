@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { MUITextFieldBorderBottom } from "../../Form/input";
 import styles from "./account.module.scss";
 
@@ -10,22 +10,20 @@ import { urls } from "../../../data/data";
 
 export function Account() {
     const history = useHistory();
-    const user = useSelector((state) => state.user.data);
-    const { _id: userId } = useSelector((state) => state.user);
-    console.log("accounts", user);
+    const { _id: userId, name, email } = useSelector((state) => state.user);
 
     const [userDetails, setUserDetails] = useState({
-        name: !!user.name ? user.name : "",
-        email: !!user.email ? !!user.email : "",
+        name: name ? name : "",
+        email: email ? email : "",
     });
 
     useEffect(() => {
         setUserDetails((prev) => ({
             ...prev,
-            email: user.email,
-            name: user.name,
+            email: email,
+            name: name,
         }));
-    }, [user]);
+    }, [email, name]);
 
     function handleChange(e) {
         const { name, value } = e.target;

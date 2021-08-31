@@ -11,7 +11,7 @@ import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
 
 export function SideNav() {
-    const user = useSelector((state) => state.user.data);
+    const { photo, username } = useSelector((state) => state.user);
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -42,8 +42,8 @@ export function SideNav() {
                 }}
             >
                 <img
-                    src={convertToBinary(!!user.photo ? user.photo : "")}
-                    alt={!!user.username ? user.username : ""}
+                    src={convertToBinary(photo ? photo : "")}
+                    alt={username ? username : ""}
                 />
             </picture>
             {showMenu && (
@@ -56,7 +56,7 @@ export function SideNav() {
                         setShowMenu(false);
                     }}
                 >
-                    <p>{!!user.username ? user.username : ""}</p>
+                    <p>{username ? username : ""}</p>
                     <ul>
                         <li>
                             <Link to={`${urls.admin}/account`}>My Account</Link>

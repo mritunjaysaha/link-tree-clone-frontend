@@ -11,11 +11,10 @@ export const authSlice = createSlice({
         profileTitle: "",
         bio: "",
         links: [],
-        data: {},
     },
     reducers: {
         setUserData: (state, { payload }) => {
-            state.data = payload;
+            return { ...state, ...payload };
         },
         setAuth: (state, { payload }) => {
             state.isAuthenticated = !!payload._id;
