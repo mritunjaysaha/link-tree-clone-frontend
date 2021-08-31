@@ -11,6 +11,7 @@ export const authSlice = createSlice({
         profileTitle: "",
         bio: "",
         links: [],
+        name: "",
     },
     reducers: {
         setUserData: (state, { payload }) => {
