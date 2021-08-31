@@ -9,13 +9,14 @@ $black: #131415;
 $green: #39e09b;
 $purple: #7551e9;
 $lightPurple: #7c41ff;
+$red: #ff1731;
 
 // text color
 $text-color-alpha: $black;
 $text-color-beta: $grey;
 $text-color-gamma: $white;
 $text-color-disabled: #a6a7a7;
-$text-color-error: red;
+$text-color-error: $red;
 
 // background color
 $bg-color-alpha: $white;

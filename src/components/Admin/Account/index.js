@@ -8,17 +8,19 @@ export function Account() {
 
             <article>
                 <p>My Information</p>
-                <div className={styles.inputContainer}>
-                    <MUITextFieldBorderBottom
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        name="name"
-                        label="Profile Title"
-                        // value={profileTitle}
-                        // onChange={handleProfileTitle}
-                        // onBlur={handleSubmit}
-                    />
+                <div className={styles.divWrapper}>
+                    <div className={styles.inputDiv}>
+                        <MUITextFieldBorderBottom
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            name="name"
+                            label="Profile Title"
+                            // value={profileTitle}
+                            // onChange={handleProfileTitle}
+                            // onBlur={handleSubmit}
+                        />
+                    </div>
                     <MUITextFieldBorderBottom
                         fullWidth
                         variant="filled"
@@ -29,13 +31,15 @@ export function Account() {
                     />
                 </div>
 
-                <button data-save-btn>Save details</button>
+                <button disabled data-text="save details">
+                    Save details
+                </button>
             </article>
 
             <article>
                 <p>Danger Zone</p>
-                <div>
-                    <button data-delete-btn>Delete Account</button>
+                <div className={styles.divWrapper}>
+                    <button data-text="delete account">Delete account</button>
                 </div>
             </article>
         </section>
