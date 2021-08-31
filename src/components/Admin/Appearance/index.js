@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { withStyles } from "@material-ui/core";
-import { TextField, TextareaAutosize } from "@material-ui/core";
 import axios from "axios";
 
 import { MUIModal } from "../../Modal/muiModal";
@@ -10,70 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 import { removePhoto } from "../../../features/Auth/authSlice";
 import { convertToBinary } from "../../../utils/convertToBinary";
+import { MUITextFieldBorderBottom } from "../../Form/input";
+import { TextareaAutosize } from "@material-ui/core";
+
 import styles from "./appearance.module.scss";
-
-// replace these with styles variables from styles/abstract/variables.scss
-const lightGrey = "#dce0e2";
-const lightGrey1 = "#696e74";
-const error = "red";
-const black = "#131415";
-const green = "#39E09B";
-
-const MUITextField = withStyles({
-    root: {
-        "& .MuiFormLabel-root": {
-            fontSize: "1.6rem",
-            textTransform: "capitalize",
-        },
-        "& .MuiInputBase-input": {
-            fontSize: "1.6rem",
-            lineHeight: "2.1rem",
-        },
-        "& .MuiFilledInput-root": {
-            background: "none",
-            fontFamily: "Inter, sans-serif",
-            fontSize: "1.6rem",
-        },
-        "& .MuiFilledInput-input": {
-            paddingLeft: "0",
-            marginBottom: "1rem",
-            borderBottom: `0.1rem solid ${lightGrey}`,
-            color: `${black}`,
-            "&:focus-within": {
-                border: "none",
-                borderBottom: `0.1rem solid ${green}`,
-            },
-            "&:invalid": {
-                border: `0.1rem solid ${error}`,
-            },
-        },
-        "& .MuiFilledInput-underline": {
-            "&::before": {
-                border: "none",
-            },
-            "&::after": {
-                border: "none",
-            },
-        },
-        "& .MuiInputLabel-shrink": {
-            paddingLeft: "0",
-            color: `${lightGrey1}`,
-        },
-        "& .MuiFormHelperText-root": {
-            marginTop: "-2rem",
-            marginBottom: "2rem",
-            fontSize: "1.4rem",
-        },
-    },
-})(TextField);
-
-const MUITextArea = withStyles({
-    root: {
-        "& textarea": {
-            background: "red",
-        },
-    },
-})(TextareaAutosize);
 
 function Profile() {
     const { pickModal } = useSelector((state) => state.modal);
@@ -143,7 +81,7 @@ function Profile() {
                         </figcaption>
                     </figure>
                     <div className={styles.inputDiv}>
-                        <MUITextField
+                        <MUITextFieldBorderBottom
                             fullWidth
                             variant="filled"
                             type="text"
@@ -151,12 +89,11 @@ function Profile() {
                             label="Profile Title"
                             value={profileTitle}
                             onChange={handleProfileTitle}
-                            className={styles.input}
                             onBlur={handleSubmit}
                         />
 
                         <p>Bio</p>
-                        <MUITextArea
+                        <TextareaAutosize
                             name="bio"
                             placeholder="Empty"
                             minRows="5"

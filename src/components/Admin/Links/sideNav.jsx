@@ -33,8 +33,11 @@ export function SideNav() {
         <nav className={styles.sideNav}>
             <img src={linktree} alt="linktree" />
             <picture
-                onMouseEnter={() => {
+                onMouseOver={() => {
                     setShowMenu(true);
+                }}
+                onMouseLeave={() => {
+                    setShowMenu(false);
                 }}
             >
                 <img
@@ -45,6 +48,9 @@ export function SideNav() {
             {showMenu && (
                 <div
                     className={styles.sideNavMenu}
+                    onMouseEnter={() => {
+                        setShowMenu(true);
+                    }}
                     onMouseLeave={() => {
                         setShowMenu(false);
                     }}

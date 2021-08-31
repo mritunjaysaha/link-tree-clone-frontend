@@ -1,0 +1,20 @@
+@import "../admin.module.scss";
+
+.accountsContainer {
+    width: 36vw;
+
+    padding: 8rem 0;
+
+    .myAccountP {
+        text-align: center;
+        font-size: $fs32;
+        font-weight: $fw-bold;
+    }
+
+    article {
+        p {
+            font-size: $fs20;
+            font-weight: $fw-bold;
+        }
+    }
+}

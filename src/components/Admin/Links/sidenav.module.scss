@@ -19,11 +19,22 @@
     z-index: 200;
     img {
         position: relative;
-        width: 3.2rem;
+        width: 2.8rem;
         aspect-ratio: 1/1;
         border-radius: 50%;
 
         z-index: 0;
+    }
+
+    picture {
+        background-color: red;
+        width: $dm64;
+        display: grid;
+        place-items: center;
+
+        img {
+            width: 5.2rem;
+        }
     }
 }
 
