@@ -2,10 +2,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
 import { MUITextFieldBorderBottom } from "../../Form/input";
 import styles from "./account.module.scss";
 
+import { urls } from "../../../data/data";
+
 export function Account() {
+    const history = useHistory();
     const { email, name, _id: userId } = useSelector((state) => state.user);
 
     const [userDetails, setUserDetails] = useState({
@@ -32,6 +36,18 @@ export function Account() {
         await axios
             .put(`/api/user/${userId}`, userDetails)
             .then((res) => console.log("user updated", res.data))
+            .catch((err) => console.log(err.message));
+    }
+
+    async function handleDeleteAccount() {
+        await axios
+            .delete(`/api/user/${userId}`)
+            .then((res) => {
+                console.log("user successfully deleted", res.data);
+
+                localStorage.removeItem("jwtToken");
+                history.push(urls.login);
+            })
             .catch((err) => console.log(err.message));
     }
 
@@ -76,7 +92,12 @@ export function Account() {
             <article>
                 <p>Danger Zone</p>
                 <div className={styles.divWrapper}>
-                    <button data-text="delete account">Delete account</button>
+                    <button
+                        data-text="delete account"
+                        onClick={handleDeleteAccount}
+                    >
+                        Delete account
+                    </button>
                 </div>
             </article>
         </section>
