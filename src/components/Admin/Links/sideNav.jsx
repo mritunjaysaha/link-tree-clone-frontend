@@ -11,7 +11,11 @@ import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
 
 export function SideNav() {
-    const { photo, username } = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user);
+
+    console.log("new", user);
+
+    const { username, photo } = user;
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useDispatch();
@@ -24,7 +28,6 @@ export function SideNav() {
                 localStorage.removeItem("jwtToken");
                 setAuthToken("");
                 dispatch(setAuth({ _id: "" }));
-                console.log("successfully logged out", res.data);
             })
             .catch((err) => console.log(err.message));
     }

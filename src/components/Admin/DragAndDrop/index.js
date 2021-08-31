@@ -39,7 +39,7 @@ export function DragAndDrop({ links, userId = "" }) {
             await axios
                 .put(`/api/link/${userId}/${linkId}`, newLink)
                 .then((res) => {
-                    console.log("successfully updated", res.data);
+                    console.log("successfully updated");
                 })
                 .catch((err) => console.log(err.message));
         }
@@ -107,8 +107,6 @@ export function DragAndDrop({ links, userId = "" }) {
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}
                                     >
-                                        {console.log({ links })}
-
                                         {links.map((link, index) => (
                                             <Draggable
                                                 key={link.id}

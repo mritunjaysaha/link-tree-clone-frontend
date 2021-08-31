@@ -10,6 +10,7 @@ import styles from "./userview.module.scss";
 
 export function UserViewContents({ user, isPreview = false }) {
     const { links, profileTitle, bio, photo, username } = user;
+
     return (
         <section
             className={
@@ -27,7 +28,6 @@ export function UserViewContents({ user, isPreview = false }) {
                     />
                 </picture>
                 <p className={styles.profileTitle}>
-                    {console.log("username", username)}
                     {!profileTitle ? `@${username}` : profileTitle}
                 </p>
                 {bio ? <p className={styles.bio}>{bio}</p> : ""}

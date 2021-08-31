@@ -97,14 +97,11 @@ export function UrlItem({
     }
 
     function handleDelete() {
-        console.log("handleDelete");
         setIsDelete(!isDelete);
         setIsThumbnail(isThumbnail ? !isThumbnail : isThumbnail);
     }
 
     async function handleDeleteRequest() {
-        console.log("handleDeleteRequest");
-
         await axios
             .delete(`/api/link/${userId}/${linkId}`)
             .then((res) => console.log("link successfully deleted"))
@@ -122,7 +119,6 @@ export function UrlItem({
     }
 
     async function handleOnBlur() {
-        console.log("handleOnBlur", urlData);
         await axios
             .put(`/api/link/${userId}/${linkId}`, urlData)
             .then((res) => {

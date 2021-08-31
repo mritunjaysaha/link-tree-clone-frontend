@@ -23,8 +23,6 @@ function Profile() {
     } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    console.log({ oldBio, oldProfileTitle });
-
     const [profileTitle, setProfileTitle] = useState(oldProfileTitle);
     const [bio, setBio] = useState(oldBio);
 
@@ -48,7 +46,6 @@ function Profile() {
         await axios
             .delete(`/api/user/photo/${_id}`)
             .then((res) => {
-                console.log("Photo successfully deleted");
                 dispatch(removePhoto());
             })
             .catch((err) => console.log("Failed to remove photo"));
@@ -60,9 +57,7 @@ function Profile() {
 
         await axios
             .put(`/api/user/${_id}`, data)
-            .then((res) => {
-                console.log("successfully updated profile title and bio");
-            })
+            .then((res) => {})
             .catch((err) =>
                 console.log("failed to update profile title and bio")
             );

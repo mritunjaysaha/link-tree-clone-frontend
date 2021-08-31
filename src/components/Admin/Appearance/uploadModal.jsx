@@ -64,9 +64,7 @@ export function UploadModal() {
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
     useEffect(() => {
-        console.log({ files });
         if (files.length === 1) {
-            console.log("here");
             dispatch(cropModalReducer());
         }
 

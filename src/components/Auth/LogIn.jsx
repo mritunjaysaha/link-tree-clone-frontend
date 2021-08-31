@@ -35,12 +35,8 @@ export function LogIn() {
             .post("/api/login", userData)
             .then((res) => {
                 const { user, token } = res.data;
-                console.log({ user, token });
-
                 dispatch(setAuth(user));
-
                 localStorage.setItem("jwtToken", token);
-
                 history.push(urls.admin);
             })
             .catch((err) => {

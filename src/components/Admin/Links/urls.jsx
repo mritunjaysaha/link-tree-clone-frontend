@@ -13,7 +13,6 @@ export function UrlContainer() {
 
     const [links, setLinks] = useState([]);
 
-    console.log("url", links);
     useEffect(() => {
         function getURLS() {
             axios
@@ -40,8 +39,6 @@ export function UrlContainer() {
         await axios
             .post(`/api/link/${userId}`, newLink)
             .then((res) => {
-                console.log(res.data.currentLink);
-
                 dispatch(
                     updateLinks([
                         ...links,

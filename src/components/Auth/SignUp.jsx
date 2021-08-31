@@ -36,7 +36,6 @@ export function SignUp() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("clicked");
 
         const user = {
             email: formik.values.email,
@@ -46,8 +45,6 @@ export function SignUp() {
         axios
             .post("/api/signup", user)
             .then((res) => {
-                console.log("signup", res.data);
-
                 history.push(urls.login);
             })
             .catch((err) => {

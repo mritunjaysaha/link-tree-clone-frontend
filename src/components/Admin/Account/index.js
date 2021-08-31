@@ -10,13 +10,16 @@ import { urls } from "../../../data/data";
 
 export function Account() {
     const history = useHistory();
-    const { email, name, _id: userId } = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user);
+
+    const { email, name, _id: userId } = user;
+    console.log("accounts", user);
 
     const [userDetails, setUserDetails] = useState({
         name: name ? name : "",
         email: email ? email : "",
     });
-    // const [isDisabled, setIsDisabled] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(() => {
         setUserDetails((prev) => ({ ...prev, email, name }));
@@ -31,11 +34,9 @@ export function Account() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log("clicked");
-
         await axios
             .put(`/api/user/${userId}`, userDetails)
-            .then((res) => console.log("user updated", res.data))
+            .then((res) => console.log("user updated"))
             .catch((err) => console.log(err.message));
     }
 
@@ -44,7 +45,6 @@ export function Account() {
             .delete(`/api/user/${userId}`)
             .then((res) => {
                 console.log("user successfully deleted", res.data);
-
                 localStorage.removeItem("jwtToken");
                 history.push(urls.login);
             })

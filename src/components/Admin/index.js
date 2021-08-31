@@ -71,7 +71,6 @@ export function Admin() {
     const location = useLocation();
     const isAccount =
         location.pathname.split("/")[2] === "account" ? true : false;
-    console.log("location", location, isAccount);
 
     useEffect(() => {
         axios

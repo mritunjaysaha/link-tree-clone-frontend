@@ -9,7 +9,6 @@ export const appearanceSlice = createSlice({
     },
     reducers: {
         pickModalReducer: (state) => {
-            console.log("pick modal", state);
             return { ...state, pickModal: !state.pickModal };
         },
         uploadModalReducer: (state) => {
