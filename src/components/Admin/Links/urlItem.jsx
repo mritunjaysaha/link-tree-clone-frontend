@@ -73,6 +73,7 @@ export function UrlItem({
 }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
+    const [isActive, setIsActive] = useState(false);
 
     const titleRef = useRef();
     const urlRef = useRef();
@@ -140,22 +141,40 @@ export function UrlItem({
                     <div className={styles.urlDetails}>
                         {/* url name */}
                         <div className={styles.urlContents}>
-                            <AutosizeInput
-                                ref={titleRef}
-                                name="name"
-                                type="text"
-                                placeholder="Title"
-                                value={urlData.name}
-                                onChange={handleChange}
-                                onBlur={handleOnBlur}
-                            />
-                            <span>
-                                <UilPen
-                                    className={styles.adminIcon}
-                                    onClick={handleTitleClick}
+                            <div className={styles.urlContentsLeft}>
+                                <AutosizeInput
+                                    ref={titleRef}
+                                    name="name"
+                                    type="text"
+                                    placeholder="Title"
+                                    value={urlData.name}
+                                    onChange={handleChange}
+                                    onBlur={handleOnBlur}
                                 />
-                            </span>
-                            <div>{/* switch button */}</div>
+                                <span>
+                                    <UilPen
+                                        className={styles.adminIcon}
+                                        onClick={handleTitleClick}
+                                    />
+                                </span>
+                            </div>
+                            <div className={styles.urlContentsRight}>
+                                {/* switch button */}
+                                <div
+                                    className={
+                                        !isActive
+                                            ? `${styles.switchButton}`
+                                            : `${styles.switchButton} ${styles.switchButtonActive}`
+                                    }
+                                    onClick={() => {
+                                        setIsActive(!isActive);
+                                    }}
+                                >
+                                    <div
+                                        className={styles.switchButtonCircle}
+                                    ></div>
+                                </div>
+                            </div>
                         </div>
                         {/* url link */}
                         <div>

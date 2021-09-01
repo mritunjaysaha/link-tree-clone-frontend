@@ -117,10 +117,55 @@
             }
 
             .urlContents {
+                display: flex;
+                justify-content: space-between;
                 width: 100%;
 
-                input {
-                    font-weight: $fw-bold;
+                .urlContentsLeft {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    input {
+                        font-weight: $fw-bold;
+                    }
+                }
+
+                .urlContentsRight {
+                    .switchButton {
+                        display: flex;
+                        // justify-content: center;
+                        align-items: center;
+
+                        background-color: $lightGrey;
+
+                        width: 3.2rem;
+                        height: 2rem;
+
+                        border-radius: $border-radius-15;
+                        cursor: pointer;
+
+                        transition: background-color 0.1s linear;
+                        transition-delay: 0.1s;
+
+                        .switchButtonCircle {
+                            width: 1.6rem;
+                            aspect-ratio: 1/1;
+                            background-color: $white;
+
+                            border-radius: 50%;
+                            margin-left: 0.2rem;
+
+                            transition: transform 0.1s linear;
+                            transition-delay: 0.1s;
+                        }
+                    }
+
+                    .switchButtonActive {
+                        background-color: $green1;
+                        .switchButtonCircle {
+                            transform: translate(1.1rem);
+                        }
+                    }
                 }
             }
         }
