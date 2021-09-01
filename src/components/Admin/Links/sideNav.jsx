@@ -31,7 +31,9 @@ export function SideNav() {
 
     return (
         <nav className={styles.sideNav}>
-            <img src={linktree} alt="linktree" />
+            <Link to={urls.admin}>
+                <img src={linktree} alt="linktree" />
+            </Link>
             <picture
                 onMouseOver={() => {
                     setShowMenu(true);
