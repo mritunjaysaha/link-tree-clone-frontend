@@ -41,7 +41,7 @@ export function DragAndDrop({ links, userId = "" }) {
                 .then((res) => {
                     console.log("successfully updated");
                 })
-                .catch((err) => console.log(err.message));
+                .catch((err) => console.log("dnd", err.message));
         }
 
         if (!!data.links) {

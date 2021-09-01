@@ -51,14 +51,14 @@ function UrlNav({ url }) {
             >
                 Appearance
             </Link>
-            <Link
+            {/* <Link
                 to={`${url}/settings`}
                 className={`${styles.urlNavItem} ${
                     adminPath[1] === "/settings" ? styles.urlNavItemActive : ""
                 }`}
             >
                 Settings
-            </Link>
+            </Link> */}
         </nav>
     );
 }
@@ -87,7 +87,7 @@ export function Admin() {
             .then((res) => {
                 dispatch(setPhoto(res.data.photo.data));
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => console.log("admin", err.message));
     }, [username, dispatch]);
 
     return (
