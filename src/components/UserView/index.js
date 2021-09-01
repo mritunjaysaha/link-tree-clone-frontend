@@ -37,7 +37,7 @@ export function UserViewContents({ user, isPreview = false }) {
                 {links.length > 0 ? (
                     <ul className={styles.linksContainer}>
                         {links.map((link, index) =>
-                            link.name ? (
+                            link.active ? (
                                 <a
                                     key={index}
                                     rel="noopener noreferrer"

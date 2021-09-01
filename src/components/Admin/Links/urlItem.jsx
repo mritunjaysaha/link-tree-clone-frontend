@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import AutosizeInput from "react-input-autosize";
 import { GoKebabVertical } from "react-icons/go";
@@ -71,9 +71,11 @@ export function UrlItem({
     innerRef,
     ...rest
 }) {
+    console.log("link", link);
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(link.active ? link.active : false);
+    const [isBlur, setIsBlur] = useState(false);
 
     const titleRef = useRef();
     const urlRef = useRef();
@@ -119,15 +121,27 @@ export function UrlItem({
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
     }
 
-    async function handleOnBlur() {
-        await axios
-            .put(`/api/link/${userId}/${linkId}`, urlData)
-            .then((res) => {
-                console.log("link successfully updated", res);
-            })
-            .catch((err) => console.log(err.message));
+    function handleOnBlur() {
+        setIsBlur(!isBlur);
     }
 
+    useEffect(() => {
+        async function handleUpdate() {
+            const updateData = {
+                ...urlData,
+                active: isActive,
+            };
+            console.log(updateData);
+
+            await axios
+                .put(`/api/link/${userId}/${linkId}`, updateData)
+                .then((res) => {
+                    console.log("link successfully updated", res);
+                })
+                .catch((err) => console.log(err.message));
+        }
+        handleUpdate();
+    }, [isActive, isBlur, linkId, urlData, userId]);
     return (
         <>
             <section className={styles.urlItemSection} ref={innerRef} {...rest}>
@@ -164,7 +178,7 @@ export function UrlItem({
                                     className={
                                         !isActive
                                             ? `${styles.switchButton}`
-                                            : `${styles.switchButton} ${styles.switchButtonActive}`
+                                            : `${styles.switchButton} ${styles.switchButtonActive} ${styles.switchButtonCircleActive}`
                                     }
                                     onClick={() => {
                                         setIsActive(!isActive);
