@@ -82,12 +82,14 @@ export function Admin() {
     }, [_id, dispatch]);
 
     useEffect(() => {
-        axios
-            .get(`/api/user/photo/${username}`)
-            .then((res) => {
-                dispatch(setPhoto(res.data.photo.data));
-            })
-            .catch((err) => console.log("admin", err.message));
+        if (username) {
+            axios
+                .get(`/api/user/photo/${username}`)
+                .then((res) => {
+                    dispatch(setPhoto(res.data.photo.data));
+                })
+                .catch((err) => console.log("admin", err.message));
+        }
     }, [username, dispatch]);
 
     return (
