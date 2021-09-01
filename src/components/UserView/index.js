@@ -72,7 +72,14 @@ function UserView({ user: username }) {
             axios
                 .get(`/api/user/userview/${username}`)
                 .then((res) => {
-                    dispatch(setUserData(res.data));
+                    const data = {
+                        ...res.data,
+                        photo: res.data.photo.data.data,
+                    };
+
+                    console.log(data);
+
+                    dispatch(setUserData(data));
                 })
                 .catch((err) => console.log(err.message));
         }
