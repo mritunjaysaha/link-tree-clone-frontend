@@ -55,9 +55,9 @@ export function UrlContainer() {
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
                 <button onClick={handleAddButton}>Add New Link</button>
-                <button>
+                {/* <button>
                     <GoZap />
-                </button>
+                </button> */}
             </div>
 
             <div>

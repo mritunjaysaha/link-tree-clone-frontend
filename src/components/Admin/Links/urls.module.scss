@@ -31,6 +31,7 @@
 
             padding: 1rem;
             height: 4.8rem;
+            width: 100%;
 
             color: $text-color-gamma;
             font-family: $ffBeta;
@@ -41,16 +42,18 @@
             border: none;
             border-radius: $border-radius-12;
 
-            &:first-of-type {
-                width: 90%;
-                margin-right: 1.2rem;
-            }
+            // &:first-of-type {
+            //     width: 100%;
+            //     font-size: $fs16;
 
-            &:last-of-type {
-                aspect-ratio: 1/1;
+            //     // margin-right: 1.2rem;
+            // }
 
-                font-size: $fs24;
-            }
+            // &:last-of-type {
+            //     aspect-ratio: 1/1;
+
+            //     font-size: $fs24;
+            // }
 
             &:hover {
                 opacity: 0.7;
