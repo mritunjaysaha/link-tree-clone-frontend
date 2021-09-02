@@ -12,6 +12,7 @@ import { MUITextFieldBorderBottom } from "../../Form/input";
 import { TextareaAutosize } from "@material-ui/core";
 
 import styles from "./appearance.module.scss";
+import placeholder from "../../../assets/placeholder.png";
 
 function Profile() {
     const { pickModal } = useSelector((state) => state.modal);
@@ -68,7 +69,10 @@ function Profile() {
                 <p>profile</p>
                 <div className={styles.profileInner}>
                     <figure>
-                        <img src={convertToBinary(photo)} alt="" />
+                        <img
+                            src={!!photo ? convertToBinary(photo) : placeholder}
+                            alt=""
+                        />
                         <figcaption>
                             <button onClick={handleModal}>Pick an image</button>
                             <button onClick={handleRemove}>Remove</button>

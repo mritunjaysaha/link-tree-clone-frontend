@@ -9,6 +9,7 @@ import axios from "axios";
 import { setAuthToken } from "../../../utils/setAuthToken";
 import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
+import placeholder from "../../../assets/placeholder.png";
 
 export function SideNav() {
     const { photo, username } = useSelector((state) => state.user);
@@ -43,7 +44,7 @@ export function SideNav() {
                 }}
             >
                 <img
-                    src={convertToBinary(photo)}
+                    src={!!photo ? convertToBinary(photo) : placeholder}
                     alt={username ? username : ""}
                 />
             </picture>

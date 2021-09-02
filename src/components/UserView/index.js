@@ -6,6 +6,7 @@ import { setUserData } from "../../features/Auth/authSlice";
 import { convertToBinary } from "../../utils/convertToBinary";
 
 import linktree from "../../assets/linktree.svg";
+import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
 
 export function UserViewContents({ user, isPreview = false }) {
@@ -23,7 +24,7 @@ export function UserViewContents({ user, isPreview = false }) {
             <header className={styles.header}>
                 <picture>
                     <img
-                        src={convertToBinary(photo)}
+                        src={!!photo ? convertToBinary(photo) : placeholder}
                         alt={username ? username : ""}
                     />
                 </picture>
