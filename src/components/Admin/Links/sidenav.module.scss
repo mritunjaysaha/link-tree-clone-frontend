@@ -89,5 +89,14 @@
                 color: $lightPurple;
             }
         }
+        .linkLiActive {
+            background-color: $green1;
+            color: $text-color-alpha;
+
+            &:hover {
+                background-color: $green1;
+                color: $text-color-alpha;
+            }
+        }
     }
 }

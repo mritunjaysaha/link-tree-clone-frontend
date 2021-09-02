@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { convertToBinary } from "../../../utils/convertToBinary";
 
 import styles from "./sidenav.module.scss";
@@ -17,6 +17,9 @@ export function SideNav() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
+
+    const activeAccount = location.pathname.split("/")[2] === "account";
 
     async function handleLogout() {
         await axios
@@ -60,7 +63,9 @@ export function SideNav() {
                 >
                     <p>{username ? username : ""}</p>
                     <ul>
-                        <li>
+                        <li
+                            className={activeAccount ? styles.linkLiActive : ""}
+                        >
                             <Link to={`${urls.admin}/account`}>My Account</Link>
                         </li>
                         <li onClick={handleLogout}>Logout</li>
