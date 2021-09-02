@@ -211,14 +211,14 @@ export function UrlItem({
                         <div className={styles.iconContainer}>
                             <div>
                                 {/* icons */}
-                                <UilScenery
+                                {/* <UilScenery
                                     className={`${styles.adminIcon} ${
                                         isThumbnail
                                             ? styles.adminIconActive
                                             : ""
                                     }`}
                                     onClick={handleThumbnail}
-                                />
+                                /> */}
                             </div>
                             <div>
                                 {/* delete */}
