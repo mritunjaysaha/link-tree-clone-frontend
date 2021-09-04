@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { UilTimes, UilQrcodeScan } from "@iconscout/react-unicons";
+import {
+    UilTimes,
+    UilQrcodeScan,
+    UilAngleRightB,
+    UilAngleLeftB,
+} from "@iconscout/react-unicons";
 import QRCode from "react-qr-code";
 import { UserViewContents } from "../../UserView";
 import linktree from "../../../assets/linktree.svg";
@@ -8,6 +13,15 @@ import linktree from "../../../assets/linktree.svg";
 import styles from "./preview.module.scss";
 
 function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
+    function handleCopy() {
+        navigator.clipboard
+            .writeText(link)
+            .then(() => console.log("text copied to clipboard"))
+            .catch((err) =>
+                console.log("failed copying text to clipboard", err.message)
+            );
+    }
+
     return (
         <>
             <header>
@@ -18,8 +32,11 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
             </header>
             <ul>
                 <li className={styles.QRLi} onClick={handleQRModalClicked}>
-                    <UilQrcodeScan className={styles.QRCode} />
-                    <p>QR Code</p>
+                    <div>
+                        <UilQrcodeScan className={styles.QRCode} />
+                        <p>QR Code</p>
+                    </div>
+                    <UilAngleRightB />
                 </li>
 
                 <li>
@@ -28,23 +45,7 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
                             <img src={linktree} alt="linktree" />
                             <p>{link}</p>
                         </div>
-                        <button
-                            onClick={() => {
-                                navigator.clipboard
-                                    .writeText(link)
-                                    .then(() =>
-                                        console.log("text copied to clipboard")
-                                    )
-                                    .catch((err) =>
-                                        console.log(
-                                            "failed copying text to clipboard",
-                                            err.message
-                                        )
-                                    );
-                            }}
-                        >
-                            Copy
-                        </button>
+                        <button onClick={handleCopy}>Copy</button>
                     </div>
                 </li>
             </ul>
@@ -62,6 +63,7 @@ function PreviewNav() {
 
     function handleShareModalClick() {
         setIsClicked(false);
+        setIsQRCode(false);
     }
 
     function handleQRModalClicked() {

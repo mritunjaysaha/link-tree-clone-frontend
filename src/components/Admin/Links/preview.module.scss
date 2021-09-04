@@ -78,6 +78,32 @@
 
     ul {
         margin: 0 auto;
+
+        .QRLi {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding: 2rem 1.8rem;
+            border-radius: $border-radius-04;
+            cursor: pointer;
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            &:hover {
+                background-color: $veryLightGrey;
+            }
+            .QRCode {
+                width: 4rem;
+                height: 4rem;
+                color: $text-color-alpha;
+                margin-right: 1rem;
+            }
+        }
+
         .copyLinkContainer {
             display: flex;
             justify-content: space-between;
