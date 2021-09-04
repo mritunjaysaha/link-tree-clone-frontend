@@ -12,6 +12,9 @@ $grey-color-admin: #acb5bf;
 $grey-color-delete: #ebeef1;
 $light-blue: #7fdaff;
 
+$padding-mobile: 1.2rem;
+$border: 0.1rem solid $border-color;
+
 .adminContainer {
     display: flex;
     min-height: 100vh;
@@ -111,15 +114,13 @@ $light-blue: #7fdaff;
 }
 
 .previewSection {
-    display: none;
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    right: 0;
-
     @include breakpoint(tablet) {
-        display: block;
+        position: fixed;
+
+        top: 0;
+        right: 0;
     }
+    z-index: 100;
 }
 
 .accountSection {

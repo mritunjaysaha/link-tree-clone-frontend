@@ -1,7 +1,7 @@
 @import "../admin.module.scss";
 
 .sideNav {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 
@@ -9,11 +9,11 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 1.2rem;
+    padding: 0 $padding-mobile;
 
     width: 100%;
     height: $dm48;
-    border-bottom: 0.1rem solid $border-color;
+    border-bottom: $border;
 
     img {
         width: 2.4rem;
@@ -23,52 +23,54 @@
         display: none;
     }
 
-    // @include breakpoint(tablet) {
-    //     position: fixed;
-    //     top: 0;
-    //     left: 0;
+    @include breakpoint(tablet) {
+        position: fixed;
+        top: 0;
+        left: 0;
 
-    //     display: flex;
-    //     flex-direction: column;
-    //     justify-content: space-between;
-    //     align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
 
-    //     width: $dm64;
-    //     height: 100vh;
+        width: $dm64;
+        height: 100vh;
 
-    //     padding: 2rem 0;
+        padding: 2rem 0;
 
-    //     border-right: 0.1rem solid $border-color;
-    //     z-index: 200;
-    //     img {
-    //         position: relative;
-    //         width: 2.8rem;
-    //         aspect-ratio: 1/1;
-    //         border-radius: 50%;
+        border-right: 0.1rem solid $border-color;
+        z-index: 200;
+        img {
+            position: relative;
+            width: 2.8rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
 
-    //         z-index: 0;
-    //     }
+            z-index: 0;
+        }
 
-    //     picture {
-    //         width: $dm64;
-    //         display: grid;
-    //         place-items: center;
+        picture {
+            width: $dm64;
+            display: grid;
+            place-items: center;
 
-    //         img {
-    //             width: 5.2rem;
-    //         }
-    //     }
-    // }
-
-    // display: none;
+            img {
+                width: 5.2rem;
+            }
+        }
+    }
 }
 
 .sideNavMenu {
     position: absolute;
     top: 2.4rem;
     right: 2.4rem;
+    background-color: $white;
+    z-index: 1000;
 
     @include breakpoint(tablet) {
+        top: unset;
+        right: unset;
         bottom: 0;
         left: 0;
     }
@@ -80,6 +82,7 @@
 
     margin: 0 0 4.8rem 4.8rem;
     width: 24rem;
+    // height: max-content;
 
     padding: 0.8rem;
 
