@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import {
     UilTimes,
@@ -7,6 +7,7 @@ import {
     UilAngleLeftB,
 } from "@iconscout/react-unicons";
 import QRCode from "react-qr-code";
+import { toPng } from "html-to-image";
 import { UserViewContents } from "../../UserView";
 import linktree from "../../../assets/linktree.svg";
 
@@ -56,6 +57,58 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
     );
 }
 
+function QRCodeModal({
+    link,
+    username,
+    handleQRModalClicked,
+    handleShareModalClick,
+}) {
+    const ref = useRef();
+
+    function downloadImage() {
+        if (ref.current === null) return;
+
+        toPng(ref.current, { cacheBust: true })
+            .then((dataUrl) => {
+                console.log("downloaded");
+                const link = document.createElement("a");
+                link.download = `${username}-qr-code.png`;
+                link.href = dataUrl;
+                link.click();
+            })
+            .catch((err) => console.log("failed to download"));
+    }
+
+    return (
+        <>
+            <header>
+                <div
+                    className={styles.headerLeft}
+                    onClick={handleQRModalClicked}
+                >
+                    <UilAngleLeftB />
+                </div>
+                <p className={styles.headerMid}>QR Code</p>
+
+                <div
+                    className={styles.headerRight}
+                    onClick={handleShareModalClick}
+                >
+                    <UilTimes className="fontawesome-icon" />
+                </div>
+            </header>
+            <div className={styles.QRCodeContainer}>
+                <p>Here is the QR code for your link</p>
+                <div ref={ref} className={styles.QRCodeDiv}>
+                    <QRCode value={link} />
+                </div>
+                <p>{link}</p>
+                <button onClick={downloadImage}>Download QR Code</button>
+            </div>
+        </>
+    );
+}
+
 function PreviewNav() {
     const [isClicked, setIsClicked] = useState(false);
     const [isQRCode, setIsQRCode] = useState(false);
@@ -70,7 +123,7 @@ function PreviewNav() {
     }
 
     function handleQRModalClicked() {
-        setIsQRCode(true);
+        setIsQRCode(!isQRCode);
     }
 
     return (
@@ -98,34 +151,12 @@ function PreviewNav() {
                             link={link}
                         />
                     ) : (
-                        <>
-                            <header>
-                                <div
-                                    className={styles.headerLeft}
-                                    onClick={() => {
-                                        setIsQRCode(!isQRCode);
-                                    }}
-                                >
-                                    <UilAngleLeftB />
-                                </div>
-                                <p className={styles.headerMid}>QR Code</p>
-
-                                <div
-                                    className={styles.headerRight}
-                                    onClick={handleShareModalClick}
-                                >
-                                    <UilTimes className="fontawesome-icon" />
-                                </div>
-                            </header>
-                            <div className={styles.QRCodeContainer}>
-                                <p>Here is the QR code for your link</p>
-                                <div className={styles.QRCodeDiv}>
-                                    <QRCode value={link} />
-                                </div>
-                                <p>{link}</p>
-                                <button>Download QR Code</button>
-                            </div>
-                        </>
+                        <QRCodeModal
+                            link={link}
+                            username={username}
+                            handleQRModalClicked={handleQRModalClicked}
+                            handleShareModalClick={handleShareModalClick}
+                        />
                     )}
                 </div>
             )}
