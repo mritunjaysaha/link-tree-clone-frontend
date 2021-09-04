@@ -5,6 +5,7 @@ $admin-text-primary: #0a0b0d;
 $border-color: #d7dce1;
 $share-button: #71767b;
 $dm64: 6.4rem;
+$dm48: 4.8rem;
 $url-section-width: 60vw;
 $url-width: 64rem;
 $grey-color-admin: #acb5bf;
@@ -43,6 +44,8 @@ $light-blue: #7fdaff;
 
     overflow: hidden;
     z-index: 100;
+
+    display: none;
 }
 
 .urlNav {
@@ -103,13 +106,20 @@ $light-blue: #7fdaff;
     .urlNavItemActive {
         border-bottom: 0.2rem solid $admin-text-primary;
     }
+
+    display: none;
 }
 
 .previewSection {
+    display: none;
     z-index: 100;
     position: fixed;
     top: 0;
     right: 0;
+
+    @include breakpoint(tablet) {
+        display: block;
+    }
 }
 
 .accountSection {

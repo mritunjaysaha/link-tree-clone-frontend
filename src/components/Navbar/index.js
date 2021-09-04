@@ -34,12 +34,6 @@ export function Navbar() {
                         ) : (
                             ""
                         )}
-
-                        <div className={styles.menu}>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
                     </div>
                 </nav>
             ) : (
