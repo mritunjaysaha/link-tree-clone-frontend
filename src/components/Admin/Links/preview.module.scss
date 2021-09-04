@@ -53,9 +53,10 @@
 
     width: 44rem;
 
-    padding: 1.6rem;
+    padding: 2rem 1.6rem;
 
     box-shadow: $box-shadow;
+    border-radius: $border-radius-04;
 
     header {
         position: relative;
@@ -65,8 +66,19 @@
         margin-bottom: 1rem;
 
         width: 100%;
+        text-align: center;
 
-        div {
+        .headerLeft {
+            position: absolute;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .headerMid {
+            font-weight: $fw-bold;
+        }
+
+        .headerRight {
             position: absolute;
             right: 0;
             display: grid;
@@ -148,6 +160,42 @@
                 font-size: $fs16;
                 font-family: $ffBeta;
             }
+        }
+    }
+}
+
+.QRCodeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4rem 2rem 0;
+
+    .QRCodeDiv {
+        padding: 2rem 0;
+    }
+
+    p {
+        color: $lightGrey1;
+    }
+
+    button {
+        background-color: $black;
+
+        color: $white;
+        font-weight: $fw-bold;
+        font-size: $fs18;
+        padding: 1rem;
+        border: none;
+        border-radius: $border-radius-12;
+
+        margin-top: 2rem;
+
+        width: 100%;
+
+        &:hover {
+            opacity: 0.9;
         }
     }
 }

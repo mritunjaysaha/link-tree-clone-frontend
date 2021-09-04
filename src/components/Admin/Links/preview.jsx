@@ -25,8 +25,11 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
     return (
         <>
             <header>
-                <p>Share your linktree</p>
-                <div onClick={handleShareModalClick}>
+                <p className={styles.headerMid}>Share your linktree</p>
+                <div
+                    className={styles.headerRight}
+                    onClick={handleShareModalClick}
+                >
                     <UilTimes className="fontawesome-icon" />
                 </div>
             </header>
@@ -98,20 +101,29 @@ function PreviewNav() {
                         <>
                             <header>
                                 <div
+                                    className={styles.headerLeft}
                                     onClick={() => {
                                         setIsQRCode(!isQRCode);
                                     }}
-                                ></div>
-                                <p>QR Code</p>
+                                >
+                                    <UilAngleLeftB />
+                                </div>
+                                <p className={styles.headerMid}>QR Code</p>
+
                                 <div
-                                    className={styles.QRCodeModal}
+                                    className={styles.headerRight}
                                     onClick={handleShareModalClick}
                                 >
                                     <UilTimes className="fontawesome-icon" />
                                 </div>
                             </header>
-                            <div>
-                                <QRCode value={link} />
+                            <div className={styles.QRCodeContainer}>
+                                <p>Here is the QR code for your link</p>
+                                <div className={styles.QRCodeDiv}>
+                                    <QRCode value={link} />
+                                </div>
+                                <p>{link}</p>
+                                <button>Download QR Code</button>
                             </div>
                         </>
                     )}
