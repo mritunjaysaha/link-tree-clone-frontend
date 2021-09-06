@@ -1,123 +1,125 @@
 @import "../admin.module.scss";
 
 .shareModal {
-    position: absolute;
-    top: 5.6rem;
-    right: 2rem;
-    z-index: 2000;
+    @include breakpoint(tablet) {
+        position: absolute;
+        top: 5.6rem;
+        right: 2rem;
+        z-index: 2000;
 
-    background-color: $white;
+        background-color: $white;
 
-    font-family: $ffBeta;
+        font-family: $ffBeta;
 
-    width: 44rem;
+        width: 44rem;
 
-    padding: 2rem 1.6rem;
+        padding: 2rem 1.6rem;
 
-    box-shadow: $box-shadow;
-    border-radius: $border-radius-04;
+        box-shadow: $box-shadow;
+        border-radius: $border-radius-04;
 
-    header {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        width: 100%;
-        text-align: center;
-
-        .headerLeft {
-            position: absolute;
-            left: 0;
-            cursor: pointer;
-        }
-
-        .headerMid {
-            font-weight: $fw-bold;
-        }
-
-        .headerRight {
-            position: absolute;
-            right: 0;
-            display: grid;
-            place-items: center;
-
-            cursor: pointer;
-        }
-    }
-
-    ul {
-        margin: 0 auto;
-
-        .QRLi {
+        header {
+            position: relative;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            padding: 2rem 1.8rem;
-            border-radius: $border-radius-04;
-            cursor: pointer;
+            margin-bottom: 1rem;
 
-            div {
+            width: 100%;
+            text-align: center;
+
+            .headerLeft {
+                position: absolute;
+                left: 0;
+                cursor: pointer;
+            }
+
+            .headerMid {
+                font-weight: $fw-bold;
+            }
+
+            .headerRight {
+                position: absolute;
+                right: 0;
+                display: grid;
+                place-items: center;
+
+                cursor: pointer;
+            }
+        }
+
+        ul {
+            margin: 0 auto;
+
+            .QRLi {
                 display: flex;
                 align-items: center;
-            }
+                justify-content: space-between;
+                margin-bottom: 0.8rem;
+                padding: 2rem 1.8rem;
+                border-radius: $border-radius-04;
+                cursor: pointer;
 
-            &:hover {
-                background-color: $veryLightGrey;
-            }
-            .QRCode {
-                width: 4rem;
-                height: 4rem;
-                color: $text-color-alpha;
-                margin-right: 1rem;
-            }
-        }
+                div {
+                    display: flex;
+                    align-items: center;
+                }
 
-        .copyLinkContainer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            border: 1px solid $lightGrey;
-            border-radius: $border-radius-08;
-
-            padding-left: 1rem;
-
-            &:hover {
-                border: 1px solid $lightGrey1;
-
-                button {
-                    background-color: $lightGreen;
+                &:hover {
+                    background-color: $veryLightGrey;
+                }
+                .QRCode {
+                    width: 4rem;
+                    height: 4rem;
+                    color: $text-color-alpha;
+                    margin-right: 1rem;
                 }
             }
 
-            div {
+            .copyLinkContainer {
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
 
-                width: 100%;
-
-                font-size: $fs14;
-
-                img {
-                    width: 2rem;
-                    margin-right: 0.8rem;
-                }
-            }
-
-            button {
-                width: 8rem;
-                aspect-ratio: 1/1;
-
-                background-color: transparent;
-
-                border: none;
+                border: 1px solid $lightGrey;
                 border-radius: $border-radius-08;
 
-                font-size: $fs16;
-                font-family: $ffBeta;
+                padding-left: 1rem;
+
+                &:hover {
+                    border: 1px solid $lightGrey1;
+
+                    button {
+                        background-color: $lightGreen;
+                    }
+                }
+
+                div {
+                    display: flex;
+                    align-items: center;
+
+                    width: 100%;
+
+                    font-size: $fs14;
+
+                    img {
+                        width: 2rem;
+                        margin-right: 0.8rem;
+                    }
+                }
+
+                button {
+                    width: 8rem;
+                    aspect-ratio: 1/1;
+
+                    background-color: transparent;
+
+                    border: none;
+                    border-radius: $border-radius-08;
+
+                    font-size: $fs16;
+                    font-family: $ffBeta;
+                }
             }
         }
     }

@@ -52,20 +52,20 @@ $border: 0.1rem solid $border-color;
 }
 
 .urlNav {
-    z-index: 200;
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: calc(2 * 4.8rem);
+    left: 0;
+
+    margin: 0;
+    padding-left: $padding-mobile;
+
+    width: 100%;
+    height: $dm48;
 
     display: flex;
     align-items: center;
 
     background-color: $white;
-    margin-left: $dm64;
-
-    height: $dm64;
-    width: $url-section-width;
-
-    padding-left: 2.4rem;
 
     border-bottom: 0.1rem solid $border-color;
     border-right: 0.1rem solid $border-color;
@@ -75,23 +75,20 @@ $border: 0.1rem solid $border-color;
         display: grid;
         place-items: center;
 
+        height: $dm48;
+
         color: $admin-text-primary;
         font-size: $fs16;
         font-weight: $fw-normal;
         letter-spacing: 0.05rem;
         line-height: 2.4rem;
 
-        height: $dm64;
-
         margin-right: 4rem;
-
         cursor: pointer;
-
         transition: border 0.3s;
 
         &::after {
             content: "";
-
             position: absolute;
             bottom: 0;
             display: block;
@@ -110,7 +107,20 @@ $border: 0.1rem solid $border-color;
         border-bottom: 0.2rem solid $admin-text-primary;
     }
 
-    display: none;
+    @include breakpoint(tablet) {
+        z-index: 200;
+        position: fixed;
+        top: 0;
+
+        height: $dm64;
+        width: $url-section-width;
+        margin-left: $dm64;
+        padding-left: 2.4rem;
+
+        .urlNavItem {
+            height: $dm64;
+        }
+    }
 }
 
 .previewSection {
