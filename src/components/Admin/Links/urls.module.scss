@@ -7,21 +7,34 @@
     flex-direction: column;
     align-items: center;
 
-    margin-top: $dm64;
+    margin: 4rem auto;
 
-    width: 100%;
+    width: 80vw;
 
-    height: calc(100vh - 6.4rem);
+    min-height: calc(
+        100vh - 4.8rem * 3 - 4rem
+    ); // 100vh - total height of the mobile navbar - margin top
 
     overflow-y: auto;
 
-    padding: 12rem 0 8rem;
+    @include breakpoint(tablet) {
+        margin-top: $dm64;
+        width: 100%;
+        padding: 12rem 0 8rem;
+
+        height: calc(100vh - 6.4rem);
+    }
 
     .buttonContainer {
         display: flex;
-        width: $url-width;
 
-        margin-bottom: 4rem;
+        width: 100%;
+        margin-bottom: 2.8rem;
+
+        @include breakpoint(tablet) {
+            margin-bottom: 4rem;
+            width: $url-width;
+        }
 
         button {
             display: grid;
@@ -58,215 +71,6 @@
             &:hover {
                 opacity: 0.7;
             }
-        }
-    }
-
-    .urlItemSection {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1.4rem;
-
-        background-color: $bg-color-alpha;
-        border-radius: $border-radius-04;
-
-        border-bottom: 0.2rem solid $lightGrey;
-    }
-
-    .urlItemDiv {
-        position: relative;
-        display: flex;
-
-        width: $url-width;
-
-        .urlDrag {
-            display: grid;
-            place-items: center;
-
-            color: $grey-color-admin;
-            font-size: $fs28;
-
-            padding: 0 0.2rem;
-
-            border-right: 1px solid $lightGrey;
-
-            cursor: grab;
-        }
-
-        .urlDetails {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            height: 100%;
-            width: 100%;
-
-            padding: 1.4rem 2rem;
-
-            input {
-                background-color: transparent;
-
-                border: none;
-
-                height: 2.4rem;
-                width: max-content;
-                margin-right: 1rem;
-
-                font-size: $fs14;
-                font-family: $ffBeta;
-
-                &:focus {
-                    outline: none;
-                }
-            }
-
-            .urlContents {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-
-                .urlContentsLeft {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    input {
-                        font-weight: $fw-bold;
-                    }
-                }
-
-                .urlContentsRight {
-                    .switchButton {
-                        display: flex;
-                        // justify-content: center;
-                        align-items: center;
-
-                        background-color: $lightGrey;
-
-                        width: 3.2rem;
-                        height: 2rem;
-
-                        border-radius: $border-radius-15;
-                        cursor: pointer;
-
-                        transition: background-color 0.1s linear;
-                        transition-delay: 0.1s;
-
-                        .switchButtonCircle {
-                            width: 1.6rem;
-                            aspect-ratio: 1/1;
-                            background-color: $white;
-
-                            border-radius: 50%;
-                            margin-left: 0.2rem;
-
-                            transition: transform 0.1s linear;
-                            transition-delay: 0.1s;
-                        }
-                    }
-
-                    .switchButtonActive {
-                        background-color: $green1;
-                        .switchButtonCircle {
-                            transform: translate(1.1rem);
-                        }
-                    }
-                }
-            }
-        }
-
-        .iconContainer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.4rem;
-
-            .adminIcon {
-                font-size: $fs22;
-            }
-        }
-    }
-
-    .urlUtilityContainer {
-        width: 100%;
-
-        .urlCloseDiv {
-            position: relative;
-            display: flex;
-            align-items: center;
-
-            background-color: $grey-color-delete;
-            padding: 0.8rem;
-
-            p {
-                width: 100%;
-                display: grid;
-                place-items: center;
-
-                font-family: $ffBeta;
-                font-size: $fs14;
-                font-weight: $fw-bold;
-            }
-
-            .adminIcon {
-                position: absolute;
-                right: 0.4rem;
-
-                color: $black;
-            }
-        }
-
-        .urlButtonsContainer {
-            padding: 0 2rem 1.4rem;
-
-            font-family: $ffBeta;
-            font-size: $fs14;
-            line-height: 2.2rem;
-            p {
-                text-align: center;
-                padding: 1.4rem 0;
-            }
-
-            button {
-                width: 100%;
-
-                padding: 1rem;
-
-                text-transform: capitalize;
-                font-size: $fs16;
-                font-weight: $fw-bold;
-
-                border: none;
-                border-radius: $border-radius-12;
-            }
-
-            .urlDeleteButtons {
-                display: flex;
-                button {
-                    &:first-of-type {
-                        margin-right: 2rem;
-
-                        &:hover {
-                            background-color: $lightGrey;
-                        }
-                    }
-
-                    &:last-of-type {
-                        background-color: $black;
-
-                        color: $white;
-
-                        &:hover {
-                            opacity: 0.85;
-                        }
-                    }
-                }
-            }
-        }
-
-        .urlThumbnailsButton {
-            background-color: $lightPurple;
-            margin: 0;
-
-            color: $text-color-gamma;
         }
     }
 }

@@ -10,7 +10,7 @@ import {
 } from "@iconscout/react-unicons";
 import { useSelector } from "react-redux";
 
-import styles from "./urls.module.scss";
+import styles from "./urlItem.module.scss";
 
 function UrlDeleteContainer({ handleDelete, handleCancel }) {
     return (

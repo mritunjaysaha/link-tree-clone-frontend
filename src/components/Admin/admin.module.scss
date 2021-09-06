@@ -37,18 +37,25 @@ $border: 0.1rem solid $border-color;
 
 .urlSection {
     position: relative;
-    margin-left: $dm64;
-    border-right: 1px solid $border-color;
-
-    height: 100vh;
-    width: $url-section-width;
-
     background-color: $bg-color-admin;
+
+    margin-top: calc(4.8rem * 3);
+
+    height: max-content;
+    width: 100%;
+
+    border-right: 1px solid $border-color;
 
     overflow: hidden;
     z-index: 100;
 
-    display: none;
+    @include breakpoint(tablet) {
+        height: 100vh;
+        width: $url-section-width;
+
+        margin-top: 0;
+        margin-left: $dm64;
+    }
 }
 
 .urlNav {
