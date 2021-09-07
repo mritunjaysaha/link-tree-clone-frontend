@@ -16,10 +16,10 @@ $padding-mobile: 1.2rem;
 $border: 0.1rem solid $border-color;
 
 .lineClamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1rem;
 }
 
 .adminContainer {

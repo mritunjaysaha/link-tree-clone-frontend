@@ -9,8 +9,33 @@ import {
     UilTimes,
 } from "@iconscout/react-unicons";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 import styles from "./urlItem.module.scss";
+
+function ResponsiveAutosizeInput({ maxWidth, ...rest }) {
+    const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+
+    const width = maxWidth !== "small" ? "18rem" : "10rem";
+
+    return (
+        <>
+            {isMobile ? (
+                <AutosizeInput
+                    {...rest}
+                    inputStyle={{
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        maxWidth: width,
+                    }}
+                />
+            ) : (
+                <AutosizeInput {...rest} />
+            )}
+        </>
+    );
+}
 
 function UrlDeleteContainer({ handleDelete, handleCancel }) {
     return (
@@ -156,7 +181,7 @@ export function UrlItem({
                         {/* url name */}
                         <div className={styles.urlContents}>
                             <div className={styles.urlContentsLeft}>
-                                <AutosizeInput
+                                <ResponsiveAutosizeInput
                                     ref={titleRef}
                                     name="name"
                                     type="text"
@@ -164,7 +189,9 @@ export function UrlItem({
                                     value={urlData.name}
                                     onChange={handleChange}
                                     onBlur={handleOnBlur}
+                                    maxWidth="small"
                                 />
+
                                 <span>
                                     <UilPen
                                         className={styles.adminIcon}
@@ -192,7 +219,7 @@ export function UrlItem({
                         </div>
                         {/* url link */}
                         <div>
-                            <AutosizeInput
+                            <ResponsiveAutosizeInput
                                 ref={urlRef}
                                 name="url"
                                 type="text"
@@ -200,7 +227,9 @@ export function UrlItem({
                                 value={urlData.url}
                                 onChange={handleChange}
                                 onBlur={handleOnBlur}
+                                maxWidth="large"
                             />
+
                             <span>
                                 <UilPen
                                     className={styles.adminIcon}
