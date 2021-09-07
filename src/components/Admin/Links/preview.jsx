@@ -129,7 +129,7 @@ function PreviewNav() {
     return (
         <>
             <nav className={styles.previewNav}>
-                <p>
+                <p className={styles.lineClamp}>
                     My Link:&nbsp;
                     <span>{link}</span>
                 </p>

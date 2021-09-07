@@ -15,6 +15,13 @@ $light-blue: #7fdaff;
 $padding-mobile: 1.2rem;
 $border: 0.1rem solid $border-color;
 
+.lineClamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .adminContainer {
     display: flex;
     min-height: 100vh;
