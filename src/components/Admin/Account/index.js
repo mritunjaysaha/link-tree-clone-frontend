@@ -44,7 +44,6 @@ export function Account() {
         await axios
             .delete(`/api/user/${userId}`)
             .then((res) => {
-                console.log("user successfully deleted", res.data);
                 localStorage.removeItem("jwtToken");
                 history.push(urls.login);
             })

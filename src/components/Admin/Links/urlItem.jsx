@@ -96,7 +96,6 @@ export function UrlItem({
     innerRef,
     ...rest
 }) {
-    console.log("link", link);
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
     const [isActive, setIsActive] = useState(link.active ? link.active : false);
@@ -156,12 +155,11 @@ export function UrlItem({
                 ...urlData,
                 active: isActive,
             };
-            console.log(updateData);
 
             await axios
                 .put(`/api/link/${userId}/${linkId}`, updateData)
                 .then((res) => {
-                    console.log("link successfully updated", res);
+                    console.log("link successfully updated");
                 })
                 .catch((err) => console.log(err.message));
         }
