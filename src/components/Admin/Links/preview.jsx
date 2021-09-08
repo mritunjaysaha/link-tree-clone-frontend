@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import {
     UilTimes,
@@ -14,10 +14,17 @@ import linktree from "../../../assets/linktree.svg";
 import styles from "./preview.module.scss";
 
 function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
+    const [copyText, setCopyText] = useState("Copy");
+
     function handleCopy() {
         navigator.clipboard
             .writeText(link)
-            .then(() => console.log("text copied to clipboard"))
+            .then(() => {
+                setCopyText("Copied");
+                setTimeout(() => {
+                    setCopyText("Copy");
+                }, 3000);
+            })
             .catch((err) =>
                 console.log("failed copying text to clipboard", err.message)
             );
@@ -49,7 +56,7 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
                             <img src={linktree} alt="linktree" />
                             <p>{link}</p>
                         </div>
-                        <button onClick={handleCopy}>Copy</button>
+                        <button onClick={handleCopy}>{copyText}</button>
                     </div>
                 </li>
             </ul>
@@ -129,9 +136,17 @@ function PreviewNav() {
     return (
         <>
             <nav className={styles.previewNav}>
-                <p>
+                <p className={styles.lineClamp}>
                     My Link:&nbsp;
-                    <span>{link}</span>
+                    <span>
+                        <a
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href={link}
+                        >
+                            {link}
+                        </a>
+                    </span>
                 </p>
                 <button
                     className={styles.previewShareButton}
@@ -143,21 +158,23 @@ function PreviewNav() {
                 </button>
             </nav>
             {isClicked && (
-                <div className={styles.shareModal}>
-                    {!isQRCode ? (
-                        <ShareModal
-                            handleQRModalClicked={handleQRModalClicked}
-                            handleShareModalClick={handleShareModalClick}
-                            link={link}
-                        />
-                    ) : (
-                        <QRCodeModal
-                            link={link}
-                            username={username}
-                            handleQRModalClicked={handleQRModalClicked}
-                            handleShareModalClick={handleShareModalClick}
-                        />
-                    )}
+                <div className={styles.shareModalContainer}>
+                    <div className={styles.shareModal}>
+                        {!isQRCode ? (
+                            <ShareModal
+                                handleQRModalClicked={handleQRModalClicked}
+                                handleShareModalClick={handleShareModalClick}
+                                link={link}
+                            />
+                        ) : (
+                            <QRCodeModal
+                                link={link}
+                                username={username}
+                                handleQRModalClicked={handleQRModalClicked}
+                                handleShareModalClick={handleShareModalClick}
+                            />
+                        )}
+                    </div>
                 </div>
             )}
         </>

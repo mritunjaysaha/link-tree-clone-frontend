@@ -5,11 +5,22 @@ $admin-text-primary: #0a0b0d;
 $border-color: #d7dce1;
 $share-button: #71767b;
 $dm64: 6.4rem;
+$dm48: 4.8rem;
 $url-section-width: 60vw;
 $url-width: 64rem;
 $grey-color-admin: #acb5bf;
 $grey-color-delete: #ebeef1;
 $light-blue: #7fdaff;
+
+$padding-mobile: 1.2rem;
+$border: 0.1rem solid $border-color;
+
+.lineClamp {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1rem;
+}
 
 .adminContainer {
     display: flex;
@@ -33,33 +44,42 @@ $light-blue: #7fdaff;
 
 .urlSection {
     position: relative;
-    margin-left: $dm64;
-    border-right: 1px solid $border-color;
-
-    height: 100vh;
-    width: $url-section-width;
-
     background-color: $bg-color-admin;
+
+    margin-top: calc(4.8rem * 3);
+
+    height: max-content;
+    width: 100%;
+
+    border-right: 1px solid $border-color;
 
     overflow: hidden;
     z-index: 100;
+
+    @include breakpoint(desktop) {
+        height: 100vh;
+        width: $url-section-width;
+
+        margin-top: 0;
+        margin-left: $dm64;
+    }
 }
 
 .urlNav {
-    z-index: 200;
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: calc(2 * 4.8rem);
+    left: 0;
+
+    margin: 0;
+    padding-left: $padding-mobile;
+
+    width: 100%;
+    height: $dm48;
 
     display: flex;
     align-items: center;
 
     background-color: $white;
-    margin-left: $dm64;
-
-    height: $dm64;
-    width: $url-section-width;
-
-    padding-left: 2.4rem;
 
     border-bottom: 0.1rem solid $border-color;
     border-right: 0.1rem solid $border-color;
@@ -69,23 +89,20 @@ $light-blue: #7fdaff;
         display: grid;
         place-items: center;
 
+        height: $dm48;
+
         color: $admin-text-primary;
         font-size: $fs16;
         font-weight: $fw-normal;
         letter-spacing: 0.05rem;
         line-height: 2.4rem;
 
-        height: $dm64;
-
         margin-right: 4rem;
-
         cursor: pointer;
-
         transition: border 0.3s;
 
         &::after {
             content: "";
-
             position: absolute;
             bottom: 0;
             display: block;
@@ -103,13 +120,31 @@ $light-blue: #7fdaff;
     .urlNavItemActive {
         border-bottom: 0.2rem solid $admin-text-primary;
     }
+
+    @include breakpoint(desktop) {
+        z-index: 200;
+        position: fixed;
+        top: 0;
+
+        height: $dm64;
+        width: $url-section-width;
+        margin-left: $dm64;
+        padding-left: 2.4rem;
+
+        .urlNavItem {
+            height: $dm64;
+        }
+    }
 }
 
 .previewSection {
+    @include breakpoint(desktop) {
+        position: fixed;
+
+        top: 0;
+        right: 0;
+    }
     z-index: 100;
-    position: fixed;
-    top: 0;
-    right: 0;
 }
 
 .accountSection {

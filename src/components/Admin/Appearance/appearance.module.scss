@@ -5,9 +5,19 @@
     flex-direction: column;
     align-items: center;
 
-    padding: 12rem 0 8rem;
+    width: 90%;
+    height: 80vh;
+    margin: 0 auto;
+    padding: 2.4rem 0;
 
-    width: 100%;
+    @include breakpoint(tablet) {
+        padding: 12rem 0 8rem;
+        width: 88%;
+    }
+
+    @include breakpoint(desktop) {
+        width: $url-width;
+    }
 }
 
 .profileSection {
@@ -18,6 +28,7 @@
     flex-direction: column;
 
     width: $url-width;
+    width: 100%;
 
     p {
         margin-bottom: 2rem;
@@ -43,11 +54,20 @@
                 border-radius: 50%;
 
                 margin-right: 2rem;
+
+                @include breakpoint(tablet) {
+                    height: 10rem;
+                }
             }
 
             figcaption {
                 display: flex;
+                flex-direction: column;
                 justify-content: space-between;
+
+                @include breakpoint(desktop) {
+                    flex-direction: row;
+                }
 
                 width: 100%;
 
@@ -66,7 +86,11 @@
 
                         color: $white;
 
-                        margin-right: 2rem;
+                        margin: 0 2rem 1.2rem 0;
+
+                        @include breakpoint(desktop) {
+                            margin-bottom: unset;
+                        }
                     }
 
                     &:last-of-type {
