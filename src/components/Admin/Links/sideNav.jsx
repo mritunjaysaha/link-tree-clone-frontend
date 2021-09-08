@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { convertToBinary } from "../../../utils/convertToBinary";
-
-import styles from "./sidenav.module.scss";
 import linktree from "../../../assets/linktree.svg";
 import axios from "axios";
 import { setAuthToken } from "../../../utils/setAuthToken";
@@ -11,23 +9,7 @@ import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
 import placeholder from "../../../assets/placeholder.png";
 
-function useOutsideAlerter(ref) {
-    useEffect(() => {
-        /**
-         * Alert if clicked on outside of element
-         */
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-            }
-        }
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [ref]);
-}
+import styles from "./sidenav.module.scss";
 
 export function SideNav() {
     const { photo, username } = useSelector((state) => state.user);
