@@ -20,7 +20,6 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
         navigator.clipboard
             .writeText(link)
             .then(() => {
-                console.log("text copied to clipboard");
                 setCopyText("Copied");
                 setTimeout(() => {
                     setCopyText("Copy");
