@@ -14,10 +14,18 @@ import linktree from "../../../assets/linktree.svg";
 import styles from "./preview.module.scss";
 
 function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
+    const [copyText, setCopyText] = useState("Copy");
+
     function handleCopy() {
         navigator.clipboard
             .writeText(link)
-            .then(() => console.log("text copied to clipboard"))
+            .then(() => {
+                console.log("text copied to clipboard");
+                setCopyText("Copied");
+                setTimeout(() => {
+                    setCopyText("Copy");
+                }, 3000);
+            })
             .catch((err) =>
                 console.log("failed copying text to clipboard", err.message)
             );
@@ -49,7 +57,7 @@ function ShareModal({ handleShareModalClick, handleQRModalClicked, link }) {
                             <img src={linktree} alt="linktree" />
                             <p>{link}</p>
                         </div>
-                        <button onClick={handleCopy}>Copy</button>
+                        <button onClick={handleCopy}>{copyText}</button>
                     </div>
                 </li>
             </ul>
