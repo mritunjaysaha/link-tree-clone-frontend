@@ -151,21 +151,23 @@ function PreviewNav() {
                 </button>
             </nav>
             {isClicked && (
-                <div className={styles.shareModal}>
-                    {!isQRCode ? (
-                        <ShareModal
-                            handleQRModalClicked={handleQRModalClicked}
-                            handleShareModalClick={handleShareModalClick}
-                            link={link}
-                        />
-                    ) : (
-                        <QRCodeModal
-                            link={link}
-                            username={username}
-                            handleQRModalClicked={handleQRModalClicked}
-                            handleShareModalClick={handleShareModalClick}
-                        />
-                    )}
+                <div className={styles.shareModalContainer}>
+                    <div className={styles.shareModal}>
+                        {!isQRCode ? (
+                            <ShareModal
+                                handleQRModalClicked={handleQRModalClicked}
+                                handleShareModalClick={handleShareModalClick}
+                                link={link}
+                            />
+                        ) : (
+                            <QRCodeModal
+                                link={link}
+                                username={username}
+                                handleQRModalClicked={handleQRModalClicked}
+                                handleShareModalClick={handleShareModalClick}
+                            />
+                        )}
+                    </div>
                 </div>
             )}
         </>
