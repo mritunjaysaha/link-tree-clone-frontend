@@ -56,7 +56,7 @@ $border: 0.1rem solid $border-color;
     overflow: hidden;
     z-index: 100;
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         height: 100vh;
         width: $url-section-width;
 
@@ -121,7 +121,7 @@ $border: 0.1rem solid $border-color;
         border-bottom: 0.2rem solid $admin-text-primary;
     }
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         z-index: 200;
         position: fixed;
         top: 0;
@@ -138,7 +138,7 @@ $border: 0.1rem solid $border-color;
 }
 
 .previewSection {
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         position: fixed;
 
         top: 0;

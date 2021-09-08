@@ -131,7 +131,15 @@ function PreviewNav() {
             <nav className={styles.previewNav}>
                 <p className={styles.lineClamp}>
                     My Link:&nbsp;
-                    <span>{link}</span>
+                    <span>
+                        <a
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href={link}
+                        >
+                            {link}
+                        </a>
+                    </span>
                 </p>
                 <button
                     className={styles.previewShareButton}

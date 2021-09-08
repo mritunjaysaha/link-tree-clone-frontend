@@ -23,7 +23,7 @@
         display: none;
     }
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         position: fixed;
         top: 0;
         left: 0;
@@ -68,7 +68,7 @@
     background-color: $white;
     z-index: 1000;
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         top: unset;
         right: unset;
         bottom: 0;
@@ -154,7 +154,7 @@
         }
     }
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         display: none;
     }
 }

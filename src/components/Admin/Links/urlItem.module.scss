@@ -7,7 +7,7 @@
 
     width: 80vw;
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         width: 100%;
     }
 
@@ -23,7 +23,7 @@
 
     width: 100%;
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktop) {
         width: $url-width;
     }
 
