@@ -21,3 +21,12 @@
         color: $text-color-disabled;
     }
 }
+
+.loaderContainer {
+    div {
+        svg {
+            height: inherit;
+            width: inherit;
+        }
+    }
+}

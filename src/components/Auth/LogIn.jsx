@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-
+import Loader from "react-loader-spinner";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 
@@ -18,6 +18,8 @@ export function LogIn() {
         password: "",
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [error, setError] = useState({ message: "" });
 
     const handleChange = (e) => {
@@ -31,10 +33,13 @@ export function LogIn() {
 
         const userData = { username: user.username, password: user.password };
 
+        setIsLoading(true);
+
         axios
             .post("/api/login", userData)
             .then((res) => {
                 const { user, token } = res.data;
+                setIsLoading(false);
                 dispatch(setAuth(user));
                 localStorage.setItem("jwtToken", token);
                 history.push(urls.admin);
@@ -70,9 +75,13 @@ export function LogIn() {
                     <button
                         type="submit"
                         disabled={!user.username || !user.password}
-                        className={styles.button}
+                        className={`${styles.button} ${styles.loaderContainer}`}
                     >
-                        Sign in
+                        {isLoading ? (
+                            <Loader type="TailSpin" color="#fff" height={20} />
+                        ) : (
+                            "Sign in"
+                        )}
                     </button>
                     {!error ? <p>{error}</p> : ""}
                 </form>
