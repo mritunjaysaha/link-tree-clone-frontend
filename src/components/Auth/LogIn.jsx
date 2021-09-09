@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import Loader from "react-loader-spinner";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
-
+import { LoadingSpinner } from "../Loader";
 import { setAuth } from "../../features/Auth/authSlice";
 import styles from "./login.module.scss";
 
@@ -77,11 +76,7 @@ export function LogIn() {
                         disabled={!user.username || !user.password}
                         className={`${styles.button} ${styles.loaderContainer}`}
                     >
-                        {isLoading ? (
-                            <Loader type="TailSpin" color="#fff" height={20} />
-                        ) : (
-                            "Sign in"
-                        )}
+                        {isLoading ? <LoadingSpinner /> : "Sign in"}
                     </button>
                     {!error ? <p>{error}</p> : ""}
                 </form>

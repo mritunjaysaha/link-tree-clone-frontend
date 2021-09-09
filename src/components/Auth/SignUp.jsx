@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
-
 import styles from "./signup.module.scss";
 
 const validationSchema = yup.object({

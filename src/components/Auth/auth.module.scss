@@ -1,5 +1,6 @@
 @import "../../styles/abstract/mixins.scss";
 @import "../../styles/abstract/variables.scss";
+@import "../../styles/abstract/utils.scss";
 
 .button {
     padding: 1.4rem 2rem;
@@ -19,14 +20,5 @@
     &:disabled {
         background-color: $bg-color-disabled;
         color: $text-color-disabled;
-    }
-}
-
-.loaderContainer {
-    div {
-        svg {
-            height: inherit;
-            width: inherit;
-        }
     }
 }
