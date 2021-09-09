@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { convertToBinary } from "../../../utils/convertToBinary";
@@ -8,6 +8,7 @@ import { setAuthToken } from "../../../utils/setAuthToken";
 import { setAuth } from "../../../features/Auth/authSlice";
 import { urls } from "../../../data/data";
 import placeholder from "../../../assets/placeholder.png";
+import { ClickAwayListener } from "@material-ui/core";
 
 import styles from "./sidenav.module.scss";
 
@@ -19,7 +20,7 @@ export function SideNav() {
     const history = useHistory();
     const location = useLocation();
 
-    const activeAccount = location.pathname.split("/")[2] === "account";
+    const activeAccount = location.pathname.includes(urls.admin) === "account";
 
     const menuRef = useRef(null);
 
@@ -31,26 +32,14 @@ export function SideNav() {
                 localStorage.removeItem("jwtToken");
                 setAuthToken("");
                 dispatch(setAuth({ _id: "" }));
+                // setShowMenu(!showMenu);
             })
             .catch((err) => console.log(err.message));
     }
 
-    useEffect(() => {
-        /**
-         * Alert if clicked on outside of element
-         */
-        function handleClickOutside(event) {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setShowMenu(false);
-            }
-        }
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [menuRef, showMenu]);
+    function handleMenu() {
+        setShowMenu(!showMenu);
+    }
 
     return (
         <nav className={styles.sideNav}>
@@ -62,7 +51,7 @@ export function SideNav() {
                 className={styles.menu}
                 onClick={() => {
                     setShowMenu(!showMenu);
-                    menuRef.current.focus();
+                    // menuRef.current.focus();
                 }}
             >
                 <div></div>
@@ -70,39 +59,47 @@ export function SideNav() {
                 <div></div>
             </div>
 
-            <picture
-                onMouseOver={() => {
-                    setShowMenu(true);
-                }}
-                onMouseLeave={() => {
-                    setShowMenu(false);
-                }}
-            >
+            <picture onMouseOver={handleMenu} onMouseLeave={handleMenu}>
                 <img
                     src={!!photo ? convertToBinary(photo) : placeholder}
                     alt={username ? username : ""}
                 />
             </picture>
             {showMenu && (
-                <div
-                    className={styles.sideNavMenu}
-                    onMouseEnter={() => {
-                        setShowMenu(true);
-                    }}
-                    onMouseLeave={() => {
+                <ClickAwayListener
+                    onClickAway={() => {
                         setShowMenu(false);
                     }}
                 >
-                    <p>{username ? username : ""}</p>
-                    <ul>
-                        <li
-                            className={activeAccount ? styles.linkLiActive : ""}
-                        >
-                            <Link to={`${urls.admin}/account`}>My Account</Link>
-                        </li>
-                        <li onClick={handleLogout}>Logout</li>
-                    </ul>
-                </div>
+                    <div
+                        className={styles.sideNavMenu}
+                        onMouseEnter={() => {
+                            setShowMenu(true);
+                        }}
+                        onMouseLeave={() => {
+                            setShowMenu(false);
+                        }}
+                    >
+                        <p>{username ? username : ""}</p>
+                        <ul>
+                            <li
+                                className={
+                                    activeAccount ? styles.linkLiActive : ""
+                                }
+                            >
+                                <Link
+                                    to={`${urls.admin}/account`}
+                                    onClick={() => {
+                                        setShowMenu(false);
+                                    }}
+                                >
+                                    My Account
+                                </Link>
+                            </li>
+                            <li onClick={handleLogout}>Logout</li>
+                        </ul>
+                    </div>
+                </ClickAwayListener>
             )}
         </nav>
     );

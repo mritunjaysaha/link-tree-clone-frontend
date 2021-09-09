@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
+import { LoadingSpinner } from "../Loader";
+
 import styles from "./signup.module.scss";
 
 const validationSchema = yup.object({
@@ -22,6 +25,7 @@ const validationSchema = yup.object({
 });
 
 export function SignUp() {
+    const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
 
     const formik = useFormik({
@@ -36,17 +40,27 @@ export function SignUp() {
     function handleSubmit(e) {
         e.preventDefault();
 
+        setIsLoading(true);
+        localStorage.removeItem("jwtToken");
+
+        axios.defaults.authorization = "";
+        console.log(axios.defaults);
+
         const user = {
             email: formik.values.email,
             username: formik.values.username,
             password: formik.values.password,
         };
+
         axios
             .post("/api/signup", user)
             .then((res) => {
+                setIsLoading(false);
                 history.push(urls.login);
             })
             .catch((err) => {
+                setIsLoading(false);
+
                 console.log(err);
             });
     }
@@ -100,14 +114,14 @@ export function SignUp() {
                     />
                     <button
                         type="submit"
-                        className={styles.button}
+                        className={`${styles.button} ${styles.loaderContainer}`}
                         disabled={
                             !formik.values.email ||
                             !formik.values.username ||
                             !formik.values.password
                         }
                     >
-                        Sign up with email
+                        {isLoading ? <LoadingSpinner /> : "Sign up with email"}
                     </button>
                 </form>
                 <hr />

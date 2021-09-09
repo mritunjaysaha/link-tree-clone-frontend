@@ -150,15 +150,20 @@ $border: 0.1rem solid $border-color;
 
 .accountSection {
     position: relative;
-    margin-left: $dm64;
-
     background-color: $bg-color-admin;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
+    top: $dm48;
 
-    width: calc(100vw - 6.4rem);
+    margin: 0 auto;
+
+    @include breakpoint(desktop) {
+        width: calc(100vw - 6.4rem);
+        margin-left: $dm64;
+    }
 }
 
 .fadeIn {

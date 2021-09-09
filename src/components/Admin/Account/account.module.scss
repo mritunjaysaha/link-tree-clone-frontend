@@ -1,10 +1,18 @@
 @import "../admin.module.scss";
 
 .accountsContainer {
-    width: 36vw;
+    position: absolute;
 
-    padding: 8rem 0;
+    width: 80%;
+    margin: 0 auto;
+    padding: 4rem 0;
 
+    @include breakpoint(desktop) {
+        width: 36vw;
+        padding: 8rem 0;
+    }
+
+    z-index: 10;
     .myAccountP {
         text-align: center;
         font-size: $fs32;
@@ -21,7 +29,7 @@
 
     button {
         border: none;
-        border-radius: $border-radius-12;
+        border-radius: $border-radius-08;
 
         padding: 1.2rem 2rem;
 
