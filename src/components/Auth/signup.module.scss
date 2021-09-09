@@ -3,28 +3,50 @@
 @import "./auth.module.scss";
 
 .signupSection {
-    width: 100vw;
     display: flex;
 
-    padding: 4rem 0 0 20rem;
+    margin: 0 auto;
+
+    width: 90vw;
+
+    @include breakpoint(tablet) {
+        width: 80vw;
+    }
+
+    @include breakpoint(desktop) {
+        padding: 4rem 0 0 20rem;
+        width: 100vw;
+    }
 }
 
 .signupDiv {
     margin-top: 1rem;
 
-    width: 64rem;
+    width: 100%;
+
+    @include breakpoint(desktop) {
+        width: 64rem;
+    }
 
     .signupH3 {
-        font-size: $fs32;
+        font-size: $fs24;
         font-weight: $fw-normal;
         line-height: 4rem;
         margin-bottom: 1rem;
+
+        @include breakpoint(tablet) {
+            font-size: $fs32;
+        }
     }
 
     .signupP {
         font-size: $fs16;
         line-height: 2.4rem;
-        margin-bottom: 8rem;
+        margin-bottom: 4rem;
+
+        @include breakpoint(tablet) {
+            margin-bottom: 8rem;
+        }
     }
 
     .button {
