@@ -8,8 +8,6 @@ import { convertToBinary } from "../../utils/convertToBinary";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
-import { LoadingSpinner } from "../Loader";
-import { useLoader } from "../../customHooks/loadingHook";
 
 function Footer() {
     return (
