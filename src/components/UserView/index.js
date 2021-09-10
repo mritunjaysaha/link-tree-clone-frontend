@@ -8,6 +8,60 @@ import { convertToBinary } from "../../utils/convertToBinary";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
+import { LoadingSpinner } from "../Loader";
+import { useLoader } from "../../customHooks/loadingHook";
+
+function Footer() {
+    return (
+        <footer className={styles.footer}>
+            <img src={linktree} alt="linktree" />
+            <p>linktree</p>
+        </footer>
+    );
+}
+function Header({ photo, username, profileTitle, bio }) {
+    return (
+        <header className={styles.header}>
+            <picture>
+                <img
+                    src={!!photo ? convertToBinary(photo) : placeholder}
+                    alt={username ? username : ""}
+                />
+            </picture>
+            <p className={styles.profileTitle}>
+                {!profileTitle ? `@${username}` : profileTitle}
+            </p>
+            {bio ? <p className={styles.bio}>{bio}</p> : ""}
+        </header>
+    );
+}
+function Links({ links }) {
+    return (
+        <section className={styles.contentsSection}>
+            {/* links */}
+            {links.length > 0 ? (
+                <ul className={styles.linksContainer}>
+                    {links.map((link, index) =>
+                        link.active ? (
+                            <a
+                                key={index}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href={link.url ? link.url : ""}
+                            >
+                                <li>{link.name}</li>
+                            </a>
+                        ) : (
+                            ""
+                        )
+                    )}
+                </ul>
+            ) : (
+                ""
+            )}
+        </section>
+    );
+}
 
 export function UserViewContents({ user, isPreview = false }) {
     const { links, profileTitle, bio, photo, username } = user;
@@ -20,46 +74,14 @@ export function UserViewContents({ user, isPreview = false }) {
                     : `${styles.userviewInnerSection}`
             }
         >
-            {/* User image */}
-            <header className={styles.header}>
-                <picture>
-                    <img
-                        src={!!photo ? convertToBinary(photo) : placeholder}
-                        alt={username ? username : ""}
-                    />
-                </picture>
-                <p className={styles.profileTitle}>
-                    {!profileTitle ? `@${username}` : profileTitle}
-                </p>
-                {bio ? <p className={styles.bio}>{bio}</p> : ""}
-            </header>
-            <section className={styles.contentsSection}>
-                {/* links */}
-                {links.length > 0 ? (
-                    <ul className={styles.linksContainer}>
-                        {links.map((link, index) =>
-                            link.active ? (
-                                <a
-                                    key={index}
-                                    rel="noopener noreferrer"
-                                    target="_blank"
-                                    href={link.url ? link.url : ""}
-                                >
-                                    <li>{link.name}</li>
-                                </a>
-                            ) : (
-                                ""
-                            )
-                        )}
-                    </ul>
-                ) : (
-                    ""
-                )}
-            </section>
-            <footer className={styles.footer}>
-                <img src={linktree} alt="linktree" />
-                <p>linktree</p>
-            </footer>
+            <Header
+                profileTitle={profileTitle}
+                bio={bio}
+                photo={photo}
+                username={username}
+            />
+            <Links links={links} />
+            <Footer />
         </section>
     );
 }
@@ -82,7 +104,9 @@ function UserView({ user: username }) {
 
                     dispatch(setUserData(data));
                 })
-                .catch((err) => console.log(err.message));
+                .catch((err) => {
+                    console.log(err.message);
+                });
         }
     }, [dispatch, username]);
 
