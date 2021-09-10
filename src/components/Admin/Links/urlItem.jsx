@@ -108,7 +108,7 @@ export function UrlItem({
     const urlRef = useRef();
 
     // ? fetch the user id rom redux store
-    const { _id: userId } = useSelector((state) => state.user);
+    const { _id: userId, username } = useSelector((state) => state.user);
 
     // ? pulling out name and url from linkData
     // ? linkData contains the details of the link
@@ -157,21 +157,41 @@ export function UrlItem({
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
     }
 
-    async function handleOnBlur() {
+    function handleOnBlur() {
         setIsBlur(!isBlur);
-
-        const updateData = {
-            ...urlData,
-            active: isActive,
-        };
-
-        await axios
-            .put(`/api/link/${userId}/${linkId}`, updateData)
-            .then((res) => {
-                console.log("link successfully updated");
-            })
-            .catch((err) => console.log(err.message));
     }
+
+    function handleToggleSwitch() {
+        setIsActive(!isActive);
+    }
+
+    // It will update the links when the isBlur or isActive state changes
+    useEffect(() => {
+        async function updateUrl() {
+            const updateData = {
+                ...urlData,
+                active: isActive,
+            };
+
+            await axios
+                .put(`/api/link/${userId}/${linkId}`, updateData)
+                .then(async (res) => {
+                    console.log("link successfully updated");
+
+                    await axios
+                        .get(`/api/link/${username}`)
+                        .then((res) => {
+                            res.data.links.sort((a, b) => a.order - b.order);
+
+                            dispatch(updateLinks(res.data.links));
+                        })
+                        .catch((err) => console.log(err.message));
+                })
+                .catch((err) => console.log(err.message));
+        }
+
+        updateUrl();
+    }, [isBlur, isActive, linkId, urlData, userId, username, dispatch]);
 
     return (
         <>
@@ -213,9 +233,7 @@ export function UrlItem({
                                             ? `${styles.switchButton}`
                                             : `${styles.switchButton} ${styles.switchButtonActive} ${styles.switchButtonCircleActive}`
                                     }
-                                    onClick={() => {
-                                        setIsActive(!isActive);
-                                    }}
+                                    onClick={handleToggleSwitch}
                                 >
                                     <div
                                         className={styles.switchButtonCircle}

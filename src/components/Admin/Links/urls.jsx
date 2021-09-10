@@ -50,7 +50,6 @@ export function UrlContainer() {
                     ])
                 );
 
-                // setLinks([...links, { _id: res.data.currentLink, ...newLink }]);
                 stopLoader();
             })
             .catch((err) => {
