@@ -1,13 +1,17 @@
 @import "../admin.module.scss";
 
 .cropperNav {
-    display: flex;
+    display: none;
 
     height: 100%;
-    width: inherit;
+    width: $dm64;
     padding: 1rem 0;
 
     border-right: 0.1rem solid $cropper-modal-border-color;
+
+    @include breakpoint(desktop) {
+        display: flex;
+    }
 
     .cropperNavItem {
         display: grid;
@@ -30,12 +34,18 @@
 }
 
 .cropperContainerSection {
-    width: 100%;
-    margin-left: 6.4rem;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    width: 100vw;
+    height: 100vh;
+
+    @include breakpoint(desktop) {
+        margin-left: 6.4rem;
+        width: calc(75rem - 6.4rem);
+        height: unset;
+    }
 
     .cropperContainerDiv {
         display: flex;
@@ -98,7 +108,7 @@
 
         margin: 1rem auto 1rem;
 
-        width: calc(75rem - 8rem);
+        width: 96%;
         height: calc(48rem - 10rem);
 
         display: flex;
