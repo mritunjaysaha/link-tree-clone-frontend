@@ -22,8 +22,6 @@ export function SideNav() {
 
     const activeAccount = location.pathname.includes(urls.admin) === "account";
 
-    const menuRef = useRef(null);
-
     async function handleLogout() {
         await axios
             .get(`/api/logout`)
@@ -32,13 +30,8 @@ export function SideNav() {
                 localStorage.removeItem("jwtToken");
                 setAuthToken("");
                 dispatch(setAuth({ _id: "" }));
-                // setShowMenu(!showMenu);
             })
             .catch((err) => console.log(err.message));
-    }
-
-    function handleMenu() {
-        setShowMenu(!showMenu);
     }
 
     return (
@@ -47,11 +40,9 @@ export function SideNav() {
                 <img src={linktree} alt="linktree" />
             </Link>
             <div
-                ref={menuRef}
                 className={styles.menu}
                 onClick={() => {
                     setShowMenu(!showMenu);
-                    // menuRef.current.focus();
                 }}
             >
                 <div></div>
@@ -59,7 +50,14 @@ export function SideNav() {
                 <div></div>
             </div>
 
-            <picture onMouseOver={handleMenu} onMouseLeave={handleMenu}>
+            <picture
+                onMouseOver={() => {
+                    setShowMenu(true);
+                }}
+                onMouseLeave={() => {
+                    setShowMenu(false);
+                }}
+            >
                 <img
                     src={!!photo ? convertToBinary(photo) : placeholder}
                     alt={username ? username : ""}
