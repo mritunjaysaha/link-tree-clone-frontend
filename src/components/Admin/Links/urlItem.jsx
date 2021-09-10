@@ -13,6 +13,7 @@ import { useMediaQuery } from "react-responsive";
 
 import styles from "./urlItem.module.scss";
 import { useDispatch } from "react-redux";
+import { updateLinks } from "../../../features/Auth/authSlice";
 
 function ResponsiveAutosizeInput({ maxWidth, inputRef, ...rest }) {
     const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
@@ -117,8 +118,8 @@ export function UrlItem({
         url: url ? url : "",
     });
 
-    // const dispatch = useDispatch();
-    let { links } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { links } = useSelector((state) => state.user);
     console.log(links);
 
     function handleTitleClick() {
@@ -139,6 +140,9 @@ export function UrlItem({
             .delete(`/api/link/${userId}/${linkId}`)
             .then((res) => {
                 console.log("link successfully deleted");
+                const filteredLinks = links.filter((l) => l._id !== link._id);
+
+                dispatch(updateLinks(filteredLinks));
             })
             .catch((err) => console.log("failed to delete link", err.message));
     }
@@ -153,26 +157,21 @@ export function UrlItem({
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
     }
 
-    function handleOnBlur() {
+    async function handleOnBlur() {
         setIsBlur(!isBlur);
+
+        const updateData = {
+            ...urlData,
+            active: isActive,
+        };
+
+        await axios
+            .put(`/api/link/${userId}/${linkId}`, updateData)
+            .then((res) => {
+                console.log("link successfully updated");
+            })
+            .catch((err) => console.log(err.message));
     }
-
-    useEffect(() => {
-        async function handleUpdate() {
-            const updateData = {
-                ...urlData,
-                active: isActive,
-            };
-
-            await axios
-                .put(`/api/link/${userId}/${linkId}`, updateData)
-                .then((res) => {
-                    console.log("link successfully updated");
-                })
-                .catch((err) => console.log(err.message));
-        }
-        handleUpdate();
-    }, [isActive, isBlur, linkId, urlData, userId]);
 
     return (
         <>

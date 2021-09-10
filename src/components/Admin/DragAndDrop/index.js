@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
 import { UrlItem } from "../Links/urlItem";
 
 /**
@@ -9,7 +10,9 @@ import { UrlItem } from "../Links/urlItem";
  * @param {userId} userId
  * @returns
  */
-export function DragAndDrop({ links, userId = "" }) {
+export function DragAndDrop({ userId = "" }) {
+    const { links } = useSelector((state) => state.user);
+
     const [data, setData] = useState({});
     useEffect(() => {
         const newLinks = {};

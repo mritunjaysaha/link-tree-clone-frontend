@@ -9,7 +9,11 @@ import {
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { setPhoto, setUserData } from "../../features/Auth/authSlice";
+import {
+    setPhoto,
+    setUserData,
+    updateLinks,
+} from "../../features/Auth/authSlice";
 // nav
 import { SideNav } from "./Links/sideNav";
 import { UrlContainer } from "./Links/urls";
@@ -90,6 +94,21 @@ export function Admin() {
                 })
                 .catch((err) => console.log("admin", err.message));
         }
+    }, [username, dispatch]);
+
+    useEffect(() => {
+        function getURLS() {
+            axios
+                .get(`/api/link/${username}`)
+                .then((res) => {
+                    res.data.links.sort((a, b) => a.order - b.order);
+                    dispatch(updateLinks(res.data.links));
+
+                    console.log("links fetched");
+                })
+                .catch((err) => console.log(err.message, err.error));
+        }
+        getURLS();
     }, [username, dispatch]);
 
     return (

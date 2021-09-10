@@ -28,7 +28,7 @@ export function UrlContainer() {
                 .catch((err) => console.log(err.message, err.error));
         }
         getURLS();
-    }, [dispatch, username]);
+    }, [username, dispatch]);
 
     async function handleAddButton() {
         startLoader();
@@ -50,7 +50,7 @@ export function UrlContainer() {
                     ])
                 );
 
-                setLinks([...links, { _id: res.data.currentLink, ...newLink }]);
+                // setLinks([...links, { _id: res.data.currentLink, ...newLink }]);
                 stopLoader();
             })
             .catch((err) => {
@@ -73,13 +73,7 @@ export function UrlContainer() {
                 </button> */}
             </div>
 
-            <div>
-                {links.length ? (
-                    <DragAndDrop links={links} userId={userId} />
-                ) : (
-                    ""
-                )}
-            </div>
+            <div>{links.length ? <DragAndDrop userId={userId} /> : ""}</div>
         </section>
     );
 }
