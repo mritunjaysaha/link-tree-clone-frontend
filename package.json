@@ -1,6 +1,6 @@
 {
   "name": "link-tree-clone-frontend",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

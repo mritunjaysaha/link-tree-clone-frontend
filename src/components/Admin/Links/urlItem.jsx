@@ -12,8 +12,9 @@ import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 
 import styles from "./urlItem.module.scss";
+import { useDispatch } from "react-redux";
 
-function ResponsiveAutosizeInput({ maxWidth, ...rest }) {
+function ResponsiveAutosizeInput({ maxWidth, inputRef, ...rest }) {
     const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
     const width = maxWidth !== "small" ? "18rem" : "10rem";
@@ -22,6 +23,7 @@ function ResponsiveAutosizeInput({ maxWidth, ...rest }) {
         <>
             {isMobile ? (
                 <AutosizeInput
+                    ref={inputRef}
                     {...rest}
                     inputStyle={{
                         textOverflow: "ellipsis",
@@ -31,7 +33,7 @@ function ResponsiveAutosizeInput({ maxWidth, ...rest }) {
                     }}
                 />
             ) : (
-                <AutosizeInput {...rest} />
+                <AutosizeInput ref={inputRef} {...rest} />
             )}
         </>
     );
@@ -115,6 +117,10 @@ export function UrlItem({
         url: url ? url : "",
     });
 
+    // const dispatch = useDispatch();
+    let { links } = useSelector((state) => state.user);
+    console.log(links);
+
     function handleTitleClick() {
         titleRef.current.focus();
     }
@@ -131,7 +137,9 @@ export function UrlItem({
     async function handleDeleteRequest() {
         await axios
             .delete(`/api/link/${userId}/${linkId}`)
-            .then((res) => console.log("link successfully deleted"))
+            .then((res) => {
+                console.log("link successfully deleted");
+            })
             .catch((err) => console.log("failed to delete link", err.message));
     }
 
@@ -165,6 +173,7 @@ export function UrlItem({
         }
         handleUpdate();
     }, [isActive, isBlur, linkId, urlData, userId]);
+
     return (
         <>
             <section className={styles.urlItemSection} ref={innerRef} {...rest}>
@@ -180,7 +189,7 @@ export function UrlItem({
                         <div className={styles.urlContents}>
                             <div className={styles.urlContentsLeft}>
                                 <ResponsiveAutosizeInput
-                                    ref={titleRef}
+                                    inputRef={titleRef}
                                     name="name"
                                     type="text"
                                     placeholder="Title"
@@ -218,7 +227,7 @@ export function UrlItem({
                         {/* url link */}
                         <div>
                             <ResponsiveAutosizeInput
-                                ref={urlRef}
+                                inputRef={urlRef}
                                 name="url"
                                 type="text"
                                 placeholder="url"
