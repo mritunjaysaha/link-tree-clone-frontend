@@ -38,7 +38,7 @@ export function LogIn() {
             .post("/api/login", userData)
             .then((res) => {
                 const { user, token } = res.data;
-                setIsLoading(false);
+                // setIsLoading(false);
                 dispatch(setAuth(user));
                 localStorage.setItem("jwtToken", token);
                 history.push(urls.admin);
@@ -46,6 +46,7 @@ export function LogIn() {
             .catch((err) => {
                 setError("Incorrect login details. Please retry.");
                 console.log(err.message);
+                // setIsLoading(false);
             });
     };
 
