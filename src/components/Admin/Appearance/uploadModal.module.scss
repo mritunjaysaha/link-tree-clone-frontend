@@ -1,4 +1,5 @@
 @import "../admin.module.scss";
+@import "../../../styles/abstract/utils.scss";
 
 .adminIcon {
     color: $black;
@@ -9,8 +10,14 @@
 .uploadModalContainer {
     z-index: 10;
     position: relative;
-    width: $image-modal-width;
-    height: $image-modal-height;
+
+    width: 100vw;
+    height: 100vh;
+
+    @include breakpoint(tablet) {
+        width: $image-modal-width;
+        height: $image-modal-height;
+    }
 
     display: flex;
     background-color: $upload-modal-grey;
@@ -23,7 +30,6 @@
 
         width: 6.4rem;
         height: 100%;
-        display: flex;
         justify-content: center;
 
         font-family: $ffGamma;
@@ -33,6 +39,10 @@
         transition: width 0.3s linear;
 
         z-index: 100;
+        display: none;
+        @include breakpoint(tablet) {
+            display: flex;
+        }
 
         .navItem {
             display: flex;
@@ -43,7 +53,14 @@
             padding: 1rem 2rem;
 
             background-color: $upload-modal-grey;
-            color: red;
+
+            .adminIcon {
+                display: none;
+
+                @include breakpoint(desktop) {
+                    display: block;
+                }
+            }
 
             span {
                 position: relative;
@@ -51,6 +68,7 @@
 
                 margin-left: 2rem;
                 transition: all 0.1s linear;
+                transition-delay: 0.2s;
             }
         }
 
@@ -75,7 +93,9 @@
         width: 100%;
         background-color: $upload-modal-grey;
 
-        margin-left: 6.4rem;
+        @include breakpoint(desktop) {
+            margin-left: 6.4rem;
+        }
 
         z-index: 10;
 

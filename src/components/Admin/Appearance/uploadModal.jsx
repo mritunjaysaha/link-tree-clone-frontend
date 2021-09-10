@@ -1,4 +1,3 @@
-import styles from "./uploadModal.module.scss";
 import { UilFilePlus, UilTimes, UilLaptop } from "@iconscout/react-unicons";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
@@ -9,6 +8,9 @@ import {
     cropModalReducer,
     pickModalReducer,
 } from "../../../features/Admin/appearance/appearanceSlice";
+
+import styles from "./uploadModal.module.scss";
+
 /**
  *
  * @param {getRootProps} getRootProps - Pass useDropzone's getRootProps
@@ -21,6 +23,11 @@ function UploadComponent({ getRootProps, getInputProps, handleClose }) {
             <nav>
                 <div className={styles.navItem}>
                     <UilLaptop className={styles.adminIcon} />
+                    <div className={styles.hamburgerMenu}>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                     <span>My Device</span>
                 </div>
             </nav>

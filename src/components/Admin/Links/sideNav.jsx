@@ -40,7 +40,7 @@ export function SideNav() {
                 <img src={linktree} alt="linktree" />
             </Link>
             <div
-                className={styles.menu}
+                className={styles.hamburgerMenu}
                 onClick={() => {
                     setShowMenu(!showMenu);
                 }}
