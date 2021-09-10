@@ -16,6 +16,17 @@ $light-blue: #7fdaff;
 $padding-mobile: 1.2rem;
 $border: 0.1rem solid $border-color;
 
+// image modal dimensions
+$image-modal-width: 75rem;
+$image-modal-height: 50rem;
+
+// upload modal colors
+$upload-modal-grey: #eeeeee;
+$upload-modal-light-grey: #e2e2e2;
+$cropper-modal-border-color: #d1d1d1;
+
+$admin-blue: #2e68fb;
+
 .lineClamp {
     text-overflow: ellipsis;
     overflow: hidden;

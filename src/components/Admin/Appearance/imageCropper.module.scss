@@ -1,1 +1,112 @@
 @import "../admin.module.scss";
+
+.cropperNav {
+    display: flex;
+
+    height: 100%;
+    width: inherit;
+    padding: 1rem 0;
+
+    border-right: 0.1rem solid $cropper-modal-border-color;
+
+    .cropperNavItem {
+        display: grid;
+        place-items: center;
+
+        height: max-content;
+
+        .cropIcon {
+            color: $admin-blue;
+            width: 2.8rem;
+            height: auto;
+        }
+
+        p {
+            color: $admin-blue;
+            text-transform: capitalize;
+            font-size: $fs12;
+        }
+    }
+}
+
+.cropperContainerSection {
+    width: 100%;
+    margin-left: 6.4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .cropperContainerDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .leftArrowIcon {
+            color: $grey-color-admin;
+        }
+
+        .closeIcon {
+            color: $grey;
+        }
+
+        p {
+            font-size: $fs12;
+        }
+
+        &:first-of-type {
+            padding: 1rem;
+        }
+
+        &:last-of-type {
+            padding: 0.7rem;
+
+            border-top: 0.1rem solid $cropper-modal-border-color;
+        }
+
+        button {
+            background-color: transparent;
+
+            padding: 1rem 2.8rem;
+
+            border-radius: $border-radius-04;
+
+            text-transform: capitalize;
+            font-family: $ffGamma;
+            font-size: $fs12;
+            border: none;
+
+            &:first-of-type {
+                color: $grey;
+                border: 1px solid $cropper-modal-border-color;
+            }
+        }
+
+        .saveButton {
+            color: $admin-blue;
+            border: 1px solid $admin-blue;
+        }
+
+        .uploadButton {
+            background-color: $admin-blue;
+            color: $white;
+        }
+    }
+
+    .cropperContainerMid {
+        position: relative;
+
+        margin: 1rem auto 1rem;
+
+        width: calc(75rem - 8rem);
+        height: calc(48rem - 10rem);
+
+        display: flex;
+        justify-content: center;
+
+        .uploadImg {
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+}

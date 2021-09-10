@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { MUIModal } from "../../Modal/muiModal";
-import { ImageModal } from "./appearanceModals";
+import { SelectImageModal } from "./selectImageModal";
 import { useSelector, useDispatch } from "react-redux";
 import { pickModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 import { removePhoto } from "../../../features/Auth/authSlice";
@@ -108,7 +108,7 @@ function Profile() {
             <MUIModal
                 handleClose={handleModal}
                 open={pickModal}
-                component={ImageModal}
+                component={SelectImageModal}
             />
         </>
     );

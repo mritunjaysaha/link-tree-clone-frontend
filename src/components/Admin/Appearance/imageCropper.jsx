@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
-import styles from "./uploadModal.module.scss";
 import { UilTimes, UilArrowLeft, UilCropAlt } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,6 +9,8 @@ import {
 } from "../../../features/Admin/appearance/appearanceSlice";
 import axios from "axios";
 import { setPhoto } from "../../../features/Auth/authSlice";
+
+import styles from "./imageCropper.module.scss";
 
 const createImage = (url) =>
     new Promise((resolve, reject) => {

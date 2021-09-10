@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { uploadModalReducer } from "../../../features/Admin/appearance/appearanceSlice";
 
 import { MUIModal } from "../../Modal/muiModal";
+import { UilScenery } from "@iconscout/react-unicons";
 
-import styles from "./modal.module.scss";
+import styles from "./selectImageModal.module.scss";
 
-export function ImageModal({ handleClose }) {
+export function SelectImageModal({ handleClose }) {
     const { uploadModal } = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
@@ -17,14 +18,14 @@ export function ImageModal({ handleClose }) {
     }
 
     return (
-        <section className={styles.imageModalSection}>
+        <section className={styles.selectImageModalSection}>
             <div className>
                 <p>Upload Profile Image</p>
                 <UilTimes onClick={handleClose} className={styles.adminIcon} />
             </div>
-            <figure className={styles.container} onClick={handleDragModal}>
-                <img src="" alt="" className={styles.image} />
-                <figcaption className={styles.contents}>
+            <div className={styles.container} onClick={handleDragModal}>
+                <UilScenery className={styles.iconScenery} />
+                <div className={styles.contents}>
                     <div className={styles.text}>
                         <h3>Upload your own image</h3>
                         <p>From your computer</p>
@@ -32,8 +33,8 @@ export function ImageModal({ handleClose }) {
                     <div className={styles.icon}>
                         <UilAngleRight className={styles.adminIcon} />
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+            </div>
             <MUIModal
                 handleClose={handleDragModal}
                 open={uploadModal}

@@ -1,13 +1,19 @@
 @import "../admin.module.scss";
 
-.imageModalSection {
+.selectImageModalSection {
     background-color: $bg-color-alpha;
 
-    padding: 4rem;
-    width: 58rem;
+    width: 90%;
+    padding: 2rem;
+
     border-radius: $border-radius-12;
 
     font-family: $ffBeta;
+
+    @include breakpoint(tablet) {
+        padding: 4rem;
+        width: 58rem;
+    }
 
     div {
         display: flex;
@@ -33,28 +39,35 @@
         grid-auto-rows: 1fr;
         gap: 0px 0px;
         grid-auto-flow: row;
-        grid-template-areas: "image image contents contents contents contents contents contents contents contents contents";
+        grid-template-areas: "icon icon contents contents contents contents contents contents contents contents contents";
 
-        padding: 2rem;
-        margin-top: 4rem;
+        margin-top: 1.6rem;
+
+        @include breakpoint(tablet) {
+            margin-top: 4rem;
+        }
 
         border-radius: $border-radius-08;
 
         cursor: pointer;
+
         &:hover {
             background-color: $veryLightGrey;
         }
     }
 
-    .image {
-        grid-area: image;
+    .iconScenery {
+        grid-area: icon;
 
-        width: 6rem;
+        width: 5.2rem;
+        height: 5.2rem;
         aspect-ratio: 1/1;
 
-        border-radius: $border-radius-08;
+        margin-right: 0.8rem;
 
-        background-color: green;
+        @include breakpoint(tablet) {
+            margin: 0;
+        }
     }
 
     .contents {
@@ -77,7 +90,10 @@
 
         h3,
         p {
-            font-size: $fs14;
+            font-size: $fs12;
+            @include breakpoint(tablet) {
+                font-size: $fs14;
+            }
         }
 
         h3 {
@@ -87,9 +103,12 @@
         p {
             position: relative;
             font-weight: $fw-normal;
-            padding-top: 1rem;
 
             color: $grey;
+
+            @include breakpoint(tablet) {
+                padding-top: 1rem;
+            }
         }
     }
 
