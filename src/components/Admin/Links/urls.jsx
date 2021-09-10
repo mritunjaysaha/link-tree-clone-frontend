@@ -62,7 +62,10 @@ export function UrlContainer() {
     return (
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
-                <button onClick={handleAddButton}>
+                <button
+                    onClick={handleAddButton}
+                    className={styles.loaderContainer}
+                >
                     {!isLoading ? "Add New Link" : <LoadingSpinner />}
                 </button>
                 {/* <button>
