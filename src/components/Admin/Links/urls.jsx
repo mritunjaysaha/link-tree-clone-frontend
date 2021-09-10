@@ -3,15 +3,17 @@ import axios from "axios";
 // import { GoZap } from "react-icons/go";
 import { useSelector, useDispatch } from "react-redux";
 import { updateLinks } from "../../../features/Auth/authSlice";
-
-import styles from "./urls.module.scss";
 import { DragAndDrop } from "../DragAndDrop";
+import { useLoader } from "../../../customHooks/loadingHook";
+import styles from "./urls.module.scss";
+import { LoadingSpinner } from "../../Loader";
 
 export function UrlContainer() {
     const dispatch = useDispatch();
     const { _id: userId, username } = useSelector((state) => state.user);
 
     const [links, setLinks] = useState([]);
+    const [isLoading, startLoader, stopLoader] = useLoader();
 
     useEffect(() => {
         function getURLS() {
@@ -29,6 +31,8 @@ export function UrlContainer() {
     }, [dispatch, username]);
 
     async function handleAddButton() {
+        startLoader();
+
         const newLink = {
             order: links.length + 1,
             name: "",
@@ -47,14 +51,20 @@ export function UrlContainer() {
                 );
 
                 setLinks([...links, { _id: res.data.currentLink, ...newLink }]);
+                stopLoader();
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => {
+                console.log(err.message);
+                stopLoader();
+            });
     }
 
     return (
         <section className={styles.urlContainer}>
             <div className={styles.buttonContainer}>
-                <button onClick={handleAddButton}>Add New Link</button>
+                <button onClick={handleAddButton}>
+                    {!isLoading ? "Add New Link" : <LoadingSpinner />}
+                </button>
                 {/* <button>
                     <GoZap />
                 </button> */}

@@ -6,6 +6,8 @@ import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 import { LoadingSpinner } from "../Loader";
 import { setAuth } from "../../features/Auth/authSlice";
+import { useLoader } from "../../customHooks/loadingHook";
+
 import styles from "./login.module.scss";
 
 export function LogIn() {
@@ -17,8 +19,7 @@ export function LogIn() {
         password: "",
     });
 
-    const [isLoading, setIsLoading] = useState(false);
-
+    const [isLoading, startLoader, stopLoader] = useLoader();
     const [error, setError] = useState({ message: "" });
 
     const handleChange = (e) => {
@@ -31,22 +32,23 @@ export function LogIn() {
         e.preventDefault();
 
         const userData = { username: user.username, password: user.password };
-
-        setIsLoading(true);
+        startLoader();
 
         axios
             .post("/api/login", userData)
             .then((res) => {
                 const { user, token } = res.data;
-                // setIsLoading(false);
+
                 dispatch(setAuth(user));
                 localStorage.setItem("jwtToken", token);
                 history.push(urls.admin);
+
+                stopLoader();
             })
             .catch((err) => {
                 setError("Incorrect login details. Please retry.");
                 console.log(err.message);
-                // setIsLoading(false);
+                stopLoader();
             });
     };
 

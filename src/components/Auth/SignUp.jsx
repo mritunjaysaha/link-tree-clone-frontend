@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -6,6 +5,7 @@ import * as yup from "yup";
 import { InputField } from "../../components/Form/input";
 import { urls } from "../../data/data";
 import { LoadingSpinner } from "../Loader";
+import { useLoader } from "../../customHooks/loadingHook";
 
 import styles from "./signup.module.scss";
 
@@ -25,9 +25,7 @@ const validationSchema = yup.object({
 });
 
 export function SignUp() {
-    const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -37,10 +35,12 @@ export function SignUp() {
         validationSchema: validationSchema,
     });
 
+    const [isLoading, startLoader, stopLoader] = useLoader();
+
     function handleSubmit(e) {
         e.preventDefault();
 
-        setIsLoading(true);
+        startLoader();
         localStorage.removeItem("jwtToken");
 
         axios.defaults.authorization = "";
@@ -55,11 +55,11 @@ export function SignUp() {
         axios
             .post("/api/signup", user)
             .then((res) => {
-                setIsLoading(false);
+                stopLoader();
                 history.push(urls.login);
             })
             .catch((err) => {
-                setIsLoading(false);
+                startLoader();
 
                 console.log(err);
             });

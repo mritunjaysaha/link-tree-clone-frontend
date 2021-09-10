@@ -13,8 +13,11 @@ import { TextareaAutosize } from "@material-ui/core";
 
 import styles from "./appearance.module.scss";
 import placeholder from "../../../assets/placeholder.png";
+import { LoadingSpinner } from "../../Loader";
 
 function Profile() {
+    const max = 80;
+
     const { pickModal } = useSelector((state) => state.modal);
     const {
         photo,
@@ -22,12 +25,13 @@ function Profile() {
         profileTitle: oldProfileTitle,
         bio: oldBio,
     } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
 
     const [profileTitle, setProfileTitle] = useState(oldProfileTitle);
     const [bio, setBio] = useState(oldBio);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const max = 80;
+    const dispatch = useDispatch();
+
     function handleProfileTitle(e) {
         setProfileTitle(e.target.value);
     }
@@ -43,10 +47,12 @@ function Profile() {
     }
 
     async function handleRemove() {
+        setIsLoading(true);
         await axios
             .delete(`/api/user/photo/${_id}`)
             .then((res) => {
                 dispatch(removePhoto());
+                setIsLoading(false);
             })
             .catch((err) => console.log("Failed to remove photo"));
     }
@@ -75,7 +81,12 @@ function Profile() {
                         />
                         <figcaption>
                             <button onClick={handleModal}>Pick an image</button>
-                            <button onClick={handleRemove}>Remove</button>
+                            <button
+                                onClick={handleRemove}
+                                className={styles.loaderContainer}
+                            >
+                                {!isLoading ? "Remove" : <LoadingSpinner />}
+                            </button>
                         </figcaption>
                     </figure>
                     <div className={styles.inputDiv}>
