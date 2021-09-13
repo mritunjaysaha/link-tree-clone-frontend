@@ -157,41 +157,40 @@ export function UrlItem({
         setUrlData((urlData) => ({ ...urlData, [name]: value }));
     }
 
+    async function updateUrl(updateData) {
+        await axios
+            .put(`/api/link/${userId}/${linkId}`, updateData)
+            .then(async (res) => {
+                console.log("link successfully updated");
+
+                await axios
+                    .get(`/api/link/${username}`)
+                    .then((res) => {
+                        res.data.links.sort((a, b) => a.order - b.order);
+
+                        dispatch(updateLinks(res.data.links));
+                    })
+                    .catch((err) => console.log(err.message));
+            })
+            .catch((err) => console.log(err.message));
+    }
+
     function handleOnBlur() {
         setIsBlur(!isBlur);
+
+        const updateData = {
+            ...urlData,
+            active: isActive,
+        };
+
+        updateUrl(updateData);
     }
 
-    function handleToggleSwitch() {
+    async function handleToggleSwitch() {
         setIsActive(!isActive);
+
+        updateUrl({ active: !link.active });
     }
-
-    // It will update the links when the isBlur or isActive state changes
-    useEffect(() => {
-        async function updateUrl() {
-            const updateData = {
-                ...urlData,
-                active: isActive,
-            };
-
-            await axios
-                .put(`/api/link/${userId}/${linkId}`, updateData)
-                .then(async (res) => {
-                    console.log("link successfully updated");
-
-                    await axios
-                        .get(`/api/link/${username}`)
-                        .then((res) => {
-                            res.data.links.sort((a, b) => a.order - b.order);
-
-                            dispatch(updateLinks(res.data.links));
-                        })
-                        .catch((err) => console.log(err.message));
-                })
-                .catch((err) => console.log(err.message));
-        }
-
-        updateUrl();
-    }, [isBlur, isActive, linkId, urlData, userId, username, dispatch]);
 
     return (
         <>
