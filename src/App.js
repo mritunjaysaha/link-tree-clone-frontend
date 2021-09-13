@@ -9,7 +9,7 @@ import { Navbar } from "./components/Navbar";
 import { Dashboard } from "./components/Dashboard";
 
 import { setAuthToken } from "./utils/setAuthToken";
-import { setAuth, setUserData } from "./features/Auth/authSlice";
+import { setAuth, setUserData, updateLinks } from "./features/Auth/authSlice";
 import { Admin } from "./components/Admin/index";
 
 import { UserViewPage } from "./components/UserView";
@@ -22,7 +22,7 @@ import { store } from "./app/store";
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
 // check for token to keep user logged in
-if (localStorage.jwtToken) {
+if (window.localStorage.jwtToken) {
     // set auth token header auth
 
     const token = localStorage.jwtToken;
@@ -41,8 +41,16 @@ if (localStorage.jwtToken) {
             store.dispatch(setUserData(res.data));
         })
         .catch((err) => console.log(err.message));
+
+    const links = window.localStorage.getItem("links");
+    if (links !== null) {
+        store.dispatch(updateLinks(JSON.parse(links)));
+    }
+
     // check for expired token
     const currentTime = Date.now() / 1000;
+
+    // store.dispatch(updateLinks())
 
     if (decoded.exp < currentTime) {
         // TODO Logout user

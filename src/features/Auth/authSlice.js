@@ -28,6 +28,8 @@ export const authSlice = createSlice({
             state.photo = "";
         },
         updateLinks: (state, { payload }) => {
+            window.localStorage.setItem("links", JSON.stringify(payload));
+
             return { ...state, links: payload };
         },
     },

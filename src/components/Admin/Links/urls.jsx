@@ -10,25 +10,8 @@ import { LoadingSpinner } from "../../Loader";
 
 export function UrlContainer() {
     const dispatch = useDispatch();
-    const { _id: userId, username } = useSelector((state) => state.user);
-
-    const [links, setLinks] = useState([]);
+    const { _id: userId, links } = useSelector((state) => state.user);
     const [isLoading, startLoader, stopLoader] = useLoader();
-
-    useEffect(() => {
-        function getURLS() {
-            axios
-                .get(`/api/link/${username}`)
-                .then((res) => {
-                    res.data.links.sort((a, b) => a.order - b.order);
-                    dispatch(updateLinks(res.data.links));
-
-                    setLinks(res.data.links);
-                })
-                .catch((err) => console.log(err.message, err.error));
-        }
-        getURLS();
-    }, [username, dispatch]);
 
     async function handleAddButton() {
         startLoader();

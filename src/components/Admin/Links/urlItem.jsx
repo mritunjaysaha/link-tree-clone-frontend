@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import AutosizeInput from "react-input-autosize";
 import { GoKebabVertical } from "react-icons/go";
@@ -90,15 +90,11 @@ function UrlThumbnailContainer({ handleThumbnail }) {
 /**
  *
  * @param {data} Object - link object fields -- _id, name, url, author
+ * @param {ref} innerRef
+ * @param {...rest} draggable components props
  * @returns
  */
-export function UrlItem({
-    link,
-    handleReload,
-    filterLinksArr,
-    innerRef,
-    ...rest
-}) {
+export function UrlItem({ link, innerRef, ...rest }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
     const [isActive, setIsActive] = useState(link.active ? link.active : false);

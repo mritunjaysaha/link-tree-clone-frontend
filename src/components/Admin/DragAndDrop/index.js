@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { UrlItem } from "../Links/urlItem";
-
+import { updateLinks } from "../../../features/Auth/authSlice";
 /**
  *
  * @param {links} links - array of links
@@ -11,7 +12,21 @@ import { UrlItem } from "../Links/urlItem";
  * @returns
  */
 export function DragAndDrop({ userId = "" }) {
-    const { links } = useSelector((state) => state.user);
+    const { username, links } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function getURLS() {
+            await axios
+                .get(`/api/link/${username}`)
+                .then((res) => {
+                    res.data.links.sort((a, b) => a.order - b.order);
+                    dispatch(updateLinks(res.data.links));
+                })
+                .catch((err) => console.log(err.message, err.error));
+        }
+        getURLS();
+    }, [username, dispatch]);
 
     const [data, setData] = useState({});
     useEffect(() => {
