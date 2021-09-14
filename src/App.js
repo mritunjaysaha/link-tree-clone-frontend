@@ -42,6 +42,7 @@ if (window.localStorage.jwtToken) {
         })
         .catch((err) => console.log(err.message));
 
+    // fetch links from localStorage
     const links = window.localStorage.getItem("links");
     if (links !== null) {
         store.dispatch(updateLinks(JSON.parse(links)));
@@ -49,8 +50,6 @@ if (window.localStorage.jwtToken) {
 
     // check for expired token
     const currentTime = Date.now() / 1000;
-
-    // store.dispatch(updateLinks())
 
     if (decoded.exp < currentTime) {
         // TODO Logout user

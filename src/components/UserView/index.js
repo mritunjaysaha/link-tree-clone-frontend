@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData, updateLinks } from "../../features/Auth/authSlice";
 import { convertToBinary } from "../../utils/convertToBinary";
-
+import { ErrorPage } from "./error404";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
-import { ErrorPage } from "./error404";
 
 function Footer() {
     return (
@@ -36,12 +35,29 @@ function Header({ photo, username, profileTitle, bio }) {
     );
 }
 function Links({ links }) {
+    const location = useLocation();
+
+    const [isPreview, setIsPreview] = useState(false);
+
+    useEffect(() => {
+        const pathname = location.pathname.split("/");
+        if (pathname.includes("admin")) {
+            setIsPreview(true);
+        }
+    }, [location]);
+
     return (
         <section className={styles.contentsSection}>
             {links.length > 0 ? (
-                <ul className={styles.linksContainer}>
+                <ul
+                    className={
+                        isPreview
+                            ? `${styles.linksContainer} ${styles.linksContainerPreview}`
+                            : `${styles.linksContainer}`
+                    }
+                >
                     {links.map((link, index) =>
-                        link.active && link.name && link.url ? (
+                        link.active ? (
                             <a
                                 key={index}
                                 rel="noopener noreferrer"
@@ -62,8 +78,10 @@ function Links({ links }) {
     );
 }
 
-export function UserViewContents({ user, isPreview = false }) {
-    const { links, profileTitle, bio, photo, username } = user;
+export function UserViewContents({ isPreview = false }) {
+    const { links, profileTitle, bio, photo, username } = useSelector(
+        (state) => state.user
+    );
 
     return (
         <section
@@ -79,46 +97,20 @@ export function UserViewContents({ user, isPreview = false }) {
                 photo={photo}
                 username={username}
             />
-            <Links links={links} />
+            <Links links={links} isPreview={isPreview} />
             <Footer />
         </section>
     );
 }
-function UserView({ user: username }) {
-    const user = useSelector((state) => state.user);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (username) {
-            axios
-                .get(`/api/user/userview/${username}`)
-                .then((res) => {
-                    const data = {
-                        ...res.data,
-                        photo: res.data.photo.data.data,
-                    };
-
-                    console.log(data);
-
-                    dispatch(setUserData(data));
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
-    }, [dispatch, username]);
-
+function UserView() {
     return (
         <section className={styles.userviewSection}>
-            <UserViewContents user={user} />
+            <UserViewContents />
         </section>
     );
 }
 
 export function UserViewPage() {
-    window.localStorage.removeItem("jwtToken");
-
     const { username } = useParams();
     const [isUser, setIsUser] = useState(false);
 
@@ -150,7 +142,11 @@ export function UserViewPage() {
             await axios
                 .get(`api/link/${username}`)
                 .then((res) => {
-                    dispatch(updateLinks(res.data.links));
+                    dispatch(
+                        updateLinks(
+                            res.data.links.sort((a, b) => a.order - b.order)
+                        )
+                    );
                 })
                 .catch((err) => console.log(err.message));
         }
