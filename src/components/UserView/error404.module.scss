@@ -1,0 +1,12 @@
+@import "../../styles/abstract/variables.scss";
+@import "../../styles/abstract/mixins.scss";
+
+.errorPageSection {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    place-items: center;
+
+    background-color: red;
+}

@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../../features/Auth/authSlice";
+import { setUserData, updateLinks } from "../../features/Auth/authSlice";
 import { convertToBinary } from "../../utils/convertToBinary";
 
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
+import { ErrorPage } from "./error404";
 
 function Footer() {
     return (
@@ -17,6 +18,7 @@ function Footer() {
         </footer>
     );
 }
+
 function Header({ photo, username, profileTitle, bio }) {
     return (
         <header className={styles.header}>
@@ -116,15 +118,47 @@ function UserView({ user: username }) {
 }
 
 export function UserViewPage() {
-    const { username } = useParams();
+    window.localStorage.removeItem("jwtToken");
 
-    return (
-        <>
-            {!username ? (
-                <section>User not found</section>
-            ) : (
-                <UserView user={username} />
-            )}
-        </>
-    );
+    const { username } = useParams();
+    const [isUser, setIsUser] = useState(false);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function checkUser(username) {
+            await axios
+                .get(`api/user/userview/${username}`)
+                .then((res) => {
+                    setIsUser(true);
+                    console.log(res.data);
+
+                    dispatch(setUserData(res.data));
+                })
+                .catch((err) => {
+                    console.log("UserViewPage: error", err.message);
+                    setIsUser(false);
+                });
+        }
+
+        checkUser(username);
+    }, [username, dispatch]);
+
+    useEffect(() => {
+        if (!isUser) return;
+
+        async function getLinks(username) {
+            await axios
+                .get(`api/link/${username}`)
+                .then((res) => {
+                    console.log(res.data);
+                    dispatch(updateLinks(res.data.links));
+                })
+                .catch((err) => console.log(err.message));
+        }
+
+        getLinks(username);
+    }, [isUser, username]);
+
+    return <>{isUser ? <UserView user={username} /> : <ErrorPage />}</>;
 }
