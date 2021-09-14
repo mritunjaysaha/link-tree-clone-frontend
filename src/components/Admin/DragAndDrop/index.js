@@ -5,6 +5,151 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { UrlItem } from "../Links/urlItem";
 import { updateLinks } from "../../../features/Auth/authSlice";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useRef, useCallback } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import update from "immutability-helper";
+
+const ItemTypes = { CARD: "card" };
+
+const style = {
+    border: "1px dashed gray",
+    padding: "0.5rem 1rem",
+    marginBottom: ".5rem",
+    backgroundColor: "white",
+    cursor: "move",
+};
+
+export const Card = ({ card, id, text, index, moveCard }) => {
+    const ref = useRef(null);
+    const [{ handlerId }, drop] = useDrop({
+        accept: ItemTypes.CARD,
+        collect(monitor) {
+            return {
+                handlerId: monitor.getHandlerId(),
+            };
+        },
+        hover(item, monitor) {
+            if (!ref.current) {
+                return;
+            }
+            const dragIndex = item.index;
+            const hoverIndex = index;
+            // Don't replace items with themselves
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+            // Determine rectangle on screen
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            // Get vertical middle
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            // Determine mouse position
+            const clientOffset = monitor.getClientOffset();
+            // Get pixels to the top
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            // Only perform the move when the mouse has crossed half of the items height
+            // When dragging downwards, only move when the cursor is below 50%
+            // When dragging upwards, only move when the cursor is above 50%
+            // Dragging downwards
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            // Dragging upwards
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+            // Time to actually perform the action
+            moveCard(dragIndex, hoverIndex);
+            // Note: we're mutating the monitor item here!
+            // Generally it's better to avoid mutations,
+            // but it's good here for the sake of performance
+            // to avoid expensive index searches.
+            item.index = hoverIndex;
+        },
+    });
+    const [{ isDragging }, drag] = useDrag({
+        type: ItemTypes.CARD,
+        item: () => {
+            return { id, index };
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
+    const opacity = isDragging ? 0 : 1;
+    drag(drop(ref));
+    return (
+        <div
+            ref={ref}
+            // style={{ ...style, opacity }}
+            data-handler-id={handlerId}
+        >
+            <UrlItem link={card} />
+        </div>
+    );
+};
+
+export const Container = () => {
+    const [cards, setCards] = useState([
+        {
+            active: true,
+            order: 0,
+            _id: "613f286ab5e9e631504ab1bc",
+            name: "GitHub",
+            url: "",
+            author: "613a5418507cd042a0aba9ba",
+            createdAt: "2021-09-13T10:31:06.142Z",
+            updatedAt: "2021-09-14T04:05:06.758Z",
+            __v: 0,
+        },
+        {
+            active: true,
+            order: 1,
+            _id: "613f30d25c296c60dc00b272",
+            name: "Mritunjay Saha",
+            url: "",
+            author: "613a5418507cd042a0aba9ba",
+            createdAt: "2021-09-13T11:06:58.376Z",
+            updatedAt: "2021-09-14T04:05:06.753Z",
+            __v: 0,
+        },
+    ]);
+    const moveCard = useCallback(
+        (dragIndex, hoverIndex) => {
+            console.dir(dragIndex, hoverIndex);
+            const dragCard = cards[dragIndex];
+            setCards(
+                update(cards, {
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragCard],
+                    ],
+                })
+            );
+        },
+        [cards]
+    );
+    const renderCard = (card, index) => {
+        return (
+            <Card
+                card={card}
+                key={card._id}
+                index={index}
+                id={card._id}
+                // text={card.text}
+                moveCard={moveCard}
+            />
+        );
+    };
+    return (
+        <>
+            <div>{cards.map((card, i) => renderCard(card, i))}</div>
+        </>
+    );
+};
+
 /**
  *
  * @param {links} links - array of links
@@ -12,149 +157,157 @@ import { updateLinks } from "../../../features/Auth/authSlice";
  * @returns
  */
 export function DragAndDrop({ userId = "" }) {
+    const [data, setData] = useState({});
     const { username, links } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        async function getURLS() {
-            await axios
-                .get(`/api/link/${username}`)
-                .then((res) => {
-                    res.data.links.sort((a, b) => a.order - b.order);
-                    dispatch(updateLinks(res.data.links));
-                })
-                .catch((err) => console.log(err.message, err.error));
-        }
-        getURLS();
-    }, [username, dispatch]);
-
-    const [data, setData] = useState({});
-    useEffect(() => {
-        const newLinks = {};
-        const linkOrder = [];
-
-        for (let i = 0; i < links.length; i++) {
-            newLinks[`link${i}`] = {
-                id: `link${i}`,
-                content: { ...links[i] },
-            };
-            linkOrder.push(`link${i}`);
-        }
-
-        setData({
-            links: newLinks,
-            columns: { column0: { id: "column0", linkOrder: linkOrder } },
-            columnOrder: ["column0"],
-        });
-    }, [links]);
-
-    useEffect(() => {
-        async function updateOrder(link, index) {
-            const { _id: linkId } = link;
-
-            const newLink = { order: index };
-
-            await axios
-                .put(`/api/link/${userId}/${linkId}`, newLink)
-                .then((res) => {
-                    console.log("successfully updated");
-                })
-                .catch((err) => console.log("dnd", err.message));
-        }
-
-        if (!!data.links) {
-            const { linkOrder } = data.columns.column0;
-            linkOrder.map((linkId, index) => {
-                const link = data.links[linkId].content;
-                updateOrder(link, index);
-
-                return 0;
-            });
-        }
-    }, [data, userId]);
-
-    function onDragEnd(result) {
-        const { destination, source, draggableId } = result;
-
-        if (!destination) {
-            return;
-        }
-
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
-            return;
-        }
-
-        const column = data.columns[source.droppableId];
-        const newLinkOrder = Array.from(column.linkOrder);
-        newLinkOrder.splice(source.index, 1);
-        newLinkOrder.splice(destination.index, 0, draggableId);
-
-        const newColumn = {
-            ...column,
-            linkOrder: newLinkOrder,
-        };
-
-        const newState = {
-            ...data,
-            columns: {
-                ...data.columns,
-                [newColumn.id]: newColumn,
-            },
-        };
-
-        setData(newState);
-    }
-
     return (
-        <>
-            {data.links ? (
-                <DragDropContext onDragEnd={onDragEnd}>
-                    {data.columnOrder.map((id) => {
-                        const column = data.columns[id];
-                        const links = column.linkOrder.map(
-                            (linkId) => data.links[linkId]
-                        );
-
-                        return (
-                            <Droppable key={column.id} droppableId={column.id}>
-                                {(provided) => (
-                                    <div
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                    >
-                                        {links.map((link, index) => (
-                                            <Draggable
-                                                key={link.id}
-                                                draggableId={link.id}
-                                                index={index}
-                                            >
-                                                {(provided) => {
-                                                    return (
-                                                        <UrlItem
-                                                            innerRef={
-                                                                provided.innerRef
-                                                            }
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            link={link.content}
-                                                        />
-                                                    );
-                                                }}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        );
-                    })}
-                </DragDropContext>
-            ) : (
-                ""
-            )}
-        </>
+        <DndProvider backend={HTML5Backend}>
+            <Container />
+        </DndProvider>
     );
+
+    // const [linksCopy, setLinksCopy] = useState(links);
+
+    // useEffect(() => {
+    //     async function getURLS() {
+    //         await axios
+    //             .get(`/api/link/${username}`)
+    //             .then((res) => {
+    //                 res.data.links.sort((a, b) => a.order - b.order);
+    //                 dispatch(updateLinks(res.data.links));
+    //             })
+    //             .catch((err) => console.log(err.message, err.error));
+    //     }
+    //     getURLS();
+    // }, [username, dispatch]);
+
+    // useEffect(() => {
+    //     const newLinks = {};
+    //     const linkOrder = [];
+
+    //     for (let i = 0; i < links.length; i++) {
+    //         newLinks[`link${i}`] = {
+    //             id: `link${i}`,
+    //             content: { ...links[i] },
+    //         };
+    //         linkOrder.push(`link${i}`);
+    //     }
+
+    //     setData({
+    //         links: newLinks,
+    //         columns: { column0: { id: "column0", linkOrder: linkOrder } },
+    //         columnOrder: ["column0"],
+    //     });
+    // }, [links]);
+
+    // useEffect(() => {
+    //     console.log("useEffect");
+    //     async function updateOrder(link) {
+    //         const { _id: linkId } = link;
+
+    //         await axios
+    //             .put(`/api/link/${userId}/${linkId}`, link)
+    //             .then(async (res) => {
+    //                 console.log("successfully updated");
+    //             })
+    //             .catch((err) => console.log("dnd", err.message));
+    //     }
+
+    //     if (!!data.links) {
+    //         const { linkOrder } = data.columns.column0;
+
+    //         linkOrder.map((linkId, index) => {
+    //             const link = data.links[linkId].content;
+
+    //             link.order = index;
+    //             updateOrder(link);
+    //         });
+    //     }
+    // }, [data, userId]);
+
+    // function onDragEnd(result) {
+    //     const { destination, source, draggableId } = result;
+
+    //     if (!destination) {
+    //         return;
+    //     }
+
+    //     if (
+    //         destination.droppableId === source.droppableId &&
+    //         destination.index === source.index
+    //     ) {
+    //         return;
+    //     }
+
+    //     const column = data.columns[source.droppableId];
+    //     const newLinkOrder = Array.from(column.linkOrder);
+    //     newLinkOrder.splice(source.index, 1);
+    //     newLinkOrder.splice(destination.index, 0, draggableId);
+
+    //     const newColumn = {
+    //         ...column,
+    //         linkOrder: newLinkOrder,
+    //     };
+
+    //     const newState = {
+    //         ...data,
+    //         columns: {
+    //             ...data.columns,
+    //             [newColumn.id]: newColumn,
+    //         },
+    //     };
+
+    //     setData(newState);
+    // }
+
+    // return (
+    //     <>
+    //         {data.links ? (
+    //             <DragDropContext onDragEnd={onDragEnd}>
+    //                 {data.columnOrder.map((id) => {
+    //                     const column = data.columns[id];
+    //                     const links = column.linkOrder.map(
+    //                         (linkId) => data.links[linkId]
+    //                     );
+
+    //                     return (
+    //                         <Droppable key={column.id} droppableId={column.id}>
+    //                             {(provided) => (
+    //                                 <div
+    //                                     {...provided.droppableProps}
+    //                                     ref={provided.innerRef}
+    //                                 >
+    //                                     {links.map((link, index) => (
+    //                                         <Draggable
+    //                                             key={link.id}
+    //                                             draggableId={link.id}
+    //                                             index={index}
+    //                                         >
+    //                                             {(provided) => {
+    //                                                 return (
+    //                                                     <UrlItem
+    //                                                         innerRef={
+    //                                                             provided.innerRef
+    //                                                         }
+    //                                                         {...provided.draggableProps}
+    //                                                         {...provided.dragHandleProps}
+    //                                                         link={link.content}
+    //                                                     />
+    //                                                 );
+    //                                             }}
+    //                                         </Draggable>
+    //                                     ))}
+    //                                     {provided.placeholder}
+    //                                 </div>
+    //                             )}
+    //                         </Droppable>
+    //                     );
+    //                 })}
+    //             </DragDropContext>
+    //         ) : (
+    //             ""
+    //         )}
+    //     </>
+    // );
 }

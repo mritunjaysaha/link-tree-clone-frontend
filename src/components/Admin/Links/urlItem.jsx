@@ -89,12 +89,10 @@ function UrlThumbnailContainer({ handleThumbnail }) {
 
 /**
  *
- * @param {data} Object - link object fields -- _id, name, url, author
- * @param {ref} innerRef
- * @param {...rest} draggable components props
+ * @param {data} Object
  * @returns
  */
-export function UrlItem({ link, innerRef, ...rest }) {
+export function UrlItem({ link }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
     const [isActive, setIsActive] = useState(link.active ? link.active : false);
@@ -190,7 +188,7 @@ export function UrlItem({ link, innerRef, ...rest }) {
 
     return (
         <>
-            <section className={styles.urlItemSection} ref={innerRef} {...rest}>
+            <section className={styles.urlItemSection}>
                 <div className={styles.urlItemDiv}>
                     {/* draggable holder */}
                     <div className={styles.urlDrag}>
