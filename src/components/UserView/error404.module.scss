@@ -8,5 +8,25 @@
     display: grid;
     place-items: center;
 
-    background-color: red;
+    .errorContainerDiv {
+        display: grid;
+        place-items: center;
+
+        width: 100%;
+
+        @include breakpoint(tablet) {
+            width: 80%;
+        }
+        img {
+            width: 80%;
+            height: 80%;
+        }
+
+        p {
+            text-transform: capitalize;
+            font-family: $ffAlpha;
+            font-weight: $fw-bold;
+            font-size: $fs24;
+        }
+    }
 }
