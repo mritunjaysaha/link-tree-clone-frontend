@@ -38,11 +38,10 @@ function Header({ photo, username, profileTitle, bio }) {
 function Links({ links }) {
     return (
         <section className={styles.contentsSection}>
-            {/* links */}
             {links.length > 0 ? (
                 <ul className={styles.linksContainer}>
                     {links.map((link, index) =>
-                        link.active ? (
+                        link.active && link.name && link.url ? (
                             <a
                                 key={index}
                                 rel="noopener noreferrer"
@@ -151,14 +150,13 @@ export function UserViewPage() {
             await axios
                 .get(`api/link/${username}`)
                 .then((res) => {
-                    console.log(res.data);
                     dispatch(updateLinks(res.data.links));
                 })
                 .catch((err) => console.log(err.message));
         }
 
         getLinks(username);
-    }, [isUser, username]);
+    }, [isUser, username, dispatch]);
 
     return <>{isUser ? <UserView user={username} /> : <ErrorPage />}</>;
 }
