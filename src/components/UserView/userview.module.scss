@@ -1,8 +1,28 @@
 @import "../../styles/abstract/variables.scss";
+@import "../../styles/abstract/mixins.scss";
 
 $bg-color: #3d3b3c;
 $text-color: $white;
 $text-color-alt: #3d3b3c;
+
+.loaderContainer {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    place-items: center;
+
+    background-color: $bg-color;
+
+    padding: 0;
+    margin: 0;
+    div {
+        svg {
+            height: 5.6rem;
+            width: inherit;
+        }
+    }
+}
 
 .userviewSection {
     display: flex;
@@ -22,7 +42,11 @@ $text-color-alt: #3d3b3c;
     display: flex;
     flex-direction: column;
 
-    width: 44vw;
+    width: 80%;
+
+    @include breakpoint(tablet) {
+        width: 44vw;
+    }
 
     font-family: $ffAlpha;
     font-weight: $fw-bold;
@@ -140,9 +164,6 @@ $text-color-alt: #3d3b3c;
 }
 
 .footer {
-    // position: absolute;
-    // bottom: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;

@@ -8,6 +8,8 @@ import { ErrorPage } from "./error404";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
+import { useLoader } from "../../customHooks/loadingHook";
+import { LoadingSpinner } from "../Loader";
 
 function Footer() {
     return (
@@ -112,7 +114,7 @@ function UserView() {
 
 export function UserViewPage() {
     const { username } = useParams();
-    const [isUser, setIsUser] = useState(false);
+    const [isUser, setIsUser] = useState("");
 
     const dispatch = useDispatch();
 
@@ -121,16 +123,15 @@ export function UserViewPage() {
             await axios
                 .get(`api/user/userview/${username}`)
                 .then((res) => {
-                    if (!res.data) return;
+                    if (!res.data) {
+                        return;
+                    }
 
-                    setIsUser(true);
-                    console.log(res.data);
-
+                    setIsUser(username);
                     dispatch(setUserData(res.data));
                 })
                 .catch((err) => {
                     console.log("UserViewPage: error", err.message);
-                    setIsUser(false);
                 });
         }
 
@@ -156,5 +157,5 @@ export function UserViewPage() {
         getLinks(username);
     }, [isUser, username, dispatch]);
 
-    return <>{isUser ? <UserView user={username} /> : <ErrorPage />}</>;
+    return <>{!!isUser ? <UserView /> : <ErrorPage />}</>;
 }
