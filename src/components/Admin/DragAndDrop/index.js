@@ -21,7 +21,7 @@ const style = {
     cursor: "move",
 };
 
-export const Card = ({ card, id, text, index, moveCard }) => {
+export const Card = ({ card, id, index, moveCard }) => {
     const ref = useRef(null);
     const [{ handlerId }, drop] = useDrop({
         accept: ItemTypes.CARD,
@@ -36,6 +36,7 @@ export const Card = ({ card, id, text, index, moveCard }) => {
             }
             const dragIndex = item.index;
             const hoverIndex = index;
+
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
                 return;
@@ -78,48 +79,29 @@ export const Card = ({ card, id, text, index, moveCard }) => {
             isDragging: monitor.isDragging(),
         }),
     });
-    const opacity = isDragging ? 0 : 1;
+
     drag(drop(ref));
     return (
-        <div
-            ref={ref}
-            // style={{ ...style, opacity }}
-            data-handler-id={handlerId}
-        >
-            <UrlItem link={card} />
+        <div ref={ref} data-handler-id={handlerId}>
+            <UrlItem index={index} link={card} />
         </div>
     );
 };
 
 export const Container = () => {
-    const [cards, setCards] = useState([
-        {
-            active: true,
-            order: 0,
-            _id: "613f286ab5e9e631504ab1bc",
-            name: "GitHub",
-            url: "",
-            author: "613a5418507cd042a0aba9ba",
-            createdAt: "2021-09-13T10:31:06.142Z",
-            updatedAt: "2021-09-14T04:05:06.758Z",
-            __v: 0,
-        },
-        {
-            active: true,
-            order: 1,
-            _id: "613f30d25c296c60dc00b272",
-            name: "Mritunjay Saha",
-            url: "",
-            author: "613a5418507cd042a0aba9ba",
-            createdAt: "2021-09-13T11:06:58.376Z",
-            updatedAt: "2021-09-14T04:05:06.753Z",
-            __v: 0,
-        },
-    ]);
+    const { links } = useSelector((state) => state.user);
+    const [cards, setCards] = useState(links);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        console.log("DragAndDrop: updateLinks");
+        dispatch(updateLinks(cards));
+    }, [cards, dispatch]);
+
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
-            console.dir(dragIndex, hoverIndex);
             const dragCard = cards[dragIndex];
+
             setCards(
                 update(cards, {
                     $splice: [
@@ -138,7 +120,6 @@ export const Container = () => {
                 key={card._id}
                 index={index}
                 id={card._id}
-                // text={card.text}
                 moveCard={moveCard}
             />
         );
