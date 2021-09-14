@@ -1,13 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import AutosizeInput from "react-input-autosize";
 import { GoKebabVertical } from "react-icons/go";
-import {
-    UilPen,
-    UilTrashAlt,
-    // UilScenery,
-    UilTimes,
-} from "@iconscout/react-unicons";
+import { UilPen, UilTrashAlt, UilTimes } from "@iconscout/react-unicons";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 
@@ -92,7 +87,7 @@ function UrlThumbnailContainer({ handleThumbnail }) {
  * @param {data} Object
  * @returns
  */
-export function UrlItem({ link, index }) {
+export function UrlItem({ link }) {
     const [isDelete, setIsDelete] = useState(false);
     const [isThumbnail, setIsThumbnail] = useState(false);
     const [isActive, setIsActive] = useState(link.active ? link.active : false);
@@ -114,22 +109,6 @@ export function UrlItem({ link, index }) {
 
     const dispatch = useDispatch();
     const { links } = useSelector((state) => state.user);
-    console.log("UrlItem:", index, order);
-
-    useEffect(() => {
-        async function updateOrder(order) {
-            await axios
-                .put(`api/link/${userId}/${linkId}`, { order })
-                .then((res) => {
-                    console.log("UrlItem: order updated", res.data);
-                })
-                .catch((err) => console.log("UrlItem: error", err.message));
-        }
-
-        if (order !== index) {
-            updateOrder(index);
-        }
-    }, [order, index, userId, linkId]);
 
     function handleTitleClick() {
         titleRef.current.focus();

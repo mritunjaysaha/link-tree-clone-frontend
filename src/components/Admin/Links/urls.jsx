@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import axios from "axios";
 // import { GoZap } from "react-icons/go";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ export function UrlContainer() {
         startLoader();
 
         const newLink = {
-            order: links.length + 1,
+            order: -1,
             name: "",
             url: "",
             author: userId,
@@ -28,8 +28,8 @@ export function UrlContainer() {
             .then((res) => {
                 dispatch(
                     updateLinks([
-                        ...links,
                         { _id: res.data.currentLink, ...newLink },
+                        ...links,
                     ])
                 );
 
@@ -50,12 +50,11 @@ export function UrlContainer() {
                 >
                     {!isLoading ? "Add New Link" : <LoadingSpinner />}
                 </button>
-                {/* <button>
-                    <GoZap />
-                </button> */}
             </div>
 
-            <div>{links.length ? <DragAndDrop userId={userId} /> : ""}</div>
+            <div>
+                <DragAndDrop />
+            </div>
         </section>
     );
 }

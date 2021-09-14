@@ -1,8 +1,5 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UrlItem } from "../Links/urlItem";
 import { updateLinks } from "../../../features/Auth/authSlice";
 import { DndProvider } from "react-dnd";
@@ -10,18 +7,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import update from "immutability-helper";
+import axios from "axios";
 
 const ItemTypes = { CARD: "card" };
 
-const style = {
-    border: "1px dashed gray",
-    padding: "0.5rem 1rem",
-    marginBottom: ".5rem",
-    backgroundColor: "white",
-    cursor: "move",
-};
-
-export const Card = ({ card, id, index, moveCard }) => {
+function Card({ card, id, index, moveCard }) {
     const ref = useRef(null);
     const [{ handlerId }, drop] = useDrop({
         accept: ItemTypes.CARD,
@@ -79,39 +69,52 @@ export const Card = ({ card, id, index, moveCard }) => {
             isDragging: monitor.isDragging(),
         }),
     });
-
+    console.log("DragAndDrop", isDragging);
     drag(drop(ref));
     return (
         <div ref={ref} data-handler-id={handlerId}>
             <UrlItem index={index} link={card} />
         </div>
     );
-};
+}
 
-export const Container = () => {
-    const { links } = useSelector((state) => state.user);
-    const [cards, setCards] = useState(links);
+function Container() {
+    const { links, _id: userId } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        console.log("DragAndDrop: updateLinks");
-        dispatch(updateLinks(cards));
-    }, [cards, dispatch]);
 
     const moveCard = useCallback(
-        (dragIndex, hoverIndex) => {
-            const dragCard = cards[dragIndex];
+        async (dragIndex, hoverIndex) => {
+            const dragCard = links[dragIndex];
 
-            setCards(
-                update(cards, {
-                    $splice: [
-                        [dragIndex, 1],
-                        [hoverIndex, 0, dragCard],
-                    ],
-                })
+            const reorderedLinks = update(links, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragCard],
+                ],
+            });
+            console.log("DragAndDrop--updated links", reorderedLinks);
+
+            reorderedLinks.map(async (uLink, index) => {
+                const linkId = uLink._id;
+
+                await axios
+                    .put(`api/link/${userId}/${linkId}`, { order: index })
+                    .then((res) => {
+                        console.log("DragAndDrop: order updated");
+                    })
+                    .catch((err) =>
+                        console.log("DragAndDrop: error", err.message)
+                    );
+
+                return 0;
+            });
+
+            await new Promise((resolve) =>
+                setTimeout(dispatch(updateLinks(reorderedLinks)))
             );
         },
-        [cards]
+        [links, dispatch, userId]
     );
     const renderCard = (card, index) => {
         return (
@@ -126,169 +129,15 @@ export const Container = () => {
     };
     return (
         <>
-            <div>{cards.map((card, i) => renderCard(card, i))}</div>
+            <div>{links.map((card, i) => renderCard(card, i))}</div>
         </>
     );
-};
+}
 
-/**
- *
- * @param {links} links - array of links
- * @param {userId} userId
- * @returns
- */
-export function DragAndDrop({ userId = "" }) {
-    const [data, setData] = useState({});
-    const { username, links } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
-
+export function DragAndDrop() {
     return (
         <DndProvider backend={HTML5Backend}>
             <Container />
         </DndProvider>
     );
-
-    // const [linksCopy, setLinksCopy] = useState(links);
-
-    // useEffect(() => {
-    //     async function getURLS() {
-    //         await axios
-    //             .get(`/api/link/${username}`)
-    //             .then((res) => {
-    //                 res.data.links.sort((a, b) => a.order - b.order);
-    //                 dispatch(updateLinks(res.data.links));
-    //             })
-    //             .catch((err) => console.log(err.message, err.error));
-    //     }
-    //     getURLS();
-    // }, [username, dispatch]);
-
-    // useEffect(() => {
-    //     const newLinks = {};
-    //     const linkOrder = [];
-
-    //     for (let i = 0; i < links.length; i++) {
-    //         newLinks[`link${i}`] = {
-    //             id: `link${i}`,
-    //             content: { ...links[i] },
-    //         };
-    //         linkOrder.push(`link${i}`);
-    //     }
-
-    //     setData({
-    //         links: newLinks,
-    //         columns: { column0: { id: "column0", linkOrder: linkOrder } },
-    //         columnOrder: ["column0"],
-    //     });
-    // }, [links]);
-
-    // useEffect(() => {
-    //     console.log("useEffect");
-    //     async function updateOrder(link) {
-    //         const { _id: linkId } = link;
-
-    //         await axios
-    //             .put(`/api/link/${userId}/${linkId}`, link)
-    //             .then(async (res) => {
-    //                 console.log("successfully updated");
-    //             })
-    //             .catch((err) => console.log("dnd", err.message));
-    //     }
-
-    //     if (!!data.links) {
-    //         const { linkOrder } = data.columns.column0;
-
-    //         linkOrder.map((linkId, index) => {
-    //             const link = data.links[linkId].content;
-
-    //             link.order = index;
-    //             updateOrder(link);
-    //         });
-    //     }
-    // }, [data, userId]);
-
-    // function onDragEnd(result) {
-    //     const { destination, source, draggableId } = result;
-
-    //     if (!destination) {
-    //         return;
-    //     }
-
-    //     if (
-    //         destination.droppableId === source.droppableId &&
-    //         destination.index === source.index
-    //     ) {
-    //         return;
-    //     }
-
-    //     const column = data.columns[source.droppableId];
-    //     const newLinkOrder = Array.from(column.linkOrder);
-    //     newLinkOrder.splice(source.index, 1);
-    //     newLinkOrder.splice(destination.index, 0, draggableId);
-
-    //     const newColumn = {
-    //         ...column,
-    //         linkOrder: newLinkOrder,
-    //     };
-
-    //     const newState = {
-    //         ...data,
-    //         columns: {
-    //             ...data.columns,
-    //             [newColumn.id]: newColumn,
-    //         },
-    //     };
-
-    //     setData(newState);
-    // }
-
-    // return (
-    //     <>
-    //         {data.links ? (
-    //             <DragDropContext onDragEnd={onDragEnd}>
-    //                 {data.columnOrder.map((id) => {
-    //                     const column = data.columns[id];
-    //                     const links = column.linkOrder.map(
-    //                         (linkId) => data.links[linkId]
-    //                     );
-
-    //                     return (
-    //                         <Droppable key={column.id} droppableId={column.id}>
-    //                             {(provided) => (
-    //                                 <div
-    //                                     {...provided.droppableProps}
-    //                                     ref={provided.innerRef}
-    //                                 >
-    //                                     {links.map((link, index) => (
-    //                                         <Draggable
-    //                                             key={link.id}
-    //                                             draggableId={link.id}
-    //                                             index={index}
-    //                                         >
-    //                                             {(provided) => {
-    //                                                 return (
-    //                                                     <UrlItem
-    //                                                         innerRef={
-    //                                                             provided.innerRef
-    //                                                         }
-    //                                                         {...provided.draggableProps}
-    //                                                         {...provided.dragHandleProps}
-    //                                                         link={link.content}
-    //                                                     />
-    //                                                 );
-    //                                             }}
-    //                                         </Draggable>
-    //                                     ))}
-    //                                     {provided.placeholder}
-    //                                 </div>
-    //                             )}
-    //                         </Droppable>
-    //                     );
-    //                 })}
-    //             </DragDropContext>
-    //         ) : (
-    //             ""
-    //         )}
-    //     </>
-    // );
 }
