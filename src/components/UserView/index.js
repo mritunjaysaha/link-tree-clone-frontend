@@ -121,6 +121,8 @@ export function UserViewPage() {
             await axios
                 .get(`api/user/userview/${username}`)
                 .then((res) => {
+                    if (!res.data) return;
+
                     setIsUser(true);
                     console.log(res.data);
 

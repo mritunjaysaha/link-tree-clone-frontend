@@ -107,6 +107,8 @@ $text-color-alt: #3d3b3c;
 
         width: 100%;
 
+        min-height: 60vh;
+
         li {
             background-color: $text-color;
             display: grid;
@@ -132,7 +134,7 @@ $text-color-alt: #3d3b3c;
     }
 
     .linksContainerPreview {
-        max-height: 30rem;
+        height: 30rem;
         overflow-y: auto;
     }
 }
