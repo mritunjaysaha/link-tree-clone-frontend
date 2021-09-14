@@ -8,8 +8,6 @@ import { ErrorPage } from "./error404";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
-import { useLoader } from "../../customHooks/loadingHook";
-import { LoadingSpinner } from "../Loader";
 
 function Footer() {
     return (

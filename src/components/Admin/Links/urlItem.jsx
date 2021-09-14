@@ -127,7 +127,6 @@ export function UrlItem({ link }) {
         await axios
             .delete(`/api/link/${userId}/${linkId}`)
             .then((res) => {
-                console.log("link successfully deleted");
                 const filteredLinks = links.filter((l) => l._id !== link._id);
 
                 dispatch(updateLinks(filteredLinks));
@@ -149,8 +148,6 @@ export function UrlItem({ link }) {
         await axios
             .put(`/api/link/${userId}/${linkId}`, updateData)
             .then(async (res) => {
-                console.log("link successfully updated");
-
                 await axios
                     .get(`/api/link/${username}`)
                     .then((res) => {

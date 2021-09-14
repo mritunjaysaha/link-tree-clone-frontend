@@ -68,7 +68,6 @@ function Card({ card, id, index, moveCard }) {
             isDragging: monitor.isDragging(),
         }),
     });
-    console.log("DragAndDrop", isDragging);
     drag(drop(ref));
     return (
         <div ref={ref} data-handler-id={handlerId}>
@@ -92,16 +91,13 @@ function Container() {
                     [hoverIndex, 0, dragCard],
                 ],
             });
-            console.log("DragAndDrop--updated links", reorderedLinks);
 
             reorderedLinks.map(async (uLink, index) => {
                 const linkId = uLink._id;
 
                 await axios
                     .put(`api/link/${userId}/${linkId}`, { order: index })
-                    .then((res) => {
-                        console.log("DragAndDrop: order updated");
-                    })
+                    .then((res) => {})
                     .catch((err) =>
                         console.log("DragAndDrop: error", err.message)
                     );

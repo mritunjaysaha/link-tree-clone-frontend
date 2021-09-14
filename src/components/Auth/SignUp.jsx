@@ -44,7 +44,6 @@ export function SignUp() {
         localStorage.removeItem("jwtToken");
 
         axios.defaults.authorization = "";
-        console.log(axios.defaults);
 
         const user = {
             email: formik.values.email,
@@ -60,8 +59,6 @@ export function SignUp() {
             })
             .catch((err) => {
                 startLoader();
-
-                console.log(err);
             });
     }
 

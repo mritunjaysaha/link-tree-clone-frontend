@@ -103,8 +103,6 @@ export function Admin() {
                 .then((res) => {
                     res.data.links.sort((a, b) => a.order - b.order);
                     dispatch(updateLinks(res.data.links));
-
-                    console.log("links fetched");
                 })
                 .catch((err) => console.log(err.message, err.error));
         }

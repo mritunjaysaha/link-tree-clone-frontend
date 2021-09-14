@@ -36,7 +36,7 @@ export function Account() {
 
         await axios
             .put(`/api/user/${userId}`, userDetails)
-            .then((res) => console.log("user updated"))
+            .then((res) => {})
             .catch((err) => console.log(err.message));
     }
 
