@@ -59,12 +59,15 @@ function Card({ card, id, index, moveCard }) {
             item.index = hoverIndex;
         },
     });
-    const [drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.CARD,
         item: () => {
             return { id, index };
         },
     });
+
+    console.log(isDragging);
+
     drag(drop(ref));
     return (
         <div ref={ref} data-handler-id={handlerId}>
