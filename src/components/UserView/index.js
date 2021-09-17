@@ -124,14 +124,12 @@ export function UserViewPage() {
                 .get(`api/user/userview/${username}`)
                 .then((res) => {
                     if (!res.data) {
-                        setIsLoading(true);
+                        setIsLoading(false);
                         return;
                     }
                     console.log(res.data);
                     dispatch(setUserData(res.data));
                     setIsUser(res.data.username);
-
-                    setIsLoading(false);
                 })
                 .catch((err) => {
                     setIsLoading(false);
@@ -156,10 +154,11 @@ export function UserViewPage() {
                             res.data.links.sort((a, b) => a.order - b.order)
                         )
                     );
+
+                    setIsLoading(false);
                 })
                 .catch((err) => {
                     console.log(err.message);
-                    setIsLoading(true);
                 });
         }
 
