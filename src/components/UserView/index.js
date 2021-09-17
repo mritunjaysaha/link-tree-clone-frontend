@@ -131,10 +131,10 @@ export function UserViewPage() {
                     dispatch(setUserData(res.data));
                     setIsUser(res.data.username);
 
-                    setIsLoading(true);
+                    setIsLoading(false);
                 })
                 .catch((err) => {
-                    setIsLoading(true);
+                    setIsLoading(false);
 
                     console.log("UserViewPage: error", err.message);
                 });
