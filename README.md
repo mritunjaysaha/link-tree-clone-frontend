@@ -13,10 +13,10 @@ Table of Contents
 
 Table of Contents
 
--   [Repositories](#-repositories)
--   [Hosted links](#-hosted-links)
--   [Technologies](#-technologies)
--   [Features](#-features)
+-   [Repositories](#repositories)
+-   [Hosted links](#hosted-links)
+-   [Technologies](#technologies)
+-   [Features](#features)
 
 # <a name="repositories"></a> Repositories
 
