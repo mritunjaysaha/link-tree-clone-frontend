@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserData, updateLinks } from "../../features/Auth/authSlice";
 import { convertToBinary } from "../../utils/convertToBinary";
 import { ErrorPage } from "./error404";
+import { LoadingSpinner } from "../Loader";
 import linktree from "../../assets/linktree.svg";
 import placeholder from "../../assets/placeholder.png";
 import styles from "./userview.module.scss";
@@ -112,7 +113,8 @@ function UserView() {
 
 export function UserViewPage() {
     const { username } = useParams();
-    const [isUser, setIsUser] = useState("");
+    const [isUser, setIsUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -122,13 +124,18 @@ export function UserViewPage() {
                 .get(`api/user/userview/${username}`)
                 .then((res) => {
                     if (!res.data) {
+                        setIsLoading(true);
                         return;
                     }
-
-                    setIsUser(username);
+                    console.log(res.data);
                     dispatch(setUserData(res.data));
+                    setIsUser(res.data.username);
+
+                    setIsLoading(true);
                 })
                 .catch((err) => {
+                    setIsLoading(true);
+
                     console.log("UserViewPage: error", err.message);
                 });
         }
@@ -143,17 +150,29 @@ export function UserViewPage() {
             await axios
                 .get(`api/link/${username}`)
                 .then((res) => {
+                    console.log(res.data);
                     dispatch(
                         updateLinks(
                             res.data.links.sort((a, b) => a.order - b.order)
                         )
                     );
                 })
-                .catch((err) => console.log(err.message));
+                .catch((err) => {
+                    console.log(err.message);
+                    setIsLoading(true);
+                });
         }
 
         getLinks(username);
     }, [isUser, username, dispatch]);
+
+    if (isLoading) {
+        return (
+            <div className={styles.loaderContainer}>
+                <LoadingSpinner />
+            </div>
+        );
+    }
 
     return <>{!!isUser ? <UserView /> : <ErrorPage />}</>;
 }
