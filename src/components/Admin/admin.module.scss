@@ -172,6 +172,7 @@ $admin-blue: #2e68fb;
     margin: 0 auto;
 
     @include breakpoint(desktop) {
+        top: 0;
         width: calc(100vw - 6.4rem);
         margin-left: $dm64;
     }
