@@ -15,6 +15,7 @@ Table of Contents
 
 -   [Repositories](#repositories)
 -   [Hosted links](#hosted-links)
+-   [File Structure](#file-structure)
 -   [Technologies](#technologies)
 -   [Features](#features)
 
@@ -29,6 +30,24 @@ Table of Contents
 [Frontend](https://link-tree-clone.vercel.app)
 
 [Backend](https://link-tree-clone-backend.vercel.app)
+
+### <a name="file-structure"></a> File Structure
+
+```
+.
+├── public
+└── src
+    ├── app
+    ├── assets
+    ├── components
+    ├── customHooks
+    ├── data
+    ├── features
+    ├── styles
+    ├── utils
+    ├── app.js
+    └── index.js
+```
 
 ### <a name="technologies"></a> Technologies
 
@@ -53,3 +72,7 @@ Table of Contents
 -   QR Code
 -   Responsive layout
 -   Drag and drop link items
+
+```
+
+```
