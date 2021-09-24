@@ -17,6 +17,7 @@ Linktree clone
 -   [File Structure](#file-structure)
 -   [Technologies](#technologies)
 -   [Features](#features)
+-   [Installation](#installation)
 
 ### <a name="repositories"></a> Repositories
 
