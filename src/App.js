@@ -24,9 +24,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 // check for token to keep user logged in
 if (window.localStorage.jwtToken) {
     // set auth token header auth
-
     const token = localStorage.jwtToken;
-
     setAuthToken(token);
 
     // decode token and get user info and exp
