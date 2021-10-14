@@ -9,15 +9,15 @@ Linktree clone
 `username` : testuser
 
 `password`: 123456
-Table of Contents
 
-Table of Contents
+### Table of Contents
 
 -   [Repositories](#repositories)
 -   [Hosted links](#hosted-links)
 -   [File Structure](#file-structure)
 -   [Technologies](#technologies)
 -   [Features](#features)
+-   [Installation](#installation)
 
 ### <a name="repositories"></a> Repositories
 
@@ -73,6 +73,20 @@ Table of Contents
 -   Responsive layout
 -   Drag and drop link items
 
+### <a name="installation"></a> Installation
+
+Run the following command to install the required dependencies.
+
+```bash
+npm install
 ```
 
+Run the following command to run the application
+
+```bash
+npm start
 ```
+
+Go to `http://localhost:3000` to see the application
+
+
