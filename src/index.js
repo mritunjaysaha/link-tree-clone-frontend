@@ -6,6 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 
+if (process.env.NODE_ENV !== "production") {
+    var axe = require("react-axe");
+    axe(React, ReactDOM, 1000);
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
