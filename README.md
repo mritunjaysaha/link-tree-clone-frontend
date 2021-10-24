@@ -27,6 +27,8 @@ Linktree clone
 
 ### <a name="hosted-links"></a> Hosted links
 
+<b>Hosted on vercel</b>
+
 [Frontend](https://link-tree-clone.vercel.app)
 
 [Backend](https://link-tree-clone-backend.vercel.app)
