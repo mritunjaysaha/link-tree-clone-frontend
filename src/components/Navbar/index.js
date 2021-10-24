@@ -12,7 +12,7 @@ export function Navbar() {
                 <nav className={styles.nav}>
                     <div className={styles.logo}>
                         <Link to={urls.dashboard}>
-                            <img src={linktree} alt="linktree" />
+                            <img src={linktree} alt="linktree icon" />
                             <span>linktree</span>
                         </Link>
                     </div>
