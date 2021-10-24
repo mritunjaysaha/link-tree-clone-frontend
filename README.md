@@ -2,7 +2,7 @@
 Linktree clone
 </h1>
 
-[Demo](https://link-tree-clone.vercel.app)
+[Live Preview](https://link-tree-clone.vercel.app)
 
 <strong>Guest user</strong>
 
